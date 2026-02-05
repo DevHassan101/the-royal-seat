@@ -1,78 +1,152 @@
 <x-app-layout>
-    <div class="flex justify-between items-center w-full mb-5">
-        <h2 class="text-3xl font-semibold">
-            Drivers
-        </h2>
+    <div class="flex justify-between items-center w-full mb-6">
+        <div class="ml-1">
+            <h2 class="text-3xl font-bold text-gray-800 mb-1">
+                Edit Driver
+            </h2>
+            <p class="text-gray-500 text-sm">Update the driver information</p>
+        </div>
         <a href="{{ route('driver.index') }}"
-            class=" rounded px-[20px] py-[10px] bg-indigo-500 hover:bg-transparent  !border !border-indigo-500 text-white hover:!text-indigo-500">
+            class="flex items-center gap-2 rounded-xl px-5 py-3 bg-white border-2 border-[#c9982b] hover:bg-[#c9982b] hover:text-white transition-all duration-300 shadow-md hover:shadow-lg font-medium"
+            style="color: #c9982b">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 12H5M12 19l-7-7 7-7" />
+            </svg>
             Go Back
         </a>
     </div>
-    <div class="bg-white rounded p-5">
-        <form action="{{ route('driver.update', ['driver' => $driver]) }}" method="post">
+
+    <div class="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
+        <!-- Form Header -->
+        <div class="bg-gradient-to-r from-[#c9982b] to-[#a67d23] px-6 py-4">
+            <h3 class="text-xl font-semibold text-white">
+                Driver Information
+            </h3>
+        </div>
+
+        <!-- Form Body -->
+        <form action="{{ route('driver.update', ['driver' => $driver]) }}" method="post" class="p-6">
             @csrf
             @method('PUT')
-            <div class="grid grid-cols-2 gap-x-5">
-                <div class="mb-3 col-span-2">
-                    <label for="name" class="capitalize mb-2">name</label>
-                    <input type="text" name="name" id="name" class="block w-full !rounded" placeholder="Enter Driver Name" value="{{old('name', $driver->name)}}">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Full Name -->
+                <div class="col-span-2">
+                    <label for="name" class="block text-sm font-semibold text-gray-700 mb-2">
+                        Full Name <span class="text-red-500">*</span>
+                    </label>
+                    <div class="relative">
+                        <input type="text" name="name" id="name"
+                            class="block w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
+                            placeholder="Enter Driver Full Name" value="{{ old('name', $driver->name) }}">
+                    </div>
                     @error('name')
-                        <span class="text-red-500">
+                        <p class="mt-1 text-sm text-red-500">
                             {{ $message }}
-                        </span>
+                        </p>
                     @enderror
                 </div>
-                <div class="mb-3">
-                    <label for="email" class="capitalize mb-2">email</label>
-                    <input type="email" name="email" id="email" class="block w-full !rounded" placeholder="Enter Driver Email" value="{{old('email', $driver->email)}}">
+
+                <!-- Email -->
+                <div>
+                    <label for="email" class="block text-sm font-semibold text-gray-700 mb-2">
+                        Email Address <span class="text-red-500">*</span>
+                    </label>
+                    <div class="relative">
+                        <input type="email" name="email" id="email"
+                            class="block w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
+                            placeholder="driver@example.com" value="{{ old('email', $driver->email) }}">
+                    </div>
                     @error('email')
-                        <span class="text-red-500">
+                        <p class="mt-1 text-sm text-red-500">
                             {{ $message }}
-                        </span>
+                        </p>
                     @enderror
                 </div>
-                <div class="mb-3">
-                    <label for="password" class="capitalize mb-2">password</label>
-                    <input type="password" name="password" id="password" class="block w-full !rounded" placeholder="Enter Password" value="{{old('password')}}">
+
+                <!-- Password -->
+                <div>
+                    <label for="password" class="block text-sm font-semibold text-gray-700 mb-2">
+                        Password <span class="text-gray-400 text-xs">(Leave blank to keep current)</span>
+                    </label>
+                    <div class="relative">
+                        <input type="password" name="password" id="password"
+                            class="block w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
+                            placeholder="Enter New Password" value="{{ old('password') }}">
+                    </div>
                     @error('password')
-                        <span class="text-red-500">
+                        <p class="mt-1 text-sm text-red-500">
                             {{ $message }}
-                        </span>
+                        </p>
                     @enderror
                 </div>
-                <div class="mb-3">
-                    <label for="emirates_id" class="capitalize mb-2">Emirates Id</label>
-                    <input type="text" name="emirates_id" id="emirates_id" class="block w-full !rounded" placeholder="Enter Emirates ID" value="{{old('emirates_id', $driver->driverInfo?->emirates_id)}}">
+
+                <!-- Emirates ID -->
+                <div>
+                    <label for="emirates_id" class="block text-sm font-semibold text-gray-700 mb-2">
+                        Emirates ID <span class="text-red-500">*</span>
+                    </label>
+                    <div class="relative">
+                        <input type="text" name="emirates_id" id="emirates_id"
+                            class="block w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
+                            placeholder="784-XXXX-XXXXXXX-X"
+                            value="{{ old('emirates_id', $driver->driverInfo?->emirates_id) }}">
+                    </div>
                     @error('emirates_id')
-                        <span class="text-red-500">
+                        <p class="mt-1 text-sm text-red-500">
                             {{ $message }}
-                        </span>
+                        </p>
                     @enderror
                 </div>
-                <div class="mb-3">
-                    <label for="license_number" class="capitalize mb-2">License number</label>
-                    <input type="text" name="license_number" id="license_number" class="block w-full !rounded" placeholder="Enter License Number" value="{{old('license_number', $driver->driverInfo?->license_number)}}">
+
+                <!-- License Number -->
+                <div>
+                    <label for="license_number" class="block text-sm font-semibold text-gray-700 mb-2">
+                        License Number <span class="text-red-500">*</span>
+                    </label>
+                    <div class="relative">
+                        <input type="text" name="license_number" id="license_number"
+                            class="block w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
+                            placeholder="Enter License Number"
+                            value="{{ old('license_number', $driver->driverInfo?->license_number) }}">
+                    </div>
                     @error('license_number')
-                        <span class="text-red-500">
+                        <p class="mt-1 text-sm text-red-500">
                             {{ $message }}
-                        </span>
+                        </p>
                     @enderror
                 </div>
-                <div class="mb-3 col-span-2">
-                    <label for="permit_details" class="capitalize mb-2">Permit details</label>
-                    <textarea name="permit_details" id="permit_details" rows="5" class="block w-full !rounded" placeholder="Enter Permit Details" value="{{old('permit_details')}}">{{old('permit_details', $driver->driverInfo?->permit_details)}}</textarea>
+
+                <!-- Permit Details -->
+                <div class="col-span-2">
+                    <label for="permit_details" class="block text-sm font-semibold text-gray-700 mb-2">
+                        Permit Details
+                    </label>
+                    <div class="relative">
+                        <textarea name="permit_details" id="permit_details" rows="5"
+                            class="block w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200 resize-none"
+                            placeholder="Enter permit details, restrictions, or special notes...">{{ old('permit_details', $driver->driverInfo?->permit_details) }}</textarea>
+                    </div>
                     @error('permit_details')
-                        <span class="text-red-500">
+                        <p class="mt-1 text-sm text-red-500">
                             {{ $message }}
-                        </span>
+                        </p>
                     @enderror
                 </div>
             </div>
 
-                <button type="submit">
-                    Subimit
+            <!-- Form Actions -->
+            <div class="flex items-center justify-end gap-4 mt-8 pt-6 border-t border-gray-200">
+                <a href="{{ route('driver.index') }}"
+                    class="px-6 py-3 border-2 border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-all duration-200">
+                    Cancel
+                </a>
+                <button type="submit"
+                    class="px-6 py-3 text-white font-semibold rounded-lg hover:shadow-lg transform hover:scale-105 transition-all duration-200"
+                    style="background-color: #c9982b">
+                    Update Driver
                 </button>
+            </div>
         </form>
     </div>
-
 </x-app-layout>

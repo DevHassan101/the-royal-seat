@@ -14,6 +14,15 @@
     <link rel="stylesheet" href="{{ asset('build/assets/app-71c0a4b5.css') }}">
     <script src="{{ asset('build/assets/app-ac76474c.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: "Outfit", sans-serif;
+        }
+    </style>
 
 </head>
 
@@ -24,7 +33,7 @@
         <div class="flex overflow-hidden flex-col flex-1">
             @include('layouts.header')
 
-            <main class="overflow-y-auto overflow-x-hidden flex-1 bg-slate-200">
+            <main class="overflow-y-auto overflow-x-hidden flex-1 bg-slate-200 px-20">
                 <div class="container px-6 py-8 mx-auto">
                     @if (isset($header))
                         <h3 class="mb-4 text-3xl font-medium text-gray-700">
