@@ -14,7 +14,17 @@ return new class extends Migration
         Schema::create('vehicles', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->id();
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->string('name');
+            $table->string('model')->nullable();
+            $table->string('seats')->nullable();
+            $table->string('type')->nullable();
+            $table->decimal('per_day_charges')->nullable();
+            $table->enum('transmission', ['automatic', 'manual'])->default('automatic');
+            $table->string('plate_number')->nullable();
+            $table->string('plate_code')->nullable();
+            $table->text('permit_details')->nullable();
+            $table->string('itc_status')->default('pending');
             $table->timestamps();
         });
     }

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\DriverController as AdminDriverController;
+use App\Http\Controllers\Admin\VehicleController as AdminVehicleController;
 use App\Http\Controllers\Driver\DriverController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
@@ -43,6 +44,7 @@ Route::middleware('auth', 'role:driver')->prefix('driver')->group(function(){
 Route::middleware('auth', 'role:admin')->group(function(){
     Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
     Route::resource('driver', AdminDriverController::class);
+    Route::resource('vehicle', AdminVehicleController::class);
 });
 
 require __DIR__.'/auth.php';

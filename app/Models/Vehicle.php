@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Vehicle extends Model
 {
     use HasFactory;
+    protected $guarded = ['id'];
+    public function owner(){
+        return $this->belongsTo(User::class);
+    }
 }

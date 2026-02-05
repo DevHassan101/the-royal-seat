@@ -9,4 +9,7 @@ class DriverInfo extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
+    public function driver() {
+        return $this->belongsTo(User::class);
+    }
 }
