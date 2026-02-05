@@ -1,38 +1,42 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <!-- Fonts -->
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
+    <title>{{ config('app.name', 'Laravel') }}</title>
 
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-            <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
-    </head>
-    <body>
-        <div x-data="{ sidebarOpen: false }" class="flex h-screen bg-slate-200 font-roboto">
-            @include('layouts.navigation')
+    <link rel="stylesheet" href="{{ asset('build/assets/app-71c0a4b5.css') }}">
+    <script src="{{ asset('build/assets/app-ac76474c.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
-            <div class="flex overflow-hidden flex-col flex-1">
-                @include('layouts.header')
+</head>
 
-                <main class="overflow-y-auto overflow-x-hidden flex-1 bg-slate-200">
-                    <div class="container px-6 py-8 mx-auto">
-                        @if (isset($header))
-                            <h3 class="mb-4 text-3xl font-medium text-gray-700">
-                                {{ $header }}
-                            </h3>
-                        @endif
+<body>
+    <div x-data="{ sidebarOpen: false }" class="flex h-screen bg-slate-200 font-roboto">
+        @include('layouts.navigation')
 
-                        {{ $slot }}
-                    </div>
-                </main>
-            </div>
+        <div class="flex overflow-hidden flex-col flex-1">
+            @include('layouts.header')
+
+            <main class="overflow-y-auto overflow-x-hidden flex-1 bg-slate-200">
+                <div class="container px-6 py-8 mx-auto">
+                    @if (isset($header))
+                        <h3 class="mb-4 text-3xl font-medium text-gray-700">
+                            {{ $header }}
+                        </h3>
+                    @endif
+
+                    {{ $slot }}
+                </div>
+            </main>
         </div>
-    </body>
+    </div>
+</body>
+
 </html>
