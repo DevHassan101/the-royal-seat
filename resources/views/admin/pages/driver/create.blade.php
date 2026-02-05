@@ -7,7 +7,7 @@
             <p class="text-gray-500 text-sm">Fill in the details to register a new driver</p>
         </div>
         <a href="{{ route('driver.index') }}"
-            class="flex items-center gap-2 rounded-xl px-5 py-3 bg-white border-2 border-[#c9982b]  hover:bg-[#c9982b] hover:text-white transition-all duration-300 shadow-md hover:shadow-lg font-medium"
+            class="flex items-center gap-2 rounded-xl px-5 py-3 bg-white !border !border-[#c9982b] !text-[#c9982b] hover:!bg-[#c9982b] hover:!text-white transition-all duration-300 shadow-md hover:shadow-lg font-medium"
             style="color: #c9982b">
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M19 12H5M12 19l-7-7 7-7"/>
@@ -163,8 +163,7 @@
                     Cancel
                 </a>
                 <button type="submit" 
-                    class="px-6 py-3 text-white font-semibold rounded-lg hover:shadow-lg transform hover:scale-105 transition-all duration-200 flex items-center gap-2"
-                    style="background-color: #c9982b ">
+                    class="px-6 py-3 font-semibold bg-white !border !border-[#c9982b] !text-[#c9982b] hover:!bg-[#c9982b] hover:!text-white rounded-xl hover:shadow-lg transform hover:scale-105 transition-all duration-200 flex items-center gap-2">
                     Submit Driver
                 </button>
             </div>

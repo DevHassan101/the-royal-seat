@@ -77,9 +77,9 @@
         </x-nav-link>
 
         {{-- Vehicles Link --}}
-        <x-nav-link href="{{ route('driver.index') }}" :active="request()->routeIs('driver.index')"
+        <x-nav-link href="{{ route('vehicle.index') }}" :active="request()->routeIs('vehicle.index')"
             class="flex items-center px-4 py-2 mb-2 rounded-lg transition-all duration-300 group
-            {{ request()->routeIs('driver.index') 
+            {{ request()->routeIs('vehicle.index') 
                 ? 'bg-[#c9982b]/20 border-l-4 border-[#c9982b]' 
                 : 'hover:bg-black hover:border-l-4 hover:border-[#c9982b]/40' }}">
             <div class="flex justify-between items-center -ml-6.5 w-full">
