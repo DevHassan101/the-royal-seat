@@ -2,10 +2,13 @@
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\DriverController as AdminDriverController;
+use App\Http\Controllers\Admin\LeadController;
+use App\Http\Controllers\Admin\QueryController;
 use App\Http\Controllers\Admin\VehicleController as AdminVehicleController;
 use App\Http\Controllers\Driver\DriverController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\WebController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,9 +22,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [WebController::class, 'index']);
+Route::get('/about-us', [WebController::class, 'aboutUs']);
+Route::get('/vehicles', [WebController::class, 'vehicles']);
+Route::get('/contact-us', [WebController::class, 'contactUs']);
+Route::post('/add-query', [WebController::class, 'storeQuery'])->name('query.store');
+Route::post('/add-lead', [WebController::class, 'storeLead'])->name('lead.store');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -45,6 +51,8 @@ Route::middleware('auth', 'role:admin')->group(function(){
     Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
     Route::resource('driver', AdminDriverController::class);
     Route::resource('vehicle', AdminVehicleController::class);
+    Route::resource('lead', LeadController::class);
+    Route::resource('query', QueryController::class);
 });
 
 require __DIR__.'/auth.php';

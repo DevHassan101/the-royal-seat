@@ -51,24 +51,24 @@
         </x-nav-link>
 
         {{-- Drivers Link --}}
-        <x-nav-link href="{{ route('driver.index') }}" :active="request()->routeIs('driver.index')"
+        <x-nav-link href="{{ route('driver.index') }}" :active="request()->routeIs('driver.*')"
             class="flex items-center px-4 py-2 mb-2 rounded-lg transition-all duration-300 group
-            {{ request()->routeIs('driver.index') 
+            {{ request()->routeIs('driver.*') 
                 ? 'bg-[#c9982b]/20 border-l-4 border-[#c9982b]' 
                 : 'hover:bg-black hover:border-l-4 hover:border-[#c9982b]/40' }}">
             <div class="flex justify-between items-center -ml-6.5 w-full">
                 <span class="p-2.5 rounded-lg transition-all duration-300
-                    {{ request()->routeIs('driver.index') 
+                    {{ request()->routeIs('driver.*') 
                         ? 'bg-[#c9982b]/30' 
                         : 'bg-black/10 group-hover:bg-[#c9982b]/20' }}">
                     <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 24 24"
-                        class="transition-all duration-300 {{ request()->routeIs('driver.index') ? 'scale-110' : 'group-hover:scale-110' }}">
-                        <path fill="{{ request()->routeIs('driver.index') ? '#c9982b' : '#c9982b' }}"
+                        class="transition-all duration-300 {{ request()->routeIs('driver.*') ? 'scale-110' : 'group-hover:scale-110' }}">
+                        <path fill="{{ request()->routeIs('driver.*') ? '#c9982b' : '#c9982b' }}"
                             d="M12 3.75a3.75 3.75 0 1 0 0 7.5a3.75 3.75 0 0 0 0-7.5m-4 9.5A3.75 3.75 0 0 0 4.25 17v1.188c0 .754.546 1.396 1.29 1.517c4.278.699 8.642.699 12.92 0a1.54 1.54 0 0 0 1.29-1.517V17A3.75 3.75 0 0 0 16 13.25h-.34q-.28.001-.544.086l-.866.283a7.25 7.25 0 0 1-4.5 0l-.866-.283a1.8 1.8 0 0 0-.543-.086z" />
                     </svg>
                 </span>
                 <span class="block font-medium text-lg ml-2 transition-colors duration-300
-                    {{ request()->routeIs('driver.index') 
+                    {{ request()->routeIs('driver.*') 
                         ? 'text-[#c9982b]' 
                         : 'text-white group-hover:text-[#c9982b]' }}">
                     {{ __('Drivers') }}
@@ -77,18 +77,18 @@
         </x-nav-link>
 
         {{-- Vehicles Link --}}
-        <x-nav-link href="{{ route('vehicle.index') }}" :active="request()->routeIs('vehicle.index')"
+        <x-nav-link href="{{ route('vehicle.index') }}" :active="request()->routeIs('vehicle.*')"
             class="flex items-center px-4 py-2 mb-2 rounded-lg transition-all duration-300 group
-            {{ request()->routeIs('vehicle.index') 
+            {{ request()->routeIs('vehicle.*') 
                 ? 'bg-[#c9982b]/20 border-l-4 border-[#c9982b]' 
                 : 'hover:bg-black hover:border-l-4 hover:border-[#c9982b]/40' }}">
             <div class="flex justify-between items-center -ml-6.5 w-full">
                 <span class="p-2.5 rounded-lg transition-all duration-300
-                    {{ request()->routeIs('driver.index') 
+                    {{ request()->routeIs('vehicle.*') 
                         ? 'bg-[#c9982b]/30' 
                         : 'bg-black/10 group-hover:bg-[#c9982b]/20' }}">
                     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"
-                        class="transition-all duration-300 {{ request()->routeIs('driver.index') ? 'scale-110' : 'group-hover:scale-110' }}">
+                        class="transition-all duration-300 {{ request()->routeIs('vehicle.*') ? 'scale-110' : 'group-hover:scale-110' }}">
                         <g fill="none" fill-rule="evenodd">
                             <path
                                 d="m12.594 23.258l-.012.002l-.071.035l-.02.004l-.014-.004l-.071-.036q-.016-.004-.024.006l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.016-.018m.264-.113l-.014.002l-.184.093l-.01.01l-.003.011l.018.43l.005.012l.008.008l.201.092q.019.005.029-.008l.004-.014l-.034-.614q-.005-.019-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.003-.011l.018-.43l-.003-.012l-.01-.01z" />
@@ -98,7 +98,7 @@
                     </svg>
                 </span>
                 <span class="block font-medium text-lg ml-2 transition-colors duration-300
-                    {{ request()->routeIs('driver.index') 
+                    {{ request()->routeIs('vehicle.*') 
                         ? 'text-[#c9982b]' 
                         : 'text-white group-hover:text-[#c9982b]' }}">
                     {{ __('Vehicles') }}
@@ -136,14 +136,14 @@
         </x-nav-link>
 
         {{-- Leads Link --}}
-        <x-nav-link href="{{ route('driver.index') }}" :active="request()->routeIs('driver.index')"
+        <x-nav-link href="{{ route('lead.index') }}" :active="request()->routeIs('lead.*')"
             class="flex items-center px-4 py-2 mb-2 rounded-lg transition-all duration-300 group
-            {{ request()->routeIs('lead.index') 
+            {{ request()->routeIs('lead.*') 
                 ? 'bg-[#c9982b]/20 border-l-4 border-[#c9982b]' 
                 : 'hover:bg-black hover:border-l-4 hover:border-[#c9982b]/40' }}">
             <div class="flex justify-between items-center -ml-6.5 w-full">
                 <span class="p-2.5 rounded-lg transition-all duration-300
-                    {{ request()->routeIs('lead.index') 
+                    {{ request()->routeIs('lead.*') 
                         ? 'bg-[#c9982b]/30' 
                         : 'bg-black/10 group-hover:bg-[#c9982b]/20' }}">
                     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"
@@ -155,7 +155,7 @@
                     </svg>
                 </span>
                 <span class="block font-medium text-lg ml-2 transition-colors duration-300
-                    {{ request()->routeIs('lead.index') 
+                    {{ request()->routeIs('lead.*') 
                         ? 'text-[#c9982b]' 
                         : 'text-white group-hover:text-[#c9982b]' }}">
                     {{ __('Leads') }}
@@ -164,18 +164,18 @@
         </x-nav-link>
 
         {{-- Queries Link --}}
-        <x-nav-link href="{{ route('driver.index') }}" :active="request()->routeIs('driver.index')"
+        <x-nav-link href="{{ route('query.index') }}" :active="request()->routeIs('query.*')"
             class="flex items-center px-4 py-2 mb-2 rounded-lg transition-all duration-300 group
             {{ request()->routeIs('query.index') 
                 ? 'bg-[#c9982b]/20 border-l-4 border-[#c9982b]' 
                 : 'hover:bg-black hover:border-l-4 hover:border-[#c9982b]/40' }}">
             <div class="flex justify-between items-center -ml-6.5 w-full">
                 <span class="p-2.5 rounded-lg transition-all duration-300
-                    {{ request()->routeIs('query.index') 
+                    {{ request()->routeIs('query.*') 
                         ? 'bg-[#c9982b]/30' 
                         : 'bg-black/10 group-hover:bg-[#c9982b]/20' }}">
                     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"
-                        class="transition-all duration-300 {{ request()->routeIs('query.index') ? 'scale-110' : 'group-hover:scale-110' }}">
+                        class="transition-all duration-300 {{ request()->routeIs('query.*') ? 'scale-110' : 'group-hover:scale-110' }}">
                         <g fill="none">
                             <path
                                 d="m12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.018-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z" />
@@ -185,7 +185,7 @@
                     </svg>
                 </span>
                 <span class="block font-medium text-lg ml-2 transition-colors duration-300
-                    {{ request()->routeIs('query.index') 
+                    {{ request()->routeIs('query.*') 
                         ? 'text-[#c9982b]' 
                         : 'text-white group-hover:text-[#c9982b]' }}">
                     {{ __('Queries') }}

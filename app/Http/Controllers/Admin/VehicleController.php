@@ -34,10 +34,13 @@ class VehicleController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'user' => 'required|exists:users,id',
+            'driver' => 'required|exists:users,id',
+            'picture' => 'required|image',
             'name' => 'required|min:2',
             'plate_number' => 'required',
             'plate_code' => 'required'
+        ], [
+            'picture.image' => "The picture field must be a file of type image, ex: .png .jpg .jpeg"
         ]);
         if ($validator->fails()) {
             return redirect()->back()
@@ -45,8 +48,13 @@ class VehicleController extends Controller
                 ->withInput();
         }
 
+        $image = $request->file('picture');
+        $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
+        $image->move('vehicle-images/', $name_gen);
+
         Vehicle::create([
-            'user_id' => $request->user,
+            'user_id' => $request->driver,
+            'picture' => 'vehicle-images/' . $name_gen,
             'name' => $request->name,
             'model' => $request->model,
             'seats' => $request->seats,
@@ -87,19 +95,28 @@ class VehicleController extends Controller
     public function update(Request $request, string $id)
     {
         $validator = Validator::make($request->all(), [
-            'user' => 'required|exists:users,id',
+            'driver' => 'required|exists:users,id',
+            'picture' => 'nullable|image',
             'name' => 'required|min:2',
             'plate_number' => 'required',
-            'plate_code' => 'required'
+            'plate_code' => 'required',
+            'model' => 'nullable|string',
+            'seats' => 'nullable|integer',
+            'type' => 'nullable|string',
+            'per_day_charges' => 'nullable|numeric',
+            'transmission' => 'nullable|string',
+            'permit_details' => 'nullable|string',
         ]);
+
         if ($validator->fails()) {
             return redirect()->back()
                 ->withErrors($validator)
                 ->withInput();
         }
 
-        Vehicle::findOrFail($id)->update([
-            'user_id' => $request->user,
+        $vehicle = Vehicle::findOrFail($id);
+        $vehicle->update([
+            'user_id' => $request->driver,
             'name' => $request->name,
             'model' => $request->model,
             'seats' => $request->seats,
@@ -110,17 +127,38 @@ class VehicleController extends Controller
             'plate_code' => $request->plate_code,
             'permit_details' => $request->permit_details,
         ]);
+
+        if ($request->hasFile('picture')) {
+
+            if ($vehicle->picture && file_exists($vehicle->picture)) {
+                unlink($vehicle->picture);
+            }
+
+            $image = $request->file('picture');
+            $name_gen = uniqid() . '.' . $image->getClientOriginalExtension();
+            $image->move('vehicle-images/', $name_gen);
+
+            $vehicle->update([
+                'picture' => 'vehicle-images/' . $name_gen,
+            ]);
+        }
+
         return redirect()
             ->route('vehicle.index')
             ->with('success', 'Vehicle updated successfully');
     }
+
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
     {
-        Vehicle::findOrFail($id)->delete();
+        $vehicle = Vehicle::findOrFail($id);
+        if ($vehicle->picture && file_exists($vehicle->picture)) {
+            unlink($vehicle->picture);
+        }
+        $vehicle->delete();
         return redirect()
             ->route('vehicle.index')
             ->with('success', 'Vehicle deleted successfully');

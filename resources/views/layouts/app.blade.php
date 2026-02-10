@@ -33,8 +33,8 @@
         <div class="flex overflow-hidden flex-col flex-1">
             @include('layouts.header')
 
-            <main class="overflow-y-auto overflow-x-hidden flex-1 bg-slate-200 px-18">
-                <div class="container px-6 py-8 mx-auto">
+            <main class="overflow-y-auto overflow-x-hidden flex-1 bg-slate-200 px-10">
+                <div class="container py-8 mx-auto">
                     @if (isset($header))
                         <h3 class="mb-4 text-3xl font-medium text-gray-700">
                             {{ $header }}
@@ -46,6 +46,7 @@
             </main>
         </div>
     </div>
+    @stack('body')
 </body>
 
 </html>
