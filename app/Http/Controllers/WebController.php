@@ -28,7 +28,9 @@ class WebController extends Controller
             'vehicle_id' => $request->id,
             'name' => $request->name,
             'email' => $request->email,
+            'phone' => $request->phone,
             'booking_date' => $request->booking_date,
+            'lead_status' => 'new',
         ]);
 
         return redirect()->back()->with('success','Booking request has been send successfully.');

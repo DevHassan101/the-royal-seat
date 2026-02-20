@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\DriverController as AdminDriverController;
 use App\Http\Controllers\Admin\LeadController;
 use App\Http\Controllers\Admin\QueryController;
+use App\Http\Controllers\Admin\ItcController;
 use App\Http\Controllers\Admin\VehicleController as AdminVehicleController;
 use App\Http\Controllers\Driver\DriverController;
 use App\Http\Controllers\UserController;
@@ -53,6 +54,15 @@ Route::middleware('auth', 'role:admin')->group(function(){
     Route::resource('vehicle', AdminVehicleController::class);
     Route::resource('lead', LeadController::class);
     Route::resource('query', QueryController::class);
+
+    // ITC Integration Routes
+    Route::get('itc', [ItcController::class, 'index'])->name('itc.index');
+    Route::post('itc/sync-all-vehicles', [ItcController::class, 'syncAllVehicles'])->name('itc.sync-all-vehicles');
+    Route::post('itc/sync-vehicle/{vehicle}', [ItcController::class, 'syncVehicle'])->name('itc.sync-vehicle');
+    Route::post('itc/sync-all-drivers', [ItcController::class, 'syncAllDrivers'])->name('itc.sync-all-drivers');
+    Route::post('itc/sync-driver/{driverInfo}', [ItcController::class, 'syncDriver'])->name('itc.sync-driver');
+    Route::post('itc/submit-trip/{lead}', [ItcController::class, 'submitTrip'])->name('itc.submit-trip');
+    Route::get('itc/logs', [ItcController::class, 'logs'])->name('itc.logs');
 });
 
 require __DIR__.'/auth.php';

@@ -61,19 +61,44 @@
                             </td>
                             <td class="px-6 py-4 text-sm">
                                 @if ($driver->driverInfo?->itc_status)
-                                    <span
-                                        class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                        {{ $driver->driverInfo->itc_status }}
-                                    </span>
+                                    @switch($driver->driverInfo->itc_status)
+                                        @case('pending')
+                                            <span class="uppercase px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
+                                                {{ $driver->driverInfo->itc_status }}
+                                            </span>
+                                        @break
+                                        @case('approved')
+                                            <span class="uppercase px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                                {{ $driver->driverInfo->itc_status }}
+                                            </span>
+                                        @break
+                                        @default
+                                            <span class="uppercase px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                                                {{ $driver->driverInfo->itc_status }}
+                                            </span>
+                                    @endswitch
                                 @else
-                                    <span
-                                        class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-800">
+                                    <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-800">
                                         N/A
                                     </span>
                                 @endif
                             </td>
                             <td class="px-6 py-4 text-sm">
                                 <div class="flex items-center justify-center gap-2">
+                                    <!-- Sync ITC Button -->
+                                    @if($driver->driverInfo)
+                                    <form action="{{ route('itc.sync-driver', $driver->driverInfo) }}" method="POST" class="inline-block">
+                                        @csrf
+                                        <button type="submit"
+                                            class="group px-2 py-2 bg-white rounded-lg hover:!bg-green-500 !text-green-500 hover:!text-white transition-all duration-300 font-medium text-xs"
+                                            title="Sync ITC Data">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="transition-all duration-300">
+                                                <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/>
+                                            </svg>
+                                        </button>
+                                    </form>
+                                    @endif
+
                                     <!-- Info Button -->
                                     <a href="{{ route('driver.show', ['driver' => $driver]) }}"
                                         class="group px-2 py-2 bg-white rounded-lg hover:!bg-blue-500 !text-blue-500 hover:!text-white transition-all duration-300 font-medium text-xs"

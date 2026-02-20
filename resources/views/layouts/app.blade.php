@@ -35,6 +35,22 @@
 
             <main class="overflow-y-auto overflow-x-hidden flex-1 bg-slate-200 px-10">
                 <div class="container py-8 mx-auto">
+                    @if (session('success'))
+                        <div x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 5000)"
+                            class="mb-4 flex items-center justify-between rounded-lg bg-green-50 border border-green-200 px-4 py-3 text-green-800">
+                            <span>{{ session('success') }}</span>
+                            <button @click="show = false" class="text-green-600 hover:text-green-800">&times;</button>
+                        </div>
+                    @endif
+
+                    @if (session('error'))
+                        <div x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 5000)"
+                            class="mb-4 flex items-center justify-between rounded-lg bg-red-50 border border-red-200 px-4 py-3 text-red-800">
+                            <span>{{ session('error') }}</span>
+                            <button @click="show = false" class="text-red-600 hover:text-red-800">&times;</button>
+                        </div>
+                    @endif
+
                     @if (isset($header))
                         <h3 class="mb-4 text-3xl font-medium text-gray-700">
                             {{ $header }}

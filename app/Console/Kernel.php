@@ -12,7 +12,17 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        // $schedule->command('inspire')->hourly();
+        $hours = config('itc.sync_interval_hours', 6);
+
+        $schedule->command('itc:sync-vehicles')
+            ->everySixHours()
+            ->withoutOverlapping()
+            ->appendOutputTo(storage_path('logs/itc-vehicles.log'));
+
+        $schedule->command('itc:sync-drivers')
+            ->everySixHours()
+            ->withoutOverlapping()
+            ->appendOutputTo(storage_path('logs/itc-drivers.log'));
     }
 
     /**

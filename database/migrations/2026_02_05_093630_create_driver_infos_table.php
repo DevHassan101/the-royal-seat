@@ -18,7 +18,7 @@ return new class extends Migration
             $table->text('emirates_id');
             $table->text('license_number');
             $table->longText('permit_details')->nullable();
-            $table->text('itc_status')->default('pending');
+            $table->string('itc_status')->default('pending');
             $table->enum('status', ['active', 'de-active'])->default('active');
             $table->timestamps();
         });
