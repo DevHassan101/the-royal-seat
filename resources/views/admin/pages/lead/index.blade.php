@@ -171,12 +171,6 @@
                                         <circle cx="12" cy="7" r="4" />
                                     </svg>
                                     <p class="mt-4 text-lg font-medium text-gray-500">No leads found</p>
-                                    <p class="mt-1 text-sm text-gray-400">Get started by adding a new lead</p>
-                                    <a href="{{ route('lead.create') }}"
-                                        class="mt-4 px-4 py-2 text-white rounded-lg font-medium text-sm hover:shadow-md transition-all duration-200"
-                                        style="background-color: #c9982b">
-                                        Add Your First Lead
-                                    </a>
                                 </div>
                             </td>
                         </tr>

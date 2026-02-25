@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\DriverInfo;
 use App\Models\User;
+use App\Services\ItcService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -46,12 +47,20 @@ class DriverController extends Controller
 
         $user->assignRole('driver');
 
-        DriverInfo::create([
+        $driverInfo = DriverInfo::create([
             'user_id'        => $user->id,
             'emirates_id'    => $request->emirates_id,
             'license_number' => $request->license_number,
             'permit_details' => $request->permit_details,
         ]);
+
+        // Auto sync ITC data for new driver
+        try {
+            $itcService = app(ItcService::class);
+            $itcService->syncDriverPermit($driverInfo, 'auto');
+        } catch (\Exception $e) {
+            // ITC sync failure should not block driver creation
+        }
 
         return redirect()
             ->route('driver.index')

@@ -69,7 +69,7 @@
     {{-- Vehicles Stats --}}
     <div class="mb-4">
         <h3 class="text-lg font-semibold text-gray-700 mb-3 ml-1">Vehicles</h3>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="grid grid-cols-1 md:!grid-cols-3 gap-6">
             {{-- Total Vehicles --}}
             <div class="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden hover:shadow-xl transition-shadow duration-300">
                 <div class="bg-gradient-to-r from-[#c9982b] to-[#a67d23] px-6 py-3">
@@ -108,7 +108,7 @@
     {{-- Drivers Stats --}}
     <div class="mb-4">
         <h3 class="text-lg font-semibold text-gray-700 mb-3 ml-1">Drivers</h3>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="grid grid-cols-1 md:!grid-cols-3 gap-6">
             {{-- Total Drivers --}}
             <div class="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden hover:shadow-xl transition-shadow duration-300">
                 <div class="bg-gradient-to-r from-[#c9982b] to-[#a67d23] px-6 py-3">
@@ -147,7 +147,7 @@
     {{-- Trips Stats --}}
     <div class="mb-8">
         <h3 class="text-lg font-semibold text-gray-700 mb-3 ml-1">Trips</h3>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="grid grid-cols-1 md:!grid-cols-3 gap-6">
             {{-- Total Leads --}}
             <div class="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden hover:shadow-xl transition-shadow duration-300">
                 <div class="bg-gradient-to-r from-[#c9982b] to-[#a67d23] px-6 py-3">
@@ -190,7 +190,7 @@
             <form action="{{ route('itc.sync-all-vehicles') }}" method="POST">
                 @csrf
                 <button type="submit"
-                    class="flex items-center gap-2 rounded-xl bg-gradient-to-r from-[#c9982b] to-[#a67d23] text-white px-6 py-3 font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-300"
+                    class="flex items-center gap-2 rounded-xl !bg-gradient-to-r from-[#c9982b] to-[#a67d23] text-white px-6 py-3 font-semibold hover:!shadow-lg transform hover:!scale-105 transition-all duration-300"
                     onclick="return confirm('Are you sure you want to sync all vehicles with ITC?');">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2">
@@ -205,7 +205,7 @@
             <form action="{{ route('itc.sync-all-drivers') }}" method="POST">
                 @csrf
                 <button type="submit"
-                    class="flex items-center gap-2 rounded-xl bg-gradient-to-r from-[#c9982b] to-[#a67d23] text-white px-6 py-3 font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-300"
+                    class="flex items-center gap-2 rounded-xl !bg-gradient-to-r from-[#c9982b] to-[#a67d23] text-white px-6 py-3 font-semibold hover:!shadow-lg transform hover:!scale-105 transition-all duration-300"
                     onclick="return confirm('Are you sure you want to sync all drivers with ITC?');">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2">

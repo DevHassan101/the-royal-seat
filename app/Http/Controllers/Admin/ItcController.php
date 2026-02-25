@@ -9,6 +9,7 @@ use App\Models\Lead;
 use App\Models\Vehicle;
 use App\Services\ItcService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class ItcController extends Controller
 {
@@ -60,6 +61,7 @@ class ItcController extends Controller
     public function syncAllDrivers()
     {
         $results = $this->itcService->syncAllDriverPermits('manual');
+        Log::info($results);
 
         return redirect()->back()->with('success',
             "Driver sync complete: {$results['success']}/{$results['total']} succeeded, {$results['failed']} failed."

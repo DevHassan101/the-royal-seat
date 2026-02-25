@@ -76,39 +76,47 @@ class ItcService
     }
 
     /**
-     * Call ITC getVehiclePermits API.
+     * Make an authenticated API request with Bearer token.
      */
-    public function getVehiclePermits(array $filters = []): ?array
+    protected function authenticatedRequest(string $endpoint, array $payload = []): ?\Illuminate\Http\Client\Response
     {
         $token = $this->getToken();
         if (!$token) return null;
 
+        $response = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->post("{$this->baseUrl}/{$endpoint}", $payload);
+
+        // Token might be expired, retry once
+        if ($response->status() === 401) {
+            $this->clearTokenCache();
+            $token = $this->getToken();
+            if (!$token) return null;
+
+            $response = Http::withHeaders([
+                'Authorization' => 'Bearer ' . $token,
+            ])->post("{$this->baseUrl}/{$endpoint}", $payload);
+        }
+
+        return $response;
+    }
+
+    /**
+     * Call ITC getVehiclePermits API.
+     */
+    public function getVehiclePermits(array $filters = []): ?array
+    {
         try {
             $payload = array_filter([
-                'Token' => $token,
                 'PlateNo' => $filters['PlateNo'] ?? null,
                 'ChassisNo' => $filters['ChassisNo'] ?? null,
                 'CnNumber' => $filters['CnNumber'] ?? null,
             ]);
 
-            $response = Http::post("{$this->baseUrl}/getVehiclePermits", $payload);
+            $response = $this->authenticatedRequest('getVehiclePermits', $payload);
 
-            if ($response->successful()) {
+            if ($response && $response->successful()) {
                 return $response->json();
-            }
-
-            // Token might be expired, retry once
-            if ($response->status() === 401) {
-                $this->clearTokenCache();
-                $token = $this->getToken();
-                if (!$token) return null;
-
-                $payload['Token'] = $token;
-                $response = Http::post("{$this->baseUrl}/getVehiclePermits", $payload);
-
-                if ($response->successful()) {
-                    return $response->json();
-                }
             }
 
             return null;
@@ -138,8 +146,8 @@ class ItcService
             return false;
         }
 
-        // Extract permit data from response
-        $permits = $response['VehiclePermits'] ?? $response['vehiclePermits'] ?? $response['Data'] ?? $response['data'] ?? [];
+        // Extract permit data - API returns "Vehicles" array
+        $permits = $response['Vehicles'] ?? $response['vehicles'] ?? [];
 
         if (empty($permits)) {
             $this->logSync('vehicle_permit', 'failed', 'Vehicle', $vehicle->id, $filters, $response, 'No permits found in response', $triggeredBy);
@@ -150,26 +158,26 @@ class ItcService
         $permit = is_array($permits) && isset($permits[0]) ? $permits[0] : $permits;
 
         $vehicle->update([
-            'itc_permit_number' => $permit['PermitNumber'] ?? $permit['permitNumber'] ?? null,
-            'itc_permit_expiry_date' => $this->parseDate($permit['PermitExpiryDate'] ?? $permit['permitExpiryDate'] ?? null),
-            'itc_plate_source' => $permit['PlateSource'] ?? $permit['plateSource'] ?? null,
-            'itc_insurance_type' => $permit['InsuranceType'] ?? $permit['insuranceType'] ?? null,
-            'itc_insurance_provider' => $permit['InsuranceProvider'] ?? $permit['insuranceProvider'] ?? null,
-            'itc_insurance_policy_number' => $permit['InsurancePolicyNumber'] ?? $permit['insurancePolicyNumber'] ?? null,
-            'itc_registration_expiry_date' => $this->parseDate($permit['RegistrationExpiryDate'] ?? $permit['registrationExpiryDate'] ?? null),
-            'itc_operator_type' => $permit['OperatorType'] ?? $permit['operatorType'] ?? null,
-            'itc_vehicle_brand' => $permit['VehicleBrand'] ?? $permit['vehicleBrand'] ?? null,
-            'itc_vehicle_year' => $permit['VehicleYear'] ?? $permit['vehicleYear'] ?? null,
-            'itc_vehicle_model' => $permit['VehicleModel'] ?? $permit['vehicleModel'] ?? null,
-            'itc_chassis_number' => $permit['ChassisNumber'] ?? $permit['chassisNumber'] ?? null,
-            'itc_permit_status' => $permit['PermitStatus'] ?? $permit['permitStatus'] ?? null,
-            'itc_is_eligible_for_trip' => $permit['IsEligibleForTrip'] ?? $permit['isEligibleForTrip'] ?? null,
-            'itc_last_status_date' => $this->parseDate($permit['LastStatusDate'] ?? $permit['lastStatusDate'] ?? null),
-            'itc_remarks' => $permit['Remarks'] ?? $permit['remarks'] ?? null,
-            'itc_operator_info' => $permit['OperatorInfo'] ?? $permit['operatorInfo'] ?? null,
+            'itc_permit_number' => $this->emptyToNull($permit['PermitNumber'] ?? null),
+            'itc_permit_expiry_date' => $this->parseDate($permit['PermitExpiryDate'] ?? null),
+            'itc_plate_source' => $this->emptyToNull($permit['PlateSource'] ?? null),
+            'itc_insurance_type' => $this->emptyToNull($permit['InsuranceType'] ?? null),
+            'itc_insurance_provider' => $this->emptyToNull($permit['InsuranceProvider'] ?? null),
+            'itc_insurance_policy_number' => $this->emptyToNull($permit['InsurancePolicyNumber'] ?? null),
+            'itc_registration_expiry_date' => $this->parseDate($permit['RegistrationExpiryDate'] ?? null),
+            'itc_operator_type' => $this->emptyToNull($permit['OperatorType'] ?? null),
+            'itc_vehicle_brand' => $this->emptyToNull($permit['VehicleBrand'] ?? null),
+            'itc_vehicle_year' => $permit['VehicleYear'] ?? null,
+            'itc_vehicle_model' => $this->emptyToNull($permit['VehicleModel'] ?? null),
+            'itc_chassis_number' => $this->emptyToNull($permit['ChassisNumber'] ?? null),
+            'itc_permit_status' => $this->emptyToNull($permit['PermitStatus'] ?? null),
+            'itc_is_eligible_for_trip' => $this->parseYesNo($permit['IsEligibleForTrip'] ?? null),
+            'itc_last_status_date' => $this->parseDate($permit['LastStatusDate'] ?? null),
+            'itc_remarks' => $this->emptyToNull($permit['Remarks'] ?? null),
+            'itc_operator_info' => $permit['OperatorInfo'] ?? null,
             'itc_raw_response' => $permit,
             'itc_last_synced_at' => now(),
-            'itc_status' => $this->mapPermitStatus($permit['PermitStatus'] ?? $permit['permitStatus'] ?? null),
+            'itc_status' => $this->mapPermitStatus($permit['PermitStatus'] ?? null),
         ]);
 
         $this->logSync('vehicle_permit', 'success', 'Vehicle', $vehicle->id, $filters, $response, null, $triggeredBy);
@@ -200,35 +208,17 @@ class ItcService
      */
     public function getDriverPermits(array $filters = []): ?array
     {
-        $token = $this->getToken();
-        if (!$token) return null;
-
         try {
             $payload = array_filter([
-                'Token' => $token,
                 'EidNo' => $filters['EidNo'] ?? null,
                 'TcfNumber' => $filters['TcfNumber'] ?? null,
                 'PermitNo' => $filters['PermitNo'] ?? null,
             ]);
 
-            $response = Http::post("{$this->baseUrl}/getDriverPermits", $payload);
+            $response = $this->authenticatedRequest('getDriverPermits', $payload);
 
-            if ($response->successful()) {
+            if ($response && $response->successful()) {
                 return $response->json();
-            }
-
-            // Token might be expired, retry once
-            if ($response->status() === 401) {
-                $this->clearTokenCache();
-                $token = $this->getToken();
-                if (!$token) return null;
-
-                $payload['Token'] = $token;
-                $response = Http::post("{$this->baseUrl}/getDriverPermits", $payload);
-
-                if ($response->successful()) {
-                    return $response->json();
-                }
             }
 
             return null;
@@ -261,8 +251,8 @@ class ItcService
             return false;
         }
 
-        // Extract permit data from response
-        $permits = $response['DriverPermits'] ?? $response['driverPermits'] ?? $response['Data'] ?? $response['data'] ?? [];
+        // Extract permit data - API returns "Drivers" array
+        $permits = $response['Drivers'] ?? $response['drivers'] ?? [];
 
         if (empty($permits)) {
             $this->logSync('driver_permit', 'failed', 'DriverInfo', $driverInfo->id, $filters, $response, 'No permits found in response', $triggeredBy);
@@ -273,27 +263,27 @@ class ItcService
         $permit = is_array($permits) && isset($permits[0]) ? $permits[0] : $permits;
 
         $driverInfo->update([
-            'itc_permit_number' => $permit['PermitNumber'] ?? $permit['permitNumber'] ?? null,
-            'itc_permit_type' => $permit['PermitType'] ?? $permit['permitType'] ?? null,
-            'itc_permit_issue_date' => $this->parseDate($permit['PermitIssueDate'] ?? $permit['permitIssueDate'] ?? null),
-            'itc_permit_expiry_date' => $this->parseDate($permit['PermitExpiryDate'] ?? $permit['permitExpiryDate'] ?? null),
-            'itc_permit_renew_date' => $this->parseDate($permit['PermitRenewDate'] ?? $permit['permitRenewDate'] ?? null),
-            'itc_operator_type' => $permit['OperatorType'] ?? $permit['operatorType'] ?? null,
-            'itc_emirates_id_expiry_date' => $this->parseDate($permit['EmiratesIdExpiryDate'] ?? $permit['emiratesIdExpiryDate'] ?? null),
-            'itc_driver_name' => $permit['DriverName'] ?? $permit['driverName'] ?? null,
-            'itc_date_of_birth' => $this->parseDate($permit['DateOfBirth'] ?? $permit['dateOfBirth'] ?? null),
-            'itc_nationality' => $permit['Nationality'] ?? $permit['nationality'] ?? null,
-            'itc_license_issue_place' => $permit['LicenseIssuePlace'] ?? $permit['licenseIssuePlace'] ?? null,
-            'itc_license_expiry_date' => $this->parseDate($permit['LicenseExpiryDate'] ?? $permit['licenseExpiryDate'] ?? null),
-            'itc_tcf_number' => $permit['TcfNumber'] ?? $permit['tcfNumber'] ?? null,
-            'itc_permit_status' => $permit['PermitStatus'] ?? $permit['permitStatus'] ?? null,
-            'itc_is_eligible_for_trip' => $permit['IsEligibleForTrip'] ?? $permit['isEligibleForTrip'] ?? null,
-            'itc_last_status_date' => $this->parseDate($permit['LastStatusDate'] ?? $permit['lastStatusDate'] ?? null),
-            'itc_remarks' => $permit['Remarks'] ?? $permit['remarks'] ?? null,
-            'itc_operator_info' => $permit['OperatorInfo'] ?? $permit['operatorInfo'] ?? null,
+            'itc_permit_number' => $this->emptyToNull($permit['PermitNumber'] ?? null),
+            'itc_permit_type' => $this->emptyToNull($permit['PermitType'] ?? null),
+            'itc_permit_issue_date' => $this->parseDate($permit['PermitIssueDate'] ?? null),
+            'itc_permit_expiry_date' => $this->parseDate($permit['PermitExpiryDate'] ?? null),
+            'itc_permit_renew_date' => $this->parseDate($permit['PermitRenewDate'] ?? null),
+            'itc_operator_type' => $this->emptyToNull($permit['OperatorType'] ?? null),
+            'itc_emirates_id_expiry_date' => $this->parseDate($permit['EmiratesIDExiryDate'] ?? $permit['EmiratesIDExpiryDate'] ?? null),
+            'itc_driver_name' => $this->emptyToNull($permit['DriverName'] ?? null),
+            'itc_date_of_birth' => $this->parseDate($permit['DateofBirth'] ?? $permit['DateOfBirth'] ?? null),
+            'itc_nationality' => $this->emptyToNull($permit['Nationality'] ?? null),
+            'itc_license_issue_place' => $this->emptyToNull($permit['LicenseIssuePlace'] ?? null),
+            'itc_license_expiry_date' => $this->parseDate($permit['LicenseExpiryDate'] ?? null),
+            'itc_tcf_number' => $this->emptyToNull($permit['TCFNumber'] ?? $permit['TcfNumber'] ?? null),
+            'itc_permit_status' => $this->emptyToNull($permit['PermitStatus'] ?? null),
+            'itc_is_eligible_for_trip' => $this->parseYesNo($permit['IsEligibleForTrip'] ?? null),
+            'itc_last_status_date' => $this->parseDate($permit['LastStatusDate'] ?? null),
+            'itc_remarks' => $this->emptyToNull($permit['Remarks'] ?? null),
+            'itc_operator_info' => $permit['OperatorInfo'] ?? null,
             'itc_raw_response' => $permit,
             'itc_last_synced_at' => now(),
-            'itc_status' => $this->mapPermitStatus($permit['PermitStatus'] ?? $permit['permitStatus'] ?? null),
+            'itc_status' => $this->mapPermitStatus($permit['PermitStatus'] ?? null),
         ]);
 
         $this->logSync('driver_permit', 'success', 'DriverInfo', $driverInfo->id, $filters, $response, null, $triggeredBy);
@@ -324,15 +314,6 @@ class ItcService
      */
     public function saveTripDetails(Lead $lead, string $transactionType = 'NEW'): bool
     {
-        $token = $this->getToken();
-        if (!$token) {
-            $lead->update([
-                'itc_sync_status' => 'failed',
-                'itc_error_log' => 'Failed to get ITC token',
-            ]);
-            return false;
-        }
-
         $vehicle = $lead->vehicle;
         $driver = $lead->assignedDriver;
         $driverInfo = $driver?->driverInfo;
@@ -355,7 +336,6 @@ class ItcService
 
         try {
             $payload = [
-                'Token' => $token,
                 'TransactionType' => $transactionType,
                 'TripDetails' => [
                     'BookingId' => $lead->itc_booking_id ?? (string) $lead->id,
@@ -386,7 +366,14 @@ class ItcService
                 ],
             ];
 
-            $response = Http::post("{$this->baseUrl}/saveTripDetails", $payload);
+            $response = $this->authenticatedRequest('saveTripDetails', $payload);
+
+            if (!$response) {
+                $lead->update(['itc_sync_status' => 'failed', 'itc_error_log' => 'No response from ITC']);
+                $this->logSync('trip', 'failed', 'Lead', $lead->id, $payload, null, 'No response from ITC', 'manual');
+                return false;
+            }
+
             $data = $response->json();
 
             if ($response->successful()) {
@@ -406,39 +393,6 @@ class ItcService
 
                 $this->logSync('trip', $isSuccess ? 'success' : 'failed', 'Lead', $lead->id, $payload, $data, $isSuccess ? null : ($data['StatusMessage'] ?? 'Unknown error'), 'manual');
                 return $isSuccess;
-            }
-
-            // Token might be expired, retry once
-            if ($response->status() === 401) {
-                $this->clearTokenCache();
-                $token = $this->getToken();
-                if (!$token) {
-                    $lead->update(['itc_sync_status' => 'failed', 'itc_error_log' => 'Token refresh failed']);
-                    return false;
-                }
-
-                $payload['Token'] = $token;
-                $response = Http::post("{$this->baseUrl}/saveTripDetails", $payload);
-                $data = $response->json();
-
-                if ($response->successful()) {
-                    $statusCode = $data['StatusCode'] ?? $data['statusCode'] ?? null;
-                    $isSuccess = in_array($statusCode, ['200', '201', 200, 201, 'Success', 'success']);
-
-                    $lead->update([
-                        'itc_transaction_type' => $transactionType,
-                        'itc_batch_id' => $data['BatchId'] ?? $data['batchId'] ?? null,
-                        'itc_status_code' => $statusCode,
-                        'itc_status_message' => $data['StatusMessage'] ?? $data['statusMessage'] ?? null,
-                        'itc_status_id' => $data['StatusId'] ?? $data['statusId'] ?? null,
-                        'itc_sync_status' => $isSuccess ? 'synced' : 'failed',
-                        'itc_synced_at' => $isSuccess ? now() : null,
-                        'itc_error_log' => $isSuccess ? null : json_encode($data),
-                    ]);
-
-                    $this->logSync('trip', $isSuccess ? 'success' : 'failed', 'Lead', $lead->id, $payload, $data, null, 'manual');
-                    return $isSuccess;
-                }
             }
 
             $lead->update([
@@ -522,16 +476,40 @@ class ItcService
     }
 
     /**
-     * Parse date from ITC response.
+     * Parse date from ITC response. Handles dd/MM/yyyy and ISO formats.
      */
     protected function parseDate(?string $date): ?string
     {
-        if (!$date) return null;
+        if (!$date || $date === '') return null;
 
         try {
+            // Handle dd/MM/yyyy format (e.g., "15/07/2026")
+            if (preg_match('#^\d{2}/\d{2}/\d{4}$#', $date)) {
+                return \Carbon\Carbon::createFromFormat('d/m/Y', $date)->format('Y-m-d');
+            }
+
+            // Handle ISO format (e.g., "2025-07-16T20:43:24.05")
             return \Carbon\Carbon::parse($date)->format('Y-m-d');
         } catch (\Exception $e) {
             return null;
         }
+    }
+
+    /**
+     * Parse "Yes"/"No" string to boolean.
+     */
+    protected function parseYesNo(?string $value): ?string
+    {
+        if ($value === null || $value === '') return null;
+        return strtolower($value) === 'yes' ? true : false;
+    }
+
+    /**
+     * Convert empty string to null.
+     */
+    protected function emptyToNull(?string $value): ?string
+    {
+        if ($value === null || $value === '') return null;
+        return $value;
     }
 }

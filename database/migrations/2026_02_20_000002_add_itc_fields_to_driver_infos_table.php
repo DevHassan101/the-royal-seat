@@ -23,7 +23,7 @@ return new class extends Migration
             $table->date('itc_license_expiry_date')->nullable()->after('itc_license_issue_place');
             $table->string('itc_tcf_number')->nullable()->after('itc_license_expiry_date');
             $table->string('itc_permit_status')->nullable()->after('itc_tcf_number');
-            $table->boolean('itc_is_eligible_for_trip')->nullable()->after('itc_permit_status');
+            $table->string('itc_is_eligible_for_trip')->nullable()->after('itc_permit_status');
             $table->date('itc_last_status_date')->nullable()->after('itc_is_eligible_for_trip');
             $table->text('itc_remarks')->nullable()->after('itc_last_status_date');
             $table->json('itc_operator_info')->nullable()->after('itc_remarks');

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Vehicle;
+use App\Services\ItcService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -52,7 +53,7 @@ class VehicleController extends Controller
         $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
         $image->move('vehicle-images/', $name_gen);
 
-        Vehicle::create([
+        $vehicle = Vehicle::create([
             'user_id' => $request->driver,
             'picture' => 'vehicle-images/' . $name_gen,
             'name' => $request->name,
@@ -65,6 +66,15 @@ class VehicleController extends Controller
             'plate_code' => $request->plate_code,
             'permit_details' => $request->permit_details,
         ]);
+
+        // Auto sync ITC data for new vehicle
+        try {
+            $itcService = app(ItcService::class);
+            $itcService->syncVehiclePermit($vehicle, 'auto');
+        } catch (\Exception $e) {
+            // ITC sync failure should not block vehicle creation
+        }
+
         return redirect()
             ->route('vehicle.index')
             ->with('success', 'Vehicle created successfully');
