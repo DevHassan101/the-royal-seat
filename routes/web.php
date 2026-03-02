@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\BookingController;
 use App\Http\Controllers\Admin\DriverController as AdminDriverController;
 use App\Http\Controllers\Admin\LeadController;
 use App\Http\Controllers\Admin\QueryController;
@@ -54,6 +55,7 @@ Route::middleware('auth', 'role:admin')->group(function(){
     Route::resource('vehicle', AdminVehicleController::class);
     Route::resource('lead', LeadController::class);
     Route::resource('query', QueryController::class);
+    Route::resource('booking', BookingController::class);
 
     // ITC Integration Routes
     Route::get('itc', [ItcController::class, 'index'])->name('itc.index');

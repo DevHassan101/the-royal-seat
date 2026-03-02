@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -12,7 +13,12 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <style>
-        *, *::before, *::after { box-sizing: border-box; font-family: 'Sora', sans-serif; }
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            font-family: 'Sora', sans-serif;
+        }
 
         body {
             margin: 0;
@@ -31,7 +37,7 @@
             position: fixed;
             inset: 0;
             background:
-                radial-gradient(ellipse 60% 50% at 50% 50%, rgba(201,152,43,0.09) 0%, transparent 70%);
+                radial-gradient(ellipse 60% 50% at 50% 50%, rgba(201, 152, 43, 0.09) 0%, transparent 70%);
             pointer-events: none;
             z-index: 0;
         }
@@ -48,19 +54,26 @@
         /* Card */
         .auth-card {
             background: #1a1d27;
-            border: 1px solid rgba(201,152,43,0.18);
+            border: 1px solid rgba(201, 152, 43, 0.18);
             border-radius: 1.35rem;
             padding: 2.5rem 2.25rem 2.25rem;
             box-shadow:
-                0 0 0 1px rgba(255,255,255,0.025) inset,
-                0 30px 70px rgba(0,0,0,0.55),
-                0 8px 24px rgba(0,0,0,0.3);
-            animation: authFadeUp 0.4s cubic-bezier(.22,.68,0,1.15) both;
+                0 0 0 1px rgba(255, 255, 255, 0.025) inset,
+                0 30px 70px rgba(0, 0, 0, 0.55),
+                0 8px 24px rgba(0, 0, 0, 0.3);
+            animation: authFadeUp 0.4s cubic-bezier(.22, .68, 0, 1.15) both;
         }
 
         @keyframes authFadeUp {
-            from { opacity: 0; transform: translateY(16px) scale(0.985); }
-            to   { opacity: 1; transform: translateY(0) scale(1); }
+            from {
+                opacity: 0;
+                transform: translateY(16px) scale(0.985);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
         }
 
         /* ── Logo row ── */
@@ -70,6 +83,7 @@
             gap: 0.75rem;
             margin-bottom: 2rem;
         }
+
         .auth-logo-icon {
             width: 42px;
             height: 42px;
@@ -78,9 +92,10 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 18px rgba(201,152,43,0.45);
+            box-shadow: 0 4px 18px rgba(201, 152, 43, 0.45);
             flex-shrink: 0;
         }
+
         .auth-logo-text {
             font-size: 1.2rem;
             font-weight: 800;
@@ -96,6 +111,7 @@
             margin: 0 0 0.3rem;
             line-height: 1.2;
         }
+
         .auth-subheading {
             font-size: 0.82rem;
             color: #4a4f6a;
@@ -105,7 +121,7 @@
         /* ── Divider ── */
         .auth-divider {
             height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(201,152,43,0.2), transparent);
+            background: linear-gradient(90deg, transparent, rgba(201, 152, 43, 0.2), transparent);
             margin: 1.35rem 0;
         }
 
@@ -115,7 +131,7 @@
             -webkit-appearance: none;
             width: 16px;
             height: 16px;
-            border: 1.5px solid rgba(201,152,43,0.4);
+            border: 1.5px solid rgba(201, 152, 43, 0.4);
             border-radius: 4px;
             background: #111320;
             cursor: pointer;
@@ -124,15 +140,19 @@
             transition: all 0.15s;
             vertical-align: middle;
         }
+
         .auth-checkbox:checked {
             background: #c9982b;
             border-color: #c9982b;
         }
+
         .auth-checkbox:checked::after {
             content: '';
             position: absolute;
-            top: 1px; left: 4px;
-            width: 5px; height: 8px;
+            top: 1px;
+            left: 4px;
+            width: 5px;
+            height: 8px;
             border: 2px solid #0f1117;
             border-top: none;
             border-left: none;
@@ -146,7 +166,11 @@
             text-decoration: none;
             transition: opacity 0.15s;
         }
-        .auth-forgot:hover { opacity: 0.7; text-decoration: underline; }
+
+        .auth-forgot:hover {
+            opacity: 0.7;
+            text-decoration: underline;
+        }
 
         /* ── Remember text ── */
         .auth-remember-text {
@@ -164,12 +188,13 @@
 
             {{-- ── Logo ── --}}
             <div class="auth-logo-row">
-                <div class="auth-logo-icon">
+                <img src="{{ asset('assets/image/royalseat_logo.png') }}" alt="" class="w-34 mx-auto">
+                {{-- <div class="auth-logo-icon">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="#0f1117">
                         <path d="M12 2C12 2 5.5 8.5 5.5 14a6.5 6.5 0 0013 0C18.5 8.5 12 2 12 2z"/>
                     </svg>
                 </div>
-                <span class="auth-logo-text">{{ config('app.name', 'Dashboard') }}</span>
+                <span class="auth-logo-text">{{ config('app.name', 'Dashboard') }}</span> --}}
             </div>
 
             {{-- ── Page Slot ── --}}
@@ -178,4 +203,5 @@
         </div>
     </div>
 </body>
+
 </html>

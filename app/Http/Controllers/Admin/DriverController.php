@@ -92,7 +92,7 @@ class DriverController extends Controller
             'email' => $request->email,
         ]);
 
-        $driver->driverInfo->update([
+        $driverInfo = DriverInfo::updateOrCreate(['user_id' => $driver->id], [
             'emirates_id'    => $request->emirates_id,
             'license_number' => $request->license_number,
             'permit_details' => $request->permit_details,

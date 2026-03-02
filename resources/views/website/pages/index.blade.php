@@ -134,9 +134,9 @@
 
     </section>
 
-    <section class="bg-white pb-0 pt-0">
+    <section class="bg-gray-100 pb-0 pt-0">
         <div class="max-w-7xl mx-auto px-6">
-            <div class="bg-white border border-gray-700/50 rounded-2xl p-7 -mt-8 relative z-20 shadow-2xl shadow-black/60">
+            <div class="bg-white border border-gray-700/50 rounded-2xl p-7 -mt-14 relative z-20 shadow-2xl shadow-black/60">
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
 
                     <div class="relative">
@@ -241,7 +241,7 @@
                             <div
                                 class="absolute bottom-0 left-1/2 -translate-x-1/2 w-3/4 h-6 bg-yellow-400/0 group-hover:bg-yellow-400/10 blur-2xl transition-all duration-500 rounded-full">
                             </div>
-                            <img src="./assets/image/{{ $vehicle->picture ?? 'aston-martin.png' }}"
+                            <img src="{{asset($vehicle->picture)}}"
                                 alt="{{ $vehicle->name }}"
                                 class="w-full h-44 object-contain group-hover:scale-105 transition-transform duration-500 drop-shadow-2xl">
                         </div>

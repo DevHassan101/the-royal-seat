@@ -5,7 +5,7 @@
 
         <!-- Logo -->
         <div class="flex items-center">
-            <img src="./assets/image/royalseat_logo.png" alt="" class="w-34">
+            <img src="{{ asset('assets/image/royalseat_logo.png') }}" alt="" class="w-34">
         </div>
 
         <!-- Desktop Menu -->
