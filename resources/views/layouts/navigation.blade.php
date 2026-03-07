@@ -1,3 +1,17 @@
+<style>
+    /* Sidebar scrollbar hide */
+    .sidebar-nav::-webkit-scrollbar {
+        display: none;
+    }
+
+    .sidebar-nav {
+        -ms-overflow-style: none;
+        /* IE/Edge */
+        scrollbar-width: none;
+        /* Firefox */
+    }
+</style>
+
 {{-- Sidebar Overlay --}}
 <div :class="sidebarOpen ? 'block' : 'hidden'" @click="sidebarOpen = false"
     class="fixed z-20 inset-0 bg-black opacity-50 transition-opacity lg:hidden">
@@ -5,7 +19,7 @@
 
 {{-- Sidebar --}}
 <div :class="sidebarOpen ? 'translate-x-0 ease-out' : '-translate-x-full ease-in'"
-    class="fixed z-30 inset-y-0 left-0 w-75 transition duration-300 transform bg-gradient-to-b from-gray-900 via-gray-900 to-black overflow-y-auto lg:translate-x-0 lg:static lg:inset-0 border-r border-[#c9982b]/20">
+    class="fixed z-30 inset-y-0 left-0 w-75 transition sidebar-nav duration-300 transform bg-gradient-to-b from-gray-900 via-gray-900 to-black overflow-y-auto lg:translate-x-0 lg:static lg:inset-0 border-r border-[#c9982b]/20">
 
     {{-- Logo Section --}}
     <div class="flex items-start mt-6 mb-8">
@@ -221,7 +235,4 @@
         </x-nav-link>
     </nav>
 
-    {{-- Bottom Accent --}}
-    <div class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#c9982b] to-transparent">
-    </div>
 </div>

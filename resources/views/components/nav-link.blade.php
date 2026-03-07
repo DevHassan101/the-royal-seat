@@ -6,7 +6,7 @@
                 : 'flex items-center mt-4 py-2 px-6 text-gray-100';
 @endphp
 
-<a {{ $attributes->merge(['class' => $classes]) }}>
+<a {{ $attributes->merge(['class' => $classes]) }} style="text-decoration: none;">
     {{ $icon ?? '' }}
     <span class="mx-3">{{ $slot }}</span>
 </a>
