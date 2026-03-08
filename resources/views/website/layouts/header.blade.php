@@ -4,9 +4,9 @@
     <div class="px-7 lg:px-24 py-4 flex justify-between items-center">
 
         <!-- Logo -->
-        <div class="flex items-center">
+        <a href="{{url('/')}}" class="flex items-center">
             <img src="{{ asset('assets/image/royalseat_logo.png') }}" alt="" class="w-34">
-        </div>
+        </a>
 
         <!-- Desktop Menu -->
         <div class="hidden lg:flex gap-10 items-center -ml-28">

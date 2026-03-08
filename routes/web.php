@@ -30,8 +30,8 @@ Route::get('/', [WebController::class, 'index']);
 Route::get('/about-us', [WebController::class, 'aboutUs']);
 Route::get('/vehicles', [WebController::class, 'vehicles']);
 Route::get('/contact-us', [WebController::class, 'contactUs']);
-Route::post('/add-query', [WebController::class, 'storeQuery'])->name('query.store');
-Route::post('/add-lead', [WebController::class, 'storeLead'])->name('lead.store');
+Route::post('/add-query', [WebController::class, 'storeQuery'])->name('query.save');
+Route::post('/add-lead', [WebController::class, 'storeLead'])->name('lead.save');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

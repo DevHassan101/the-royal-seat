@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Royal Seat</title>
     <link rel="icon" type="image" href="{{ asset('assets/image/logo.jpg') }}">
-    <link rel="stylesheet" href="{{ asset('assets/CSS/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -30,7 +30,7 @@
     <script>
         AOS.init();
     </script>
-    <script src="./assets/Js/app.js"></script>
+    <script src="{{ asset('assets/js/app.js') }}"></script>
 </body>
 
 </html>

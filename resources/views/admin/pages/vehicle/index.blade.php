@@ -49,7 +49,13 @@
                             Details
                         </th>
                         <th class="px-6 py-4 text-xs font-bold tracking-wider text-left text-gray-700 uppercase">
+                            Driver/Owner
+                        </th>
+                        <th class="px-6 py-4 text-xs font-bold tracking-wider text-left text-gray-700 uppercase">
                             Charges
+                        </th>
+                        <th class="px-6 py-4 text-xs font-bold tracking-wider text-left text-gray-700 uppercase">
+                            Bookings
                         </th>
                         <th class="px-6 py-4 text-xs font-bold tracking-wider text-left text-gray-700 uppercase">
                             ITC Status
@@ -80,7 +86,13 @@
                                 </p>
                             </td>
                             <td class="px-6 py-4 text-sm">
+                                <span>{{ $vehicle->owner?->name }}</span>
+                            </td>
+                            <td class="px-6 py-4 text-sm">
                                 <span>{{ $vehicle->per_day_charges }}AED /day</span>
+                            </td>
+                            <td class="px-6 py-4 text-sm">
+                                <span>{{ $vehicle->bookings?->count() ?? 0 }}</span>
                             </td>
                             <td class="px-6 py-4 text-sm">
                                 @if ($vehicle->itc_status)
@@ -183,7 +195,7 @@
                         </tr>
                         @empty
                             <tr>
-                                <td colspan="5" class="px-6 py-12 text-center">
+                                <td colspan="7" class="px-6 py-12 text-center">
                                     <div class="flex flex-col items-center justify-center text-gray-400">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64"
                                             viewBox="0 0 48 48" id="a">

@@ -42,9 +42,6 @@
                         <th class="px-6 py-4 text-xs font-bold tracking-wider text-left text-gray-700 uppercase">
                             Booking Date
                         </th>
-                        <th class="px-6 py-4 text-xs font-bold tracking-wider text-left text-gray-700 uppercase">
-                            ITC Status
-                        </th>
                         <th class="px-6 py-4 text-xs font-bold tracking-wider text-center text-gray-700 uppercase">
                             Actions
                         </th>
@@ -71,72 +68,16 @@
                                 <p class="text-gray-700 whitespace-nowrap">{{ $lead->name }}</p>
                             </td>
                             <td class="px-6 py-4 text-sm">
-                                <a class="text-gray-700 hover:!text-[#c3942a] hover:underline whitespace-nowrap" href="mailto:{{ $lead->email }}">{{ $lead->email }}</a>
+                                <a class="text-gray-700 hover:!text-[#c3942a] hover:underline whitespace-nowrap"
+                                    href="mailto:{{ $lead->email }}">{{ $lead->email }}</a>
                             </td>
                             <td class="px-6 py-4 text-sm">
-                                <p class="text-gray-700 whitespace-nowrap">{{ $lead->booking_date ? date('d M Y', strtotime($lead->booking_date)) : 'N/A' }}</p>
-                            </td>
-                            <td class="px-6 py-4 text-sm">
-                                @switch($lead->itc_sync_status ?? 'pending')
-                                    @case('synced')
-                                        <span class="uppercase px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                            Synced
-                                        </span>
-                                    @break
-                                    @case('failed')
-                                        <span class="uppercase px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
-                                            Failed
-                                        </span>
-                                    @break
-                                    @default
-                                        <span class="uppercase px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
-                                            Pending
-                                        </span>
-                                @endswitch
+                                <p class="text-gray-700 whitespace-nowrap">
+                                    {{ $lead->booking_date ? date('d M Y', strtotime($lead->booking_date)) : 'N/A' }}
+                                </p>
                             </td>
                             <td class="px-6 py-4 text-sm">
                                 <div class="flex items-center justify-center gap-2">
-
-                                    <!-- Submit to ITC Button -->
-                                    <form action="{{ route('itc.submit-trip', $lead) }}" method="POST" class="inline-block">
-                                        @csrf
-                                        <button type="submit"
-                                            class="group px-2 py-2 bg-white rounded-lg hover:!bg-green-500 !text-green-500 hover:!text-white transition-all duration-300 font-medium text-xs"
-                                            title="Submit to ITC">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="transition-all duration-300">
-                                                <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/>
-                                            </svg>
-                                        </button>
-                                    </form>
-
-                                    <!-- View Button -->
-                                    <a href="{{ route('lead.show', ['lead' => $lead]) }}"
-                                        class="group px-2 py-2 bg-white rounded-lg hover:!bg-blue-500 !text-blue-500 hover:!text-white transition-all duration-300 font-medium text-xs"
-                                        title="View Details">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
-                                            viewBox="0 0 24 24" class="transition-all duration-300">
-                                            <g fill="none" stroke-linecap="round" stroke-linejoin="round"
-                                                stroke-width="2" stroke="currentColor"
-                                                class="group-hover:stroke-white stroke-blue-500 transition-all duration-300">
-                                                <circle cx="12" cy="12" r="10" />
-                                                <path d="M12 16v-4m0-4h.01" />
-                                            </g>
-                                        </svg>
-                                    </a>
-
-                                    <!-- Edit Button -->
-                                    <a href="{{ route('lead.edit', ['lead' => $lead]) }}"
-                                        class="group px-2 py-2 bg-white rounded-lg transition-all duration-300 font-medium text-xs hover:!bg-[#c9982b] !text-[#c9982b] hover:!text-white"
-                                        title="Edit Lead">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
-                                            viewBox="0 0 24 24" class="transition-all duration-300">
-                                            <g fill="none" stroke-linecap="round" stroke="currentColor"
-                                                stroke-linejoin="round" stroke-width="2">
-                                                <path d="M19.09 14.441v4.44a2.37 2.37 0 0 1-2.369 2.369H5.12a2.37 2.37 0 0 1-2.369-2.383V7.279a2.356 2.356 0 0 1 2.37-2.37H9.56" />
-                                                <path d="M6.835 15.803v-2.165c.002-.357.144-.7.395-.953l9.532-9.532a1.36 1.36 0 0 1 1.934 0l2.151 2.151a1.36 1.36 0 0 1 0 1.934l-9.532 9.532a1.36 1.36 0 0 1-.953.395H8.197a1.36 1.36 0 0 1-1.362-1.362M19.09 8.995l-4.085-4.086" />
-                                            </g>
-                                        </svg>
-                                    </a>
 
                                     <!-- Delete Button -->
                                     <form action="{{ route('lead.destroy', ['lead' => $lead]) }}" method="post"
@@ -166,9 +107,11 @@
                             <td colspan="6" class="px-6 py-12 text-center">
                                 <div class="flex flex-col items-center justify-center text-gray-400">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64"
-                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
-                                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                                        <circle cx="12" cy="7" r="4" />
+                                        viewBox="0 0 24 24" class="transition-all duration-300 scale-110">
+                                        <path fill="currentColor" d="M22 5a3 3 0 1 1-6 0a3 3 0 0 1 6 0"></path>
+                                        <path fill="currentColor" fill-rule="evenodd"
+                                            d="M15.612 2.038C14.59 2 13.399 2 12 2C7.286 2 4.929 2 3.464 3.464C2 4.93 2 7.286 2 12s0 7.071 1.464 8.535C4.93 22 7.286 22 12 22s7.071 0 8.535-1.465C22 19.072 22 16.714 22 12c0-1.399 0-2.59-.038-3.612a4.5 4.5 0 0 1-6.35-6.35m1.868 7.386a.75.75 0 0 1 .096 1.056l-1.829 2.195c-.328.394-.624.75-.9 1c-.302.27-.68.513-1.18.513s-.879-.242-1.18-.514c-.276-.25-.572-.605-.901-1l-.292-.35c-.371-.445-.599-.716-.787-.885a.8.8 0 0 0-.163-.122l-.01-.005l-.005.002l-.007.003a.8.8 0 0 0-.163.122c-.187.17-.415.44-.786.885L7.576 14.48a.75.75 0 0 1-1.152-.96l1.829-2.195c.328-.394.624-.75.9-1c.302-.27.68-.513 1.18-.513s.879.242 1.18.514c.276.25.572.605.901 1l.292.35c.371.445.599.716.787.885c.086.078.138.11.163.122l.003.001l.008.004l.01-.005a.8.8 0 0 0 .164-.122c.187-.17.415-.44.786-.885l1.797-2.156a.75.75 0 0 1 1.056-.096"
+                                            clip-rule="evenodd"></path>
                                     </svg>
                                     <p class="mt-4 text-lg font-medium text-gray-500">No leads found</p>
                                 </div>

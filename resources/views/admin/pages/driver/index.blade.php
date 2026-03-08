@@ -37,6 +37,12 @@
                             Email
                         </th>
                         <th class="px-6 py-4 text-xs font-bold tracking-wider text-left text-gray-700 uppercase">
+                            Bookings
+                        </th>
+                        <th class="px-6 py-4 text-xs font-bold tracking-wider text-left text-gray-700 uppercase">
+                            Vehicles
+                        </th>
+                        <th class="px-6 py-4 text-xs font-bold tracking-wider text-left text-gray-700 uppercase">
                             ITC Status
                         </th>
                         <th class="px-6 py-4 text-xs font-bold tracking-wider text-center text-gray-700 uppercase">
@@ -58,6 +64,12 @@
                             </td>
                             <td class="px-6 py-4 text-sm">
                                 <p class="text-gray-700 whitespace-nowrap">{{ $driver->email }}</p>
+                            </td>
+                            <td class="px-6 py-4 text-sm">
+                                <p class="text-gray-700 whitespace-nowrap">{{ $driver->bookings?->count() ?? 0 }}</p>
+                            </td>
+                            <td class="px-6 py-4 text-sm">
+                                <p class="text-gray-700 whitespace-nowrap">{{ $driver->vehicles->count() ?? 0}}</p>
                             </td>
                             <td class="px-6 py-4 text-sm">
                                 @if ($driver->driverInfo?->itc_status)
@@ -155,7 +167,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="4" class="px-6 py-12 text-center">
+                            <td colspan="6" class="px-6 py-12 text-center">
                                 <div class="flex flex-col items-center justify-center text-gray-400">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64"
                                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">

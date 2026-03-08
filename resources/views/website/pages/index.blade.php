@@ -137,46 +137,95 @@
     <section class="bg-gray-100 pb-0 pt-0">
         <div class="max-w-7xl mx-auto px-6">
             <div class="bg-white border border-gray-700/50 rounded-2xl p-7 -mt-14 relative z-20 shadow-2xl shadow-black/60">
-                <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
+                <form action="{{ url('vehicles') }}" class="grid grid-cols-1 md:grid-cols-4 gap-3" method="GET">
 
                     <div class="relative">
                         <div class="absolute inset-y-0 left-3.5 flex items-center pointer-events-none">
-                            <svg class="w-4 h-4 text-yellow-500/60" fill="none" stroke="currentColor" stroke-width="2"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-yellow-500/60" viewBox="0 0 24 24">
+                                <g fill="none" fill-rule="evenodd">
+                                    <path
+                                        d="m12.594 23.258l-.012.002l-.071.035l-.02.004l-.014-.004l-.071-.036q-.016-.004-.024.006l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.016-.018m.264-.113l-.014.002l-.184.093l-.01.01l-.003.011l.018.43l.005.012l.008.008l.201.092q.019.005.029-.008l.004-.014l-.034-.614q-.005-.019-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.003-.011l.018-.43l-.003-.012l-.01-.01z">
+                                    </path>
+                                    <path fill="#c9982b"
+                                        d="M15.764 4a3 3 0 0 1 2.683 1.658l1.386 2.771q.366-.15.72-.324a1 1 0 0 1 .894 1.79a32 32 0 0 1-.725.312l.961 1.923A3 3 0 0 1 22 13.473V16a3 3 0 0 1-1 2.236V19.5a1.5 1.5 0 0 1-3 0V19H6v.5a1.5 1.5 0 0 1-3 0v-1.264c-.614-.55-1-1.348-1-2.236v-2.528a3 3 0 0 1 .317-1.341l.953-1.908q-.362-.152-.715-.327a1.01 1.01 0 0 1-.45-1.343a1 1 0 0 1 1.342-.448q.355.175.72.324l1.386-2.77A3 3 0 0 1 8.236 4zM7.5 13a1.5 1.5 0 1 0 0 3a1.5 1.5 0 0 0 0-3m9 0a1.5 1.5 0 1 0 0 3a1.5 1.5 0 0 0 0-3m-.736-7H8.236a1 1 0 0 0-.832.445l-.062.108l-1.27 2.538C7.62 9.555 9.706 10 12 10c2.142 0 4.101-.388 5.61-.817l.317-.092l-1.269-2.538a1 1 0 0 0-.77-.545L15.765 6Z">
+                                    </path>
+                                </g>
                             </svg>
                         </div>
-                        <input type="text" placeholder="Pickup Location"
+                        <input type="text" placeholder="ex: Aston martin, Ferrari" name="name" value="{{ old('name', request('name')) }}"
                             class="bg-gray-800 border border-gray-700 pl-10 pr-4 py-3.5 rounded-xl w-full text-sm text-gray-300 placeholder-gray-500
                                focus:outline-none focus:border-yellow-500 focus:ring-1 focus:ring-yellow-500/30 transition-all">
                     </div>
 
                     <div class="relative">
                         <div class="absolute inset-y-0 left-3.5 flex items-center pointer-events-none">
-                            <svg class="w-4 h-4 text-yellow-500/60" fill="none" stroke="currentColor" stroke-width="2"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                            <svg class="w-4 h-4 text-yellow-500/60" fill="currentColor" version="1.1" id="Capa_1"
+                                xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                viewBox="0 0 353.926 353.926" xml:space="preserve">
+                                <path d="M210.286,344.926c0,4.971-4.029,9-9,9h-48.65c-4.971,0-9-4.029-9-9s4.029-9,9-9h48.65
+                                        C206.257,335.926,210.286,339.955,210.286,344.926z M289.677,258.958v25.928c0,19.259-15.67,34.928-34.931,34.928H99.177
+                                        c-19.259,0-34.928-15.668-34.928-34.928v-25.928c0-4.971,4.029-9,9-9h2.394c-0.021-0.258-0.033-0.52-0.033-0.784v-24.118
+                                        c-0.013-0.535,0.023-1.066,0.105-1.588c0.204-1.329,0.699-2.561,1.418-3.631c0.705-1.055,1.639-1.969,2.767-2.659
+                                        c0.457-0.281,0.94-0.522,1.446-0.719c3.564-1.483,7.107-3.016,10.605-4.586V101.909c0-17.877,11.375-33.581,27.599-39.623
+                                        c-0.019-0.492-0.028-0.984-0.028-1.48V38.578C119.521,17.306,136.827,0,158.098,0h37.725C217.095,0,234.4,17.306,234.4,38.578
+                                        v22.229c0,0.495-0.01,0.988-0.028,1.478c6.395,2.378,12.129,6.28,16.702,11.351c0.16-0.3,0.318-0.599,0.478-0.899
+                                        c2.318-4.396,7.761-6.081,12.16-3.76c4.396,2.319,6.079,7.764,3.76,12.16c-16.845,31.926-41.307,61.508-72.707,87.923
+                                        c-25.063,21.083-53.512,39.294-84.813,54.313v26.586h134.02V141.64c0-4.971,4.029-9,9-9s9,4.029,9,9v108.318h18.706
+                                        C285.647,249.958,289.677,253.987,289.677,258.958z M137.521,60.807c0,1.842,0.243,3.629,0.699,5.33
+                                        c0.073,0.22,0.138,0.444,0.193,0.672c2.574,8.428,10.424,14.576,19.684,14.576h37.725c9.259,0,17.109-6.146,19.685-14.573
+                                        c0.057-0.231,0.122-0.458,0.195-0.68c0.455-1.699,0.698-3.484,0.698-5.325V38.578C216.4,27.231,207.169,18,195.822,18h-37.725
+                                        c-11.346,0-20.576,9.231-20.576,20.578V60.807z M109.951,203.272c56.184-28.521,102.335-68.15,131.162-112.739
+                                        c-2.612-4.871-6.75-8.658-11.666-10.83c-6.622,11.738-19.213,19.681-33.625,19.681h-37.725c-14.411,0-27.002-7.944-33.624-19.682
+                                        c-8.604,3.8-14.522,12.438-14.522,22.207V203.272z M271.677,267.958h-18.57c-0.046,0-0.091,0.001-0.136,0.001h-152.02
+                                        c-0.045,0-0.09,0-0.136-0.001H82.249v16.928c0,9.334,7.594,16.928,16.928,16.928h155.569c9.336,0,16.931-7.594,16.931-16.928
+                                        V267.958z" />
                             </svg>
                         </div>
-                        <input type="date"
+                        <input type="number" name="seats" placeholder="Passenger seats" value="{{ old('seats', request('seats')) }}"
                             class="bg-gray-800 border border-gray-700 pl-10 pr-4 py-3.5 rounded-xl w-full text-sm text-gray-400
                                focus:outline-none focus:border-yellow-500 focus:ring-1 focus:ring-yellow-500/30 transition-all [color-scheme:dark]">
                     </div>
 
                     <div class="relative">
                         <div class="absolute inset-y-0 left-3.5 flex items-center pointer-events-none">
-                            <svg class="w-4 h-4 text-yellow-500/60" fill="none" stroke="currentColor" stroke-width="2"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                            <svg class="w-4 h-4 text-yellow-500/60" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-linejoin="round" />
+                                <path d="M12 3C12 3 8.5 6 8.5 12C8.5 18 12 21 12 21" stroke="currentColor"
+                                    stroke-linejoin="round" />
+                                <path d="M12 3C12 3 15.5 6 15.5 12C15.5 18 12 21 12 21" stroke="currentColor"
+                                    stroke-linejoin="round" />
+                                <path d="M3 12H21" stroke="currentColor" stroke-linejoin="round" />
+                                <path d="M19.5 7.5H4.5" stroke="currentColor" stroke-linejoin="round" />
+                                <g filter="url(#filter0_d_15_556)">
+                                    <path d="M19.5 16.5H4.5" stroke="currentColor" stroke-linejoin="round" />
+                                </g>
+                                <defs>
+                                    <filter id="filter0_d_15_556" x="3.5" y="16" width="17" height="3"
+                                        filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                                        <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                                        <feColorMatrix in="SourceAlpha" type="matrix"
+                                            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
+                                        <feOffset dy="1" />
+                                        <feGaussianBlur stdDeviation="0.5" />
+                                        <feColorMatrix type="matrix"
+                                            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0" />
+                                        <feBlend mode="normal" in2="BackgroundImageFix"
+                                            result="effect1_dropShadow_15_556" />
+                                        <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_15_556"
+                                            result="shape" />
+                                    </filter>
+                                </defs>
                             </svg>
                         </div>
-                        <input type="date"
+                        <select name="type" id=""
                             class="bg-gray-800 border border-gray-700 pl-10 pr-4 py-3.5 rounded-xl w-full text-sm text-gray-400
                                focus:outline-none focus:border-yellow-500 focus:ring-1 focus:ring-yellow-500/30 transition-all [color-scheme:dark]">
+                            <option value="">Select Vehicle Type</option>
+                            <option value="AV" @selected(old('type', request('type')) == 'AV')>AV</option>
+                            <option value="UAENATIONAL" @selected(old('type', request('type')) == 'UAENATIONAL')>UAENATIONAL</option>
+                            <option value="PHC" @selected(old('type', request('type')) == 'PHC')>PHC</option>
+                        </select>
                     </div>
 
                     <button
@@ -193,7 +242,7 @@
                         Search Car
                     </button>
 
-                </div>
+                </form>
             </div>
         </div>
     </section>
@@ -241,8 +290,7 @@
                             <div
                                 class="absolute bottom-0 left-1/2 -translate-x-1/2 w-3/4 h-6 bg-yellow-400/0 group-hover:bg-yellow-400/10 blur-2xl transition-all duration-500 rounded-full">
                             </div>
-                            <img src="{{asset($vehicle->picture)}}"
-                                alt="{{ $vehicle->name }}"
+                            <img src="{{ asset($vehicle->picture) }}" alt="{{ $vehicle->name }}"
                                 class="w-full h-44 object-contain group-hover:scale-105 transition-transform duration-500 drop-shadow-2xl">
                         </div>
 
@@ -482,8 +530,7 @@
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
 
-                    <div
-                        class="relative rounded-2xl p-8 cursor-pointer overflow-hidden bg-white card-dynamic-border">
+                    <div class="relative rounded-2xl p-8 cursor-pointer overflow-hidden bg-white card-dynamic-border">
                         <span
                             class="absolute top-0 left-0 w-full h-0.5 bg-yellow-500 transition-all duration-200 border-top"></span>
                         <span
@@ -504,8 +551,7 @@
                         </p>
                     </div>
 
-                    <div
-                        class="relative rounded-2xl p-8 cursor-pointer overflow-hidden bg-white card-dynamic-border">
+                    <div class="relative rounded-2xl p-8 cursor-pointer overflow-hidden bg-white card-dynamic-border">
                         <span
                             class="absolute top-0 left-0 w-full h-0.5 bg-yellow-500 transition-all duration-200 border-top"></span>
                         <span
@@ -638,7 +684,7 @@
                     </div>
 
                     <!-- FORM -->
-                    <form action="{{ route('lead.store') }}" class="space-y-4" method="POST">
+                    <form action="{{ route('lead.save') }}" class="space-y-4" method="POST">
                         @csrf
                         <input type="hidden" id="vehicle-id" name="id">
                         <input type="text" placeholder="Full Name" required name="name"

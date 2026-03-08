@@ -52,7 +52,7 @@
 
 const bookBtn = document.getElementById("bookNowBtn");
 
-bookBtn.addEventListener("click", function(e){
+bookBtn?.addEventListener("click", function(e){
     e.preventDefault(); // default jump disable
 
     const target = document.querySelector("#bookingSection");

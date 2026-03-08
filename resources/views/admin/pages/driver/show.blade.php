@@ -47,7 +47,7 @@
         </div>
     @endif
 
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <div class="grid grid-cols-1 lg:!grid-cols-2 gap-6">
         {{-- Basic Info Card --}}
         <div class="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
             <div class="bg-gradient-to-r from-[#c9982b] to-[#a67d23] px-6 py-4">
@@ -70,14 +70,22 @@
                     <span class="text-sm font-semibold text-gray-500 uppercase tracking-wider">License Number</span>
                     <span class="text-sm font-medium text-gray-900">{{ $driver->driverInfo?->license_number ?? 'N/A' }}</span>
                 </div>
-                <div class="flex justify-between items-center py-3">
+                <div class="flex justify-between items-center py-3 border-b border-gray-100">
+                    <span class="text-sm font-semibold text-gray-500 uppercase tracking-wider">Vehicles</span>
+                    <span class="text-sm font-medium text-gray-900">{{ $driver->vehicles?->count() ?? 0 }}</span>
+                </div>
+                <div class="flex justify-between items-center py-3 border-b border-gray-100">
+                    <span class="text-sm font-semibold text-gray-500 uppercase tracking-wider">Bookings</span>
+                    <span class="text-sm font-medium text-gray-900">{{ $driver->bookings?->count() ?? 0 }}</span>
+                </div>
+                {{-- <div class="flex justify-between items-center py-3">
                     <span class="text-sm font-semibold text-gray-500 uppercase tracking-wider">Status</span>
                     @if ($driver->driverInfo?->status === 'active')
                         <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800 uppercase">{{ $driver->driverInfo->status }}</span>
                     @else
                         <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800 uppercase">{{ $driver->driverInfo?->status ?? 'N/A' }}</span>
                     @endif
-                </div>
+                </div> --}}
             </div>
         </div>
 

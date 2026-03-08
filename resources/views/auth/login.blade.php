@@ -30,11 +30,11 @@
                 <input type="checkbox" name="remember" class="auth-checkbox">
                 <span class="auth-remember-text">{{ __('Remember me') }}</span>
             </label>
-            @if (Route::has('password.request'))
+            {{-- @if (Route::has('password.request'))
                 <a class="auth-forgot" href="{{ route('password.request') }}">
                     {{ __('Forgot password?') }}
                 </a>
-            @endif
+            @endif --}}
         </div>
 
         <x-primary-button class="w-full">

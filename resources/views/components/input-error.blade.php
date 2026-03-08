@@ -3,11 +3,15 @@
 @if ($messages)
     <ul {{ $attributes->merge(['class' => 'text-xs text-[#e06060] space-y-1 mt-1.5 pl-1']) }}>
         @foreach ((array) $messages as $message)
-            <li class="flex items-center gap-1.5">
-                <svg class="w-3 h-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+            <li class="flex items-center gap-1.5 text-red-500" style="gap: 5px; justify-items: center">
+                <svg width="18px" height="18px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M12 16.99V17M12 7V14M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z"
+                        stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
-                {{ $message }}
+                <span>
+                    {{ $message }}
+                </span>
             </li>
         @endforeach
     </ul>

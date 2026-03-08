@@ -117,7 +117,7 @@
             </div>
             @endif
 
-            <form action="{{ route('query.store') }}" method="POST"
+            <form action="{{ route('query.save') }}" method="POST"
                 class="bg-gray-900 border border-gray-700/50 rounded-2xl p-8 md:p-10 shadow-2xl shadow-black/40 grid grid-cols-1 md:grid-cols-2 gap-6">
                 @csrf
 
