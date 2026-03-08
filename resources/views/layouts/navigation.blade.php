@@ -1,3 +1,17 @@
+<style>
+    /* Sidebar scrollbar hide */
+    .sidebar-nav::-webkit-scrollbar {
+        display: none;
+    }
+
+    .sidebar-nav {
+        -ms-overflow-style: none;
+        /* IE/Edge */
+        scrollbar-width: none;
+        /* Firefox */
+    }
+</style>
+
 {{-- Sidebar Overlay --}}
 <div :class="sidebarOpen ? 'block' : 'hidden'" @click="sidebarOpen = false"
     class="fixed z-20 inset-0 bg-black opacity-50 transition-opacity lg:hidden">
@@ -271,7 +285,4 @@
         </x-nav-link>
     </nav>
 
-    {{-- Bottom Accent --}}
-    <div class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#c9982b] to-transparent">
-    </div>
 </div>
