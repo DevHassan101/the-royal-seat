@@ -42,7 +42,6 @@ class BookingController extends Controller
             'customer_email'                  => 'nullable|email',
             'trip_id'                            => 'required',
             'trip_type'                          => 'required',
-            'vehicle_type'                       => 'required',
             'pickup_time'                        => 'required|date_format:H:i',
             'pickup_location'                    => 'required',
             'drop_off_location'                  => 'required',
@@ -63,6 +62,8 @@ class BookingController extends Controller
                 ->withInput();
         }
 
+        $selectedVehicle = Vehicle::findOrFail($request->vehicle);
+
         $booking = Booking::create([
             'driver_id'                          => $request->driver,
             'vehicle_id'                         => $request->vehicle,
@@ -71,7 +72,7 @@ class BookingController extends Controller
             'customer_email_id'                  => $request->customer_email,
             'trip_id'                            => $request->trip_id,
             'trip_type'                          => $request->trip_type,
-            'vehicle_type'                       => $request->vehicle_type,
+            'vehicle_type'                       => $selectedVehicle->type,
             'pickup_time'                        => Carbon::parse($request->pickup_time),
             'pickup_location'                    => $request->pickup_location,
             'drop_off_location'                  => $request->drop_off_location,

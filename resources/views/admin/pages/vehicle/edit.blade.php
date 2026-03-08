@@ -146,16 +146,19 @@
                     @enderror
                 </div>
 
-                <!-- Type -->
+                <!-- Vehicle Type -->
                 <div>
                     <label for="type" class="block text-sm font-semibold text-gray-700 mb-2">
-                        Type
+                        Vehicle Type <span class="text-red-500">*</span>
                     </label>
-                    <div class="relative">
-                        <input type="text" name="type" id="type"
-                            class="block w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
-                            placeholder="ex: Fuel, Gas" value="{{ old('type', $vehicle->type) }}">
-                    </div>
+                    <select
+                        class="block w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
+                        name="type" id="type" required>
+                        <option value="">Select Vehicle Type</option>
+                        <option value="AV" @selected(old('type', $vehicle->type) == 'AV')>AV</option>
+                        <option value="UAENATIONAL" @selected(old('type', $vehicle->type) == 'UAENATIONAL')>UAENATIONAL</option>
+                        <option value="PHC" @selected(old('type', $vehicle->type) == 'PHC')>PHC</option>
+                    </select>
                     @error('type')
                         <p class="mt-1 text-sm text-red-500 flex items-center gap-1">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"

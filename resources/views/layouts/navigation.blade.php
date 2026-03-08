@@ -5,7 +5,7 @@
 
 {{-- Sidebar --}}
 <div :class="sidebarOpen ? 'translate-x-0 ease-out' : '-translate-x-full ease-in'"
-    class="fixed z-30 inset-y-0 left-0 w-75 transition duration-300 transform bg-gradient-to-b from-gray-900 via-gray-900 to-black overflow-y-auto lg:translate-x-0 lg:static lg:inset-0 border-r border-[#c9982b]/20">
+    class="fixed h-screen z-30 inset-y-0 left-0 w-75 transition duration-300 transform bg-gradient-to-b from-gray-900 via-gray-900 to-black overflow-y-auto lg:translate-x-0 lg:static lg:inset-0 border-r border-[#c9982b]/20">
 
     {{-- Logo Section --}}
     <div class="flex items-start mt-6 mb-8">
@@ -24,7 +24,7 @@
     </div>
 
     {{-- Navigation --}}
-    <nav class="mt-5 px-5" x-data="{ isMultiLevelMenuOpen: false }">
+    <nav class="mt-5 px-5 h-screen overflow-auto" x-data="{ isMultiLevelMenuOpen: false }">
         {{-- Dashboard Link --}}
         <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')"
             class="flex items-center px-4 py-2 mb-2 rounded-lg transition-all duration-300 group
@@ -132,6 +132,56 @@
                         ? 'text-[#c9982b]' 
                         : 'text-white group-hover:text-[#c9982b]' }}">
                     {{ __('Bookings') }}
+                </span>
+            </div>
+        </x-nav-link>
+
+        {{-- Expenses Link --}}
+        <x-nav-link href="{{ route('expense.index') }}" :active="request()->routeIs('expense.*')"
+            class="flex items-center px-4 py-2 mb-2 rounded-lg transition-all duration-300 group
+            {{ request()->routeIs('expense.*')
+                ? 'bg-[#c9982b]/20 border-l-4 border-[#c9982b]'
+                : 'hover:bg-black hover:border-l-4 hover:border-[#c9982b]/40' }}">
+            <div class="flex justify-between items-center -ml-6.5 w-full">
+                <span class="p-2.5 rounded-lg transition-all duration-300
+                    {{ request()->routeIs('expense.*')
+                        ? 'bg-[#c9982b]/30'
+                        : 'bg-black/10 group-hover:bg-[#c9982b]/20' }}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"
+                        class="transition-all duration-300 {{ request()->routeIs('expense.*') ? 'scale-110' : 'group-hover:scale-110' }}">
+                        <path fill="#c9982b" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10s10-4.48 10-10S17.52 2 12 2m1.41 16.09V20h-2.67v-1.93c-1.71-.36-3.16-1.46-3.27-3.4h1.96c.1 1.05.82 1.87 2.65 1.87c1.96 0 2.4-.98 2.4-1.59c0-.83-.44-1.61-2.67-2.14c-2.48-.6-4.18-1.62-4.18-3.67c0-1.72 1.39-2.84 3.11-3.21V4h2.67v1.95c1.86.45 2.79 1.86 2.85 3.39H14.3c-.05-1.11-.64-1.87-2.22-1.87c-1.5 0-2.4.68-2.4 1.64c0 .84.65 1.39 2.67 1.94s4.18 1.36 4.18 3.85c0 1.89-1.44 2.98-3.12 3.19"/>
+                    </svg>
+                </span>
+                <span class="block font-medium text-lg ml-2 transition-colors duration-300
+                    {{ request()->routeIs('expense.*')
+                        ? 'text-[#c9982b]'
+                        : 'text-white group-hover:text-[#c9982b]' }}">
+                    {{ __('Expenses') }}
+                </span>
+            </div>
+        </x-nav-link>
+
+        {{-- Reports Link --}}
+        <x-nav-link href="{{ route('report.index') }}" :active="request()->routeIs('report.*')"
+            class="flex items-center px-4 py-2 mb-2 rounded-lg transition-all duration-300 group
+            {{ request()->routeIs('report.*')
+                ? 'bg-[#c9982b]/20 border-l-4 border-[#c9982b]'
+                : 'hover:bg-black hover:border-l-4 hover:border-[#c9982b]/40' }}">
+            <div class="flex justify-between items-center -ml-6.5 w-full">
+                <span class="p-2.5 rounded-lg transition-all duration-300
+                    {{ request()->routeIs('report.*')
+                        ? 'bg-[#c9982b]/30'
+                        : 'bg-black/10 group-hover:bg-[#c9982b]/20' }}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"
+                        class="transition-all duration-300 {{ request()->routeIs('report.*') ? 'scale-110' : 'group-hover:scale-110' }}">
+                        <path fill="#c9982b" d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2M9 17H7v-7h2zm4 0h-2V7h2zm4 0h-2v-4h2z"/>
+                    </svg>
+                </span>
+                <span class="block font-medium text-lg ml-2 transition-colors duration-300
+                    {{ request()->routeIs('report.*')
+                        ? 'text-[#c9982b]'
+                        : 'text-white group-hover:text-[#c9982b]' }}">
+                    {{ __('Reports') }}
                 </span>
             </div>
         </x-nav-link>

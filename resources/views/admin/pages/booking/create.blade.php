@@ -155,7 +155,7 @@
                     </div>
                 </div>
 
-                <div class="col-span-2 grid md:grid-cols-3 gap-5">
+                <div class="col-span-2 grid md:grid-cols-2 gap-5">
 
                     <!-- Trip ID -->
                     <div>
@@ -206,33 +206,6 @@
                             </p>
                         @enderror
                     </div>
-
-                    <!-- Trip Type -->
-                    <div class="col-span-1">
-                        <label for="vehicle_type" class="block text-sm font-semibold text-gray-700 mb-2">
-                            Trip Type <span class="text-red-500">*</span>
-                        </label>
-                        <div class="relative">
-                            <select name="vehicle_type" required
-                                class="block w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
-                                id="vehicle_type">
-                                <option value="">Select Trip Type</option>
-                                <option value="AV" @selected(old('AV') == 'TRANSFER')>AV</option>
-                                <option value="UAENATIONAL" @selected(old('vehicle_type') == 'UAENATIONAL')>UAENATIONAL</option>
-                                <option value="PHC" @selected(old('PHC') == 'PHC')>Walkin</option>
-                            </select>
-                        </div>
-                        @error('vehicle_type')
-                            <p class="mt-1 text-sm text-red-500 flex items-center gap-1">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                    viewBox="0 0 24 24" fill="currentColor">
-                                    <path
-                                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" />
-                                </svg>
-                                {{ $message }}
-                            </p>
-                        @enderror
-                    </div>
                 </div>
 
 
@@ -259,12 +232,12 @@
                     </div>
                     <div>
                         <label for="pickup_location" class="block text-sm font-semibold text-gray-700 mb-2">
-                            Pickup Location <span class="text-red-500">*</span>
+                            Pickup Location GPS <span class="text-red-500">*</span>
                         </label>
                         <div class="relative">
                             <input type="text" name="pickup_location" id="pickup_location" required
                                 class="block w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
-                                placeholder="Enter Pickup Location" value="{{ old('pickup_location') }}">
+                                placeholder="e.g. 25.2732083,55.3694757" value="{{ old('pickup_location') }}">
                         </div>
                         @error('pickup_location')
                             <p class="mt-1 text-sm text-red-500 flex items-center gap-1">
@@ -279,12 +252,12 @@
                     </div>
                     <div>
                         <label for="drop_off_location" class="block text-sm font-semibold text-gray-700 mb-2">
-                            Drop Off Location <span class="text-red-500">*</span>
+                            Drop Off Location GPS <span class="text-red-500">*</span>
                         </label>
                         <div class="relative">
                             <input type="text" name="drop_off_location" id="drop_off_location" required
                                 class="block w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
-                                placeholder="Enter Drop Off Location" value="{{ old('drop_off_location') }}">
+                                placeholder="e.g. 25.2048493,55.2708047" value="{{ old('drop_off_location') }}">
                         </div>
                         @error('drop_off_location')
                             <p class="mt-1 text-sm text-red-500 flex items-center gap-1">

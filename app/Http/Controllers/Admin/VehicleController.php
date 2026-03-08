@@ -38,6 +38,7 @@ class VehicleController extends Controller
             'driver' => 'required|exists:users,id',
             'picture' => 'required|image',
             'name' => 'required|min:2',
+            'type' => 'required|in:AV,UAENATIONAL,PHC',
             'plate_number' => 'required',
             'plate_code' => 'required'
         ], [
@@ -112,7 +113,7 @@ class VehicleController extends Controller
             'plate_code' => 'required',
             'model' => 'nullable|string',
             'seats' => 'nullable|integer',
-            'type' => 'nullable|string',
+            'type' => 'required|in:AV,UAENATIONAL,PHC',
             'per_day_charges' => 'nullable|numeric',
             'transmission' => 'nullable|string',
             'permit_details' => 'nullable|string',

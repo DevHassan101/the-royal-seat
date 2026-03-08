@@ -313,7 +313,7 @@ class ItcService
     /**
      * Submit trip details to ITC.
      */
-    public function saveTripDetails(Booking $booking, string $transactionType = 'NEW'): bool
+    public function saveTripDetails(Booking $booking, string $transactionType = 'New'): bool
     {
         $vehicle = $booking->vehicle;
         $driver = $booking->driver;
@@ -336,42 +336,58 @@ class ItcService
         }
 
         try {
+            $pickupTime = $booking->pickup_time
+                ? strtoupper($booking->pickup_time->format('d-M-Y H:i:s'))
+                : strtoupper(now()->format('d-M-Y H:i:s'));
+
             $payload = [
                 'TransactionType' => $transactionType,
-                'TripDetails' => [
-                    'BookingId' => $booking->booking_id ?? (string) $booking->id,
-                    'TripId' => $booking->trip_id ?? 'TRIP-' . $booking->id,
-                    'TripType' => $booking->trip_type ?? 'TRANSFER',
-                    'VehiclePlateNo' => $vehicle->plate_number,
-                    'VehiclePlateCode' => $vehicle->plate_code,
-                    'DriverPermitNo' => $driverInfo->itc_permit_number ?? '',
-                    'DriverEidNo' => $driverInfo->emirates_id,
-                    'PassengerName' => $booking->customer_name,
-                    'PassengerPhone' => $booking->customer_mobile_number ?? '',
-                    'PickupLocationGps' => $booking->pickup_location ?? '',
-                    'DropoffLocationGps' => $booking->drop_off_location ?? '',
-                    'PickupLocationDescription' => $booking->pickup_location_description ?? '',
-                    'DropoffLocationDescription' => $booking->dropoff_location_description ?? '',
-                    'PickupTime' => $booking->pickup_time ? $booking->pickup_time->format('Y-m-d H:i:s') : now()->format('Y-m-d H:i:s'),
-                    'BaseFare' => (float) ($booking->base_fare ?? 0),
-                    'DiscountAmount' => (float) ($booking->discount_amount ?? 0),
-                    'TotalAmount' => (float) ($booking->total_amount ?? 0),
-                    'TipsAmount' => (float) ($booking->tips_amount ?? 0),
-                    'TollFee' => (float) ($booking->toll_fee ?? 0),
-                    'Extras' => (float) ($booking->extras ?? 0),
-                    'Duration' => (int) ($booking->duration ?? 0),
-                    'Distance' => (float) ($booking->distance ?? 0),
-                    'OnContract' => $booking->on_contract ? 'Yes' : 'No',
-                    'ContractProviderName' => $booking->contract_provider_name ?? '',
-                    'PaymentMode' => $booking->payment_mode ?? 'Cash',
-                ],
+                'BatchId' => $booking->itc_batch_id ?? '',
+                'VehiclePermitNumber' => $vehicle->itc_permit_number ?? '',
+                'PlateNumber' => $vehicle->plate_number ?? '',
+                'PlateCode' => $vehicle->plate_code ?? '',
+                'PlateSource' => $vehicle->itc_plate_source ?? '',
+                'CustomerVehicleType' => $vehicle->type ?? '',
+                'DriverPermitNumber' => $driverInfo->itc_permit_number ?? '',
+                'EmiratesIDNumber' => $driverInfo->emirates_id ?? '',
+                'LicenseNumber' => $driverInfo->license_number ?? '',
+                'LicenseIssuePlace' => $driverInfo->itc_license_issue_place ?? '',
+                'CustomerName' => $booking->customer_name ?? '',
+                'CustomerMobileNumber' => $booking->customer_mobile_number ?? '',
+                'CustomerEmailId' => $booking->customer_email_id ?? '',
+                'TripId' => $booking->trip_id ?? 'TRIP-' . $booking->id,
+                'TripType' => $booking->trip_type ?? 'TRANSFER',
+                'BookingId' => $booking->booking_id ?? (string) $booking->id,
+                'PickupTime' => $pickupTime,
+                'PickupLocation' => $booking->pickup_location ?? '',
+                'DropOffLocation' => $booking->drop_off_location ?? '',
+                'PickupLocationDescription' => $booking->pickup_location_description ?? '',
+                'DropOffLocationDescription' => $booking->drop_off_location_description ?? '',
+                'Duration' => (string) ($booking->duration ?? '0'),
+                'Distance' => (string) ($booking->distance ?? '0'),
+                'BaseFare' => (float) ($booking->base_fare ?? 0),
+                'DiscountAmount' => (float) ($booking->discount_amount ?? 0),
+                'TotalAmount' => (float) ($booking->total_amount ?? 0),
+                'TipsAmount' => $booking->tips_amount ? (float) $booking->tips_amount : null,
+                'TollFee' => $booking->toll_fee ? (float) $booking->toll_fee : null,
+                'Extras' => $booking->extras ? (float) $booking->extras : null,
+                'OnContract' => $booking->on_contract ? 1 : 0,
+                'ContractProviderName' => $booking->contract_provider_name ?? '',
+                'PaymentMode' => $booking->payment_mode ?? 'Cash',
+                'VehicleType' => $vehicle->type ?? '',
+                'Text1' => $booking->text1 ?? '',
+                'Text2' => $booking->text2 ?? '',
+                'Text3' => $booking->text3 ?? '',
+                'Text4' => $booking->text4 ?? '',
+                'Decimal1' => $booking->decimal1 ? (float) $booking->decimal1 : 0.00,
+                'Decimal2' => $booking->decimal2 ? (float) $booking->decimal2 : 0.00,
             ];
 
             $response = $this->authenticatedRequest('saveTripDetails', $payload);
 
             if (!$response) {
                 $booking->update(['itc_sync_status' => 'failed', 'itc_error_log' => 'No response from ITC']);
-                $this->logSync('trip', 'failed', 'Lead', $booking->id, $payload, null, 'No response from ITC', 'manual');
+                $this->logSync('trip', 'failed', 'Booking', $booking->id, $payload, null, 'No response from ITC', 'manual');
                 return false;
             }
 
@@ -379,7 +395,7 @@ class ItcService
 
             if ($response->successful()) {
                 $statusCode = $data['StatusCode'] ?? $data['statusCode'] ?? null;
-                $isSuccess = in_array($statusCode, ['200', '201', 200, 201, 'Success', 'success']);
+                $isSuccess = in_array($statusCode, ['Success', 'success']);
 
                 $booking->update([
                     'itc_transaction_type' => $transactionType,
@@ -392,7 +408,7 @@ class ItcService
                     'itc_error_log' => $isSuccess ? null : json_encode($data),
                 ]);
 
-                $this->logSync('trip', $isSuccess ? 'success' : 'failed', 'Lead', $booking->id, $payload, $data, $isSuccess ? null : ($data['StatusMessage'] ?? 'Unknown error'), 'manual');
+                $this->logSync('trip', $isSuccess ? 'success' : 'failed', 'Booking', $booking->id, $payload, $data, $isSuccess ? null : ($data['StatusMessage'] ?? 'Unknown error'), 'manual');
                 return $isSuccess;
             }
 
@@ -401,7 +417,7 @@ class ItcService
                 'itc_error_log' => 'HTTP ' . $response->status() . ': ' . ($response->body() ?? 'Unknown error'),
             ]);
 
-            $this->logSync('trip', 'failed', 'Lead', $booking->id, $payload, $data, 'HTTP ' . $response->status(), 'manual');
+            $this->logSync('trip', 'failed', 'Booking', $booking->id, $payload, $data, 'HTTP ' . $response->status(), 'manual');
             return false;
         } catch (\Exception $e) {
             $booking->update([
@@ -409,7 +425,7 @@ class ItcService
                 'itc_error_log' => $e->getMessage(),
             ]);
 
-            $this->logSync('trip', 'failed', 'Lead', $booking->id, [], null, $e->getMessage(), 'manual');
+            $this->logSync('trip', 'failed', 'Booking', $booking->id, [], null, $e->getMessage(), 'manual');
             Log::error('ITC saveTripDetails failed: ' . $e->getMessage());
             return false;
         }

@@ -3,6 +3,8 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\BookingController;
 use App\Http\Controllers\Admin\DriverController as AdminDriverController;
+use App\Http\Controllers\Admin\ExpenseController;
+use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\LeadController;
 use App\Http\Controllers\Admin\QueryController;
 use App\Http\Controllers\Admin\ItcController;
@@ -45,8 +47,26 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::middleware('auth', 'role:driver')->prefix('driver')->group(function(){
-    Route::get('/', [DriverController::class, 'index']);
+Route::middleware('auth', 'role:driver')->prefix('driver')->name('driver.')->group(function(){
+    Route::get('/dashboard', [DriverController::class, 'index'])->name('dashboard');
+
+    // Vehicles
+    Route::get('/vehicles', [DriverController::class, 'vehicleIndex'])->name('vehicle.index');
+    Route::get('/vehicles/create', [DriverController::class, 'vehicleCreate'])->name('vehicle.create');
+    Route::post('/vehicles', [DriverController::class, 'vehicleStore'])->name('vehicle.store');
+    Route::delete('/vehicles/{vehicle}', [DriverController::class, 'vehicleDestroy'])->name('vehicle.destroy');
+
+    // Bookings
+    Route::get('/bookings', [DriverController::class, 'bookingIndex'])->name('booking.index');
+    Route::get('/bookings/create', [DriverController::class, 'bookingCreate'])->name('booking.create');
+    Route::post('/bookings', [DriverController::class, 'bookingStore'])->name('booking.store');
+    Route::delete('/bookings/{booking}', [DriverController::class, 'bookingDestroy'])->name('booking.destroy');
+
+    // Expenses
+    Route::get('/expenses', [DriverController::class, 'expenseIndex'])->name('expense.index');
+    Route::get('/expenses/create', [DriverController::class, 'expenseCreate'])->name('expense.create');
+    Route::post('/expenses', [DriverController::class, 'expenseStore'])->name('expense.store');
+    Route::delete('/expenses/{expense}', [DriverController::class, 'expenseDestroy'])->name('expense.destroy');
 });
 
 Route::middleware('auth', 'role:admin')->group(function(){
@@ -56,6 +76,13 @@ Route::middleware('auth', 'role:admin')->group(function(){
     Route::resource('lead', LeadController::class);
     Route::resource('query', QueryController::class);
     Route::resource('booking', BookingController::class);
+    Route::resource('expense', ExpenseController::class)->only(['index', 'create', 'store', 'destroy']);
+
+    // Reports
+    Route::get('reports', [ReportController::class, 'index'])->name('report.index');
+    Route::post('reports/generate', [ReportController::class, 'generate'])->name('report.generate');
+    Route::post('reports/export-csv', [ReportController::class, 'exportCsv'])->name('report.export-csv');
+    Route::post('reports/print', [ReportController::class, 'printView'])->name('report.print');
 
     // ITC Integration Routes
     Route::get('itc', [ItcController::class, 'index'])->name('itc.index');

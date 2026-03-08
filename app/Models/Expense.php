@@ -5,22 +5,24 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Booking extends Model
+class Expense extends Model
 {
     use HasFactory;
+
     protected $guarded = ['id'];
 
     protected $casts = [
-        'pickup_time' => 'datetime',
+        'expense_date' => 'date',
+        'amount' => 'decimal:2',
     ];
 
-    public function driver()
+    public function user()
     {
-        return $this->belongsTo(User::class, 'driver_id');
+        return $this->belongsTo(User::class);
     }
 
     public function vehicle()
     {
-        return $this->belongsTo(Vehicle::class, 'vehicle_id');
+        return $this->belongsTo(Vehicle::class);
     }
 }
