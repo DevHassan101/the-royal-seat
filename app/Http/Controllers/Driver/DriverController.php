@@ -118,7 +118,6 @@ class DriverController extends Controller
             'customer_name' => 'nullable|min:3',
             'customer_mobile_number' => 'nullable|min:6',
             'customer_email' => 'nullable|email',
-            'trip_id' => 'required',
             'trip_type' => 'required',
             'pickup_time' => 'required|date_format:H:i',
             'pickup_location' => 'required',
@@ -150,7 +149,6 @@ class DriverController extends Controller
             'customer_name' => $request->customer_name,
             'customer_mobile_number' => $request->customer_mobile_number,
             'customer_email_id' => $request->customer_email,
-            'trip_id' => $request->trip_id,
             'trip_type' => $request->trip_type,
             'vehicle_type' => $vehicle->type,
             'pickup_time' => Carbon::parse($request->pickup_time),
@@ -166,6 +164,12 @@ class DriverController extends Controller
             'payment_mode' => $request->payment_mode,
             'on_contract' => $request->on_contract,
             'contract_provider_name' => $request->on_contract == 1 ? $request->contract_provider_name : null,
+        ]);
+
+        // Auto-generate trip_id and booking_id
+        $booking->update([
+            'trip_id'    => 'TRIP-' . $booking->id,
+            'booking_id' => 'BK-' . $booking->id,
         ]);
 
         try {

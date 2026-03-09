@@ -187,15 +187,9 @@
         <div class="auth-card">
 
             {{-- ── Logo ── --}}
-            <div class="auth-logo-row">
-                <img src="{{ asset('assets/image/royalseat_logo.png') }}" alt="" class="w-34 mx-auto">
-                {{-- <div class="auth-logo-icon">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="#0f1117">
-                        <path d="M12 2C12 2 5.5 8.5 5.5 14a6.5 6.5 0 0013 0C18.5 8.5 12 2 12 2z"/>
-                    </svg>
-                </div>
-                <span class="auth-logo-text">{{ config('app.name', 'Dashboard') }}</span> --}}
-            </div>
+            <a href="{{url('/')}}" class="auth-logo-row">
+                <img src="{{ asset('assets/image/royalseat_logo.png') }}" alt="" class="w-34 mx-auto">               
+            </a>
 
             {{-- ── Page Slot ── --}}
             {{ $slot }}

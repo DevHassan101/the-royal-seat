@@ -50,7 +50,6 @@
 
 
                 {{-- Customer Info --}}
-                <div class="col-span-2 grid md:grid-cols-3 gap-5">
                     <div>
                         <label for="customer_name" class="block text-sm font-semibold text-gray-700 mb-2">Customer Name</label>
                         <input type="text" name="customer_name" id="customer_name"
@@ -78,21 +77,9 @@
                             <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                         @enderror
                     </div>
-                </div>
 
                 {{-- Trip Details --}}
-                <div class="col-span-2 grid md:grid-cols-3 gap-5">
-                    <div>
-                        <label for="trip_id" class="block text-sm font-semibold text-gray-700 mb-2">
-                            Trip ID <span class="text-red-500">*</span>
-                        </label>
-                        <input type="text" name="trip_id" id="trip_id" required
-                            class="block w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
-                            placeholder="Enter Trip ID" value="{{ old('trip_id') }}">
-                        @error('trip_id')
-                            <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
-                        @enderror
-                    </div>
+                <div class="col-span-2 grid md:grid-cols-2 gap-5">
                     <div>
                         <label for="trip_type" class="block text-sm font-semibold text-gray-700 mb-2">
                             Trip Type <span class="text-red-500">*</span>
@@ -198,7 +185,7 @@
                         <label for="base_fare" class="block text-sm font-semibold text-gray-700 mb-2">
                             Base Fare <span class="text-red-500">*</span>
                         </label>
-                        <input type="number" name="base_fare" id="base_fare" step="any" required
+                        <input type="number" name="base_fare" id="base_fare" step="any" min="1" required
                             class="block w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
                             placeholder="Fare amount" value="{{ old('base_fare') }}">
                         @error('base_fare')

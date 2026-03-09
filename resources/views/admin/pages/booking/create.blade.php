@@ -155,61 +155,33 @@
                     </div>
                 </div>
 
-                <div class="col-span-2 grid md:grid-cols-2 gap-5">
-
-                    <!-- Trip ID -->
-                    <div>
-                        <label for="trip_id" class="block text-sm font-semibold text-gray-700 mb-2">
-                            Trip ID <span class="text-red-500">*</span>
-                        </label>
-                        <div class="relative">
-                            <input type="text" name="trip_id" id="trip_id" required
-                                class="block w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
-                                placeholder="Enter Trip ID" value="{{ old('trip_id') }}">
-                        </div>
-                        @error('trip_id')
-                            <p class="mt-1 text-sm text-red-500 flex items-center gap-1">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                    viewBox="0 0 24 24" fill="currentColor">
-                                    <path
-                                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" />
-                                </svg>
-                                {{ $message }}
-                            </p>
-                        @enderror
+                <!-- Trip Type -->
+                <div class="col-span-1">
+                    <label for="trip_type" class="block text-sm font-semibold text-gray-700 mb-2">
+                        Trip Type <span class="text-red-500">*</span>
+                    </label>
+                    <div class="relative">
+                        <select name="trip_type" required
+                            class="block w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
+                            id="trip_type">
+                            <option value="">Select Trip Type</option>
+                            <option value="TRANSFER" @selected(old('trip_type') == 'TRANSFER')>Transfer</option>
+                            <option value="CHAUFFEUR" @selected(old('trip_type') == 'CHAUFFEUR')>Chauffeur</option>
+                            <option value="WALKIN" @selected(old('trip_type') == 'WALKIN')>Walkin</option>
+                            <option value="any other" @selected(old('trip_type') == 'any other')>Any Other</option>
+                        </select>
                     </div>
-
-                    <!-- Trip Type -->
-                    <div class="col-span-1">
-                        <label for="trip_type" class="block text-sm font-semibold text-gray-700 mb-2">
-                            Trip Type <span class="text-red-500">*</span>
-                        </label>
-                        <div class="relative">
-                            <select name="trip_type" required
-                                class="block w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
-                                id="trip_type">
-                                <option value="">Select Trip Type</option>
-                                <option value="TRANSFER" @selected(old('trip_type') == 'TRANSFER')>Transfer</option>
-                                <option value="CHAUFFEUR" @selected(old('trip_type') == 'CHAUFFEUR')>Chauffeur</option>
-                                <option value="WALKIN" @selected(old('trip_type') == 'WALKIN')>Walkin</option>
-                                <option value="any other" @selected(old('trip_type') == 'any other')>Any Other</option>
-                            </select>
-                        </div>
-                        @error('trip_type')
-                            <p class="mt-1 text-sm text-red-500 flex items-center gap-1">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                    viewBox="0 0 24 24" fill="currentColor">
-                                    <path
-                                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" />
-                                </svg>
-                                {{ $message }}
-                            </p>
-                        @enderror
-                    </div>
+                    @error('trip_type')
+                        <p class="mt-1 text-sm text-red-500 flex items-center gap-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                viewBox="0 0 24 24" fill="currentColor">
+                                <path
+                                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" />
+                            </svg>
+                            {{ $message }}
+                        </p>
+                    @enderror
                 </div>
-
-
-                <div class="col-span-2 grid md:grid-cols-3 gap-5">
                     <div>
                         <label for="pickup_time" class="block text-sm font-semibold text-gray-700 mb-2">
                             Pickup Time <span class="text-red-500">*</span>
@@ -270,8 +242,7 @@
                             </p>
                         @enderror
                     </div>
-                </div>
-
+                
                 <div class="">
                     <label for="pickup_location_description" class="block text-sm font-semibold text-gray-700 mb-2">
                         Pickup Location Description <span class="text-red-500">*</span>
@@ -350,7 +321,7 @@
                             Base Fare <span class="text-red-500">*</span>
                         </label>
                         <div class="relative">
-                            <input type="number" name="base_fare" id="base_fare" step="any" required
+                            <input type="number" name="base_fare" id="base_fare" step="any" required min="1"
                                 class="block w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
                                 placeholder="Fare without other additions (like toll tips etc.)"
                                 value="{{ old('base_fare') }}">

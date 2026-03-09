@@ -4,7 +4,7 @@
     <div class="px-7 lg:px-24 py-4 flex justify-between items-center">
 
         <!-- Logo -->
-        <a href="{{url('/')}}" class="flex items-center">
+        <a href="{{ url('/') }}" class="flex items-center">
             <img src="{{ asset('assets/image/royalseat_logo.png') }}" alt="" class="w-34">
         </a>
 
@@ -46,13 +46,32 @@
             </a>
         </div>
 
-        <!-- Button -->
-        <a href="#bookingSection">
-            <button
-                class="hidden lg:flex bg-[#FFD700] px-8 py-2.5 rounded-full hover:shadow-md hover:shadow-white hover:scale-105 transition duration-300 text-black font-semibold">
-                Booking Now
-            </button>
-        </a>
+        <div class="flex gap-3">
+            <!-- Button -->
+            <a href="#bookingSection">
+                <button
+                    class="hidden lg:flex bg-[#FFD700] px-8 py-2.5 rounded-full hover:shadow-md hover:shadow-white hover:scale-105 transition duration-300 text-black font-semibold">
+                    Booking Now
+                </button>
+                @role('admin')
+                    <a href="{{ route('dashboard') }}"
+                        class="hidden lg:flex bg-transparent border border-[#FFD700] text-[#FFD700] px-8 py-2.5 rounded-full hover:shadow-md hover:shadow-white hover:scale-105 transition duration-300  font-semibold">
+                        Dashboard
+                    </a>
+                    @elserole('driver')
+                    <a href="{{ route('driver.dashboard') }}"
+                        class="hidden lg:flex bg-transparent border border-[#FFD700] text-[#FFD700] px-8 py-2.5 rounded-full hover:shadow-md hover:shadow-white hover:scale-105 transition duration-300 font-semibold">
+                        Dashboard
+                    </a>
+                @else
+                    <a href="{{ route('login') }}"
+                        class="hidden lg:flex bg-transparent border border-[#FFD700] text-[#FFD700] px-8 py-2.5 rounded-full hover:shadow-md hover:shadow-white hover:scale-105 transition duration-300 font-semibold">
+                        Login
+                    </a>
+                @endrole
+            </a>
+
+        </div>
 
         <!-- Mobile Icon -->
         <div id="menuBtn" class="lg:hidden text-white text-3xl cursor-pointer transition-colors duration-500">

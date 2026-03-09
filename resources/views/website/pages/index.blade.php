@@ -384,7 +384,7 @@
 
         {{-- About Hero --}}
         <section class="relative overflow-hidden border-t-2 border-yellow-500">
-            <div class="absolute inset-0 bg-[url('car.jpg')] bg-cover bg-center opacity-10"></div>
+            <div class="absolute inset-0 bg-cover bg-center opacity-10"></div>
             <div class="absolute inset-0 bg-gray-950"></div>
             <div class="relative max-w-7xl mx-auto px-6 py-20 text-center overflow-hidden">
                 <div class="whitespace-nowrap overflow-hidden">
