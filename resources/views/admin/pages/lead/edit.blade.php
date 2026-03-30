@@ -57,7 +57,7 @@
                 <h3 class="text-xl font-semibold text-white">Customer Information</h3>
             </div>
             <div class="p-6">
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                     {{-- Name --}}
                     <div>
                         <label for="name" class="block text-sm font-semibold text-gray-700 mb-2">
@@ -106,7 +106,7 @@
                 <h3 class="text-xl font-semibold text-white">Booking & Trip</h3>
             </div>
             <div class="p-6">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     {{-- Vehicle --}}
                     <div>
                         <label for="vehicle_id" class="block text-sm font-semibold text-gray-700 mb-2">
@@ -202,7 +202,7 @@
                 <h3 class="text-xl font-semibold text-white">Locations</h3>
             </div>
             <div class="p-6">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     {{-- Pickup Location GPS --}}
                     <div>
                         <label for="pickup_location_gps" class="block text-sm font-semibold text-gray-700 mb-2">
@@ -277,7 +277,7 @@
                 <h3 class="text-xl font-semibold text-white">Fare Details</h3>
             </div>
             <div class="p-6">
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                     {{-- Base Fare --}}
                     <div>
                         <label for="base_fare" class="block text-sm font-semibold text-gray-700 mb-2">
@@ -365,7 +365,7 @@
                 <h3 class="text-xl font-semibold text-white">Trip Metrics & Payment</h3>
             </div>
             <div class="p-6">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     {{-- Duration --}}
                     <div>
                         <label for="duration" class="block text-sm font-semibold text-gray-700 mb-2">

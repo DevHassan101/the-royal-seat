@@ -1,0 +1,95 @@
+================================================================================
+  THE ROYAL SEAT — SESSION SUMMARY
+  Date: 2026-03-30
+  claude --resume 55c6f9b2-98c3-4d54-9090-513720dbb44f 
+  claude --resume 55c6f9b2-98c3-4d54-9090-513720dbb44f
+  claude --resume 08117ca2-285c-4710-9f9f-696164edfba0
+================================================================================
+
+------------------------------------------------------------------------
+1. BUG FIXES
+------------------------------------------------------------------------
+
+[1.1] Driver Dashboard — expenses table error
+      - Error: SQLSTATE[42S02] Table 'the-royal-seat.expenses' doesn't exist
+      - Fix: php artisan migrate — expenses migration was pending
+
+[1.2] Admin Booking Create — vehicle_type ENUM error
+      - Error: SQLSTATE[01000] Data truncated for column 'vehicle_type'
+      - Cause: vehicles.type is plain string, bookings.vehicle_type is ENUM
+      - Fix: (Reverted per user request — user will handle separately)
+
+------------------------------------------------------------------------
+2. ADMIN DASHBOARD — RESPONSIVENESS FIXES
+------------------------------------------------------------------------
+
+[2.1] Critical Issues
+      - booking/index.blade.php      : Pickup details cell whitespace-nowrap flex
+                                       changed to flex-wrap gap-x-3 gap-y-1
+      - report/print.blade.php       : Added overflow-x-auto wrapper around table
+
+[2.2] Missing sm: Breakpoints
+      - booking/create.blade.php     : md:grid-cols-3 → sm:grid-cols-2 md:grid-cols-3
+                                       md:grid-cols-4 → sm:grid-cols-2 md:grid-cols-4
+                                       Removed min-w-max from input field
+      - lead/edit.blade.php          : Added sm:grid-cols-2 to all 5 grid sections
+      - lead/show.blade.php          : lg:grid-cols-3 → md:grid-cols-2 lg:grid-cols-3
+      - report/index.blade.php       : md:grid-cols-2 → sm:grid-cols-2 (both rows)
+      - index.blade.php (dashboard)  : Stats grid-cols-1 → grid-cols-2
+                                       Charts lg:grid-cols-2 → md:grid-cols-2
+      - vehicle/show.blade.php       : lg:grid-cols-2 → md:grid-cols-2
+      - booking/show.blade.php       : lg:grid-cols-2 → md:grid-cols-2
+
+[2.3] Hardcoded Widths
+      - lead/show.blade.php          : max-w-[180px] → max-w-[45%] (2 places)
+      - expense/index.blade.php      : max-w-[200px] → max-w-[45%] sm:max-w-xs
+      - vehicle/show.blade.php       : max-w-xs → max-w-[45%] sm:max-w-xs
+
+[2.4] ITC Pages (Repeated Pattern)
+      - itc/index.blade.php          : md:grid-cols-3 → sm:grid-cols-2 md:grid-cols-3
+                                       (applied to all 3 stat grids: Vehicles, Drivers, Trips)
+
+------------------------------------------------------------------------
+3. DRIVER DASHBOARD — RESPONSIVENESS FIXES
+------------------------------------------------------------------------
+
+[3.1] Driver vehicle/index.blade.php
+      - Added min-w-[600px] to table for proper horizontal scroll
+      - Added whitespace-nowrap to all thead cells
+      - Added whitespace-nowrap to Details and Plate cells
+
+[3.2] Driver layouts/app.blade.php (Critical Padding)
+      - px-10 → px-4 sm:px-6 md:px-8 lg:px-10
+      - py-8  → py-4 sm:py-6 md:py-8
+
+[3.3] Driver pages/index.blade.php (Flex Layout)
+      - Recent Bookings header: flex → flex flex-wrap + gap-2
+        (prevents title/button overlap on mobile)
+
+------------------------------------------------------------------------
+4. SIDEBAR FIXES (Admin + Driver)
+------------------------------------------------------------------------
+
+[4.1] Admin layouts/navigation.blade.php
+      - Overlay: block/hidden → x-show + x-transition (smooth fade)
+      - Overlay color: bg-black opacity-50 → bg-black/50
+      - Sidebar: ease-out/ease-in dynamic → transition-transform ease-in-out fixed
+      - Added X close button inside sidebar (mobile only, lg:hidden)
+
+[4.2] Driver layouts/navigation.blade.php
+      - Same fixes as admin sidebar applied
+      - Overlay smooth fade with bg-black/50
+      - Sidebar smooth slide transition-transform duration-300 ease-in-out
+      - Added X close button inside sidebar (mobile only, lg:hidden)
+
+------------------------------------------------------------------------
+5. PENDING / NOT FIXED
+------------------------------------------------------------------------
+
+- booking/create.blade.php (admin) : vehicle_type ENUM fix reverted
+- Missing sm: breakpoints in driver booking/create.blade.php (lines 82, 161)
+- Missing sm: breakpoint in driver pages/index.blade.php stats grid (line 11)
+- Hardcoded max-w-[150px] in driver booking/index.blade.php (line 53)
+- Hardcoded max-w-[200px] in driver expense/index.blade.php (line 48)
+
+================================================================================

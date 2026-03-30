@@ -13,19 +13,36 @@
 </style>
 
 {{-- Sidebar Overlay --}}
-<div :class="sidebarOpen ? 'block' : 'hidden'" @click="sidebarOpen = false"
-    class="fixed z-20 inset-0 bg-black opacity-50 transition-opacity lg:hidden">
+<div
+    x-show="sidebarOpen"
+    x-transition:enter="transition-opacity ease-out duration-300"
+    x-transition:enter-start="opacity-0"
+    x-transition:enter-end="opacity-50"
+    x-transition:leave="transition-opacity ease-in duration-300"
+    x-transition:leave-start="opacity-50"
+    x-transition:leave-end="opacity-0"
+    @click="sidebarOpen = false"
+    class="fixed z-20 inset-0 bg-black lg:hidden"
+    style="display: none;">
 </div>
 
 {{-- Sidebar --}}
-<div :class="sidebarOpen ? 'translate-x-0 ease-out' : '-translate-x-full ease-in'"
-    class="fixed h-screen z-30 inset-y-0 left-0 w-75 transition duration-300 transform bg-gradient-to-b from-gray-900 via-gray-900 to-black overflow-y-auto lg:translate-x-0 lg:static lg:inset-0 border-r border-[#c9982b]/20">
+<div :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'"
+    class="fixed h-screen z-30 inset-y-0 left-0 w-75 transition-transform duration-300 ease-in-out bg-gradient-to-b from-gray-900 via-gray-900 to-black overflow-y-auto lg:translate-x-0 lg:static lg:inset-0 border-r border-[#c9982b]/20">
 
     {{-- Logo Section --}}
-    <div class="flex items-start mt-6 mb-8">
+    <div class="flex items-start mt-6 mb-8 relative">
         <a href="{{url('/')}}" class="flex items-center mx-auto">
-            <img src="{{ asset('assets/image/royalseat_logo.png') }}" alt="" class="w-42 mx-auto">           
+            <img src="{{ asset('assets/image/royalseat_logo.png') }}" alt="" class="w-42 mx-auto">
         </a>
+        {{-- Mobile Close Button --}}
+        <button @click="sidebarOpen = false"
+            class="lg:hidden absolute right-3 top-0 text-gray-400 hover:text-white transition-colors duration-200 p-1">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+        </button>
     </div>
 
     {{-- Navigation --}}

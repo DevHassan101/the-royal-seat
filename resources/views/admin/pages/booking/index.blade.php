@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="flex justify-between items-center w-full mb-6">
+    <div class="flex flex-col-reverse lg:!flex-row justify-between items-start lg:items-center w-full mb-6 gap-4 lg:gap-0">
         <div class="ml-1">
             <h2 class="text-3xl font-bold text-gray-800 mb-1">
                 Bookings Management
@@ -59,33 +59,33 @@
                                 </p>
                             </td>
                             <td class="px-6 py-4 text-sm">
-                                <p class="text-gray-700 whitespace-nowrap flex gap-2">
-                                    <span>
+                                <p class="text-gray-700 flex flex-wrap gap-x-3 gap-y-1">
+                                    <span class="whitespace-nowrap">
                                         <b>Pickup Time:</b> {{ $booking->pickup_time }}
                                     </span>
-                                    <span>
+                                    <span class="whitespace-nowrap">
                                         <b>Pickup Location:</b> {{ $booking->pickup_location }}
                                     </span>
-                                    <span>
+                                    <span class="whitespace-nowrap">
                                         <b>DropOff Location:</b> {{ $booking->drop_off_location }}
                                     </span>
                                 </p>
-                                <p class="text-gray-700 whitespace-nowrap flex gap-2">
-                                    <span>
+                                <p class="text-gray-700 flex flex-wrap gap-x-3 gap-y-1 mt-1">
+                                    <span class="whitespace-nowrap">
                                         <b>Duration:</b> {{ $booking->duration }}
                                     </span>
-                                    <span>
+                                    <span class="whitespace-nowrap">
                                         <b>Distance:</b> {{ $booking->distance }}
                                     </span>
-                                    <span>
+                                    <span class="whitespace-nowrap">
                                         <b>Base Fare:</b>
                                         {{ $booking->base_fare }}
                                     </span>
-                                    <span>
+                                    <span class="whitespace-nowrap">
                                         <b>Discount Amount:</b>
                                         {{ $booking->discount_amount }}
                                     </span>
-                                    <span>
+                                    <span class="whitespace-nowrap">
                                         <b>Total Amount:</b> {{ $booking->total_amount }}
                                     </span>
                                 </p>

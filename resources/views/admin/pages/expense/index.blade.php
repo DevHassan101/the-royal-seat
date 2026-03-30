@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="flex justify-between items-center w-full mb-6">
+    <div class="flex flex-col-reverse lg:!flex-row justify-between items-start lg:items-center w-full mb-6 gap-4 lg:gap-0">
         <div class="ml-1">
             <h2 class="text-3xl font-bold text-gray-800 mb-1">Expenses</h2>
             <p class="text-gray-500 text-sm">Track all operational expenses</p>
@@ -45,7 +45,7 @@
                                 </td>
                                 <td class="py-3 font-semibold text-red-600">AED {{ number_format($expense->amount, 2) }}
                                 </td>
-                                <td class="py-3 text-gray-500 truncate max-w-[200px]">{{ $expense->description ?? '-' }}
+                                <td class="py-3 text-gray-500 truncate max-w-[45%] sm:max-w-xs">{{ $expense->description ?? '-' }}
                                 </td>
                                 <td class="py-3 text-right">
                                     @if ($expense->receipt)

@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="flex justify-between items-center w-full mb-6">
+    <div class="flex flex-col-reverse lg:!flex-row justify-between items-start lg:items-center w-full mb-6 gap-4 lg:gap-0">
         <div class="ml-1">
             <h2 class="text-3xl font-bold text-gray-800 mb-1">
                 Add New Booking
@@ -32,7 +32,7 @@
         <!-- Form Body -->
         <form action="{{ route('booking.store') }}" method="post" class="p-6">
             @csrf
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <!-- Driver -->
                 <div class="col-span-1">
                     <label for="driver" class="block text-sm font-semibold text-gray-700 mb-2">
@@ -40,7 +40,7 @@
                     </label>
                     <div class="relative">
                         <select name="driver" required
-                            class="block w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
+                            class="block w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
                             id="driver">
                             <option value="">Select Driver</option>
                             @foreach ($drivers as $driver)
@@ -68,7 +68,7 @@
                     </label>
                     <div class="relative">
                         <select name="vehicle" required
-                            class="block w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
+                            class="block w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
                             id="vehicle">
                             <option value="">Select Vehicle</option>
                             @foreach ($vehicles as $vehicle)
@@ -90,7 +90,7 @@
                 </div>
 
                 <!-- Customer Mobile -->
-                <div class="col-span-2 grid md:grid-cols-3 gap-5">
+                <div class="col-span-1 sm:col-span-2 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
                     <!-- Customer name -->
                     <div>
                         <label for="customer_name" class="block text-sm font-semibold text-gray-700 mb-2">
@@ -98,7 +98,7 @@
                         </label>
                         <div class="relative">
                             <input type="text" name="customer_name" id="customer_name"
-                                class="block w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
+                                class="block w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
                                 placeholder="Enter Customer Name" value="{{ old('customer_name') }}">
                         </div>
                         @error('customer_name')
@@ -113,13 +113,13 @@
                         @enderror
                     </div>
 
-                    <div class="min-w-max">
+                    <div>
                         <label for="customer_mobile_number" class="block text-sm font-semibold text-gray-700 mb-2">
                             Customer Mobile Number
                         </label>
                         <div class="relative">
                             <input type="text" name="customer_mobile_number" id="customer_mobile_number"
-                                class="block w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
+                                class="block w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
                                 placeholder="Enter Customer Mobile Number" value="{{ old('customer_mobile_number') }}">
                         </div>
                         @error('customer_mobile_number')
@@ -139,7 +139,7 @@
                         </label>
                         <div class="relative">
                             <input type="text" name="customer_email" id="customer_email"
-                                class="block w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
+                                class="block w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
                                 placeholder="Enter Customer Mobile Number" value="{{ old('customer_email') }}">
                         </div>
                         @error('customer_email')
@@ -162,7 +162,7 @@
                     </label>
                     <div class="relative">
                         <select name="trip_type" required
-                            class="block w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
+                            class="block w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
                             id="trip_type">
                             <option value="">Select Trip Type</option>
                             <option value="TRANSFER" @selected(old('trip_type') == 'TRANSFER')>Transfer</option>
@@ -188,7 +188,7 @@
                         </label>
                         <div class="relative">
                             <input type="time" name="pickup_time" id="pickup_time" required
-                                class="block w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
+                                class="block w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
                                 placeholder="Enter Customer Name" value="{{ old('pickup_time') }}">
                         </div>
                         @error('pickup_time')
@@ -208,7 +208,7 @@
                         </label>
                         <div class="relative">
                             <input type="text" name="pickup_location" id="pickup_location" required
-                                class="block w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
+                                class="block w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
                                 placeholder="e.g. 25.2732083,55.3694757" value="{{ old('pickup_location') }}">
                         </div>
                         @error('pickup_location')
@@ -228,7 +228,7 @@
                         </label>
                         <div class="relative">
                             <input type="text" name="drop_off_location" id="drop_off_location" required
-                                class="block w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
+                                class="block w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
                                 placeholder="e.g. 25.2048493,55.2708047" value="{{ old('drop_off_location') }}">
                         </div>
                         @error('drop_off_location')
@@ -275,14 +275,14 @@
                 </div>
 
 
-                <div class="col-span-2 grid md:grid-cols-4 gap-5">
+                <div class="col-span-1 sm:col-span-2 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5">
                     <div>
                         <label for="duration" class="block text-sm font-semibold text-gray-700 mb-2">
                             Duration <span class="text-red-500">*</span>
                         </label>
                         <div class="relative">
                             <input type="number" name="duration" id="duration" required
-                                class="block w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
+                                class="block w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
                                 placeholder="Value in minutes" value="{{ old('duration') }}">
                         </div>
                         @error('duration')
@@ -302,7 +302,7 @@
                         </label>
                         <div class="relative">
                             <input type="number" name="distance" id="distance" required
-                                class="block w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
+                                class="block w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
                                 placeholder="Value in kilometer" value="{{ old('distance') }}">
                         </div>
                         @error('distance')
@@ -322,7 +322,7 @@
                         </label>
                         <div class="relative">
                             <input type="number" name="base_fare" id="base_fare" step="any" required min="1"
-                                class="block w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
+                                class="block w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
                                 placeholder="Fare without other additions (like toll tips etc.)"
                                 value="{{ old('base_fare') }}">
                         </div>
@@ -344,7 +344,7 @@
                         <div class="relative">
                             <input type="number" name="discount_amount" id="discount_amount" step="any"
                                 required
-                                class="block w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
+                                class="block w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
                                 placeholder="Fare without other additions (like toll tips etc.)"
                                 value="{{ old('discount_amount') }}">
                         </div>
@@ -367,7 +367,7 @@
                     </label>
                     <div class="relative">
                         <select name="payment_mode" required
-                            class="block w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
+                            class="block w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
                             id="payment_mode">
                             <option value="">Select payment mode</option>
                             <option value="Cash" @selected(old('payment_mode') == 'Cash')>Cash</option>
@@ -393,7 +393,7 @@
                         </label>
                         <div class="relative">
                             <select name="on_contract" required
-                                class="block w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
+                                class="block w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
                                 id="on_contract">
                                 <option value="">Select On Contract</option>
                                 <option value="1" @selected(old('on_contract') == '1')>Yes</option>
@@ -417,7 +417,7 @@
                         </label>
                         <div class="relative">
                             <input type="text" name="contract_provider_name" id="contract_provider_name"
-                                class="block w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
+                                class="block w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
                                 placeholder="Enter Customer Name" value="{{ old('contract_provider_name') }}">
                         </div>
                         @error('contract_provider_name')

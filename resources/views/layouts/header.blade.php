@@ -12,7 +12,7 @@
         </button>
 
         <div class="ml-4 lg:ml-0">
-            <h1 class="text-2xl font-black text-gray-800">
+            <h1 class="text-lg sm:text-2xl font-black text-gray-800">
                 Welcome, <span class="text-[#c9982b]">{{ Auth::user()->name }}</span>
             </h1>
         </div>
@@ -33,8 +33,8 @@
                     {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
                 </div>
 
-                {{-- ✅ Name + Email (always visible, not just md+) --}}
-                <div class="text-left">
+                {{-- Name + Email hidden on mobile --}}
+                <div class="text-left hidden sm:block">
                     <p class="text-sm font-semibold text-gray-800 leading-tight">{{ Auth::user()->name }}</p>
                     <p class="text-xs text-gray-500 leading-tight">{{ Auth::user()->email }}</p>
                 </div>

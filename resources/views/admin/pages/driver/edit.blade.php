@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="flex justify-between items-center w-full mb-6">
+    <div class="flex flex-col-reverse lg:!flex-row justify-between items-start lg:items-center w-full mb-6 gap-4 lg:gap-0">
         <div class="ml-1">
             <h2 class="text-3xl font-bold text-gray-800 mb-1">
                 Edit Driver
@@ -31,7 +31,7 @@
             @method('PUT')
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <!-- Full Name -->
-                <div class="col-span-2">
+                <div class="col-span-1 sm:col-span-2">
                     <label for="name" class="block text-sm font-semibold text-gray-700 mb-2">
                         Full Name <span class="text-red-500">*</span>
                     </label>
@@ -118,7 +118,7 @@
                 </div>
 
                 <!-- Permit Details -->
-                <div class="col-span-2">
+                <div class="col-span-1 sm:col-span-2">
                     <label for="permit_details" class="block text-sm font-semibold text-gray-700 mb-2">
                         Permit Details
                     </label>
