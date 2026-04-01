@@ -1,0 +1,20 @@
+when customer create lead notification will send to admin
+when admin success lead redirect to booking
+when admin add booking (booking confirmation email will send to driver and customer)
+when driver complete booking email will send to admin (booking complete) & customer (thank you)
+WHEN ADMIN CANCELLED BOOKING EMAIL WILL SEND TO DRIVER & CUSTOMER
+
+
+LEAD STATUS (PENDING, SUCCESS (REDIRECT ADD BOOKING), FAILED)
+BOOKING STATUS (PENDING, COMPLETE (DRIVER), CANCELLED (ADMIN))
+
+this is the issue i talk:
+
+LeadController.php
+
+// ❌ GALAT (jo abhi hai)
+$admin = User::where('role', 'admin')->first();
+Mail::to($admin->email)->send(new LeadNotificationMail($lead));
+
+// ✅ SAHI — direct apni email use karo
+Mail::to('peerzadasajdeenshaikh360@gmail.com')->send(new LeadNotificationMail($lead));

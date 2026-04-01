@@ -3,13 +3,18 @@
 namespace App\Http\Controllers\Driver;
 
 use App\Http\Controllers\Controller;
+use App\Mail\BookingCompleteMail;
+use App\Mail\BookingConfirmationMail;
+use App\Mail\CustomerThankYouMail;
 use App\Models\Booking;
 use App\Models\Expense;
+use App\Models\User;
 use App\Models\Vehicle;
 use App\Services\ItcService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 class DriverController extends Controller
@@ -119,6 +124,7 @@ class DriverController extends Controller
             'customer_mobile_number' => 'nullable|min:6',
             'customer_email' => 'nullable|email',
             'trip_type' => 'required',
+            'pickup_date' => 'required|date',
             'pickup_time' => 'required|date_format:H:i',
             'pickup_location' => 'required',
             'drop_off_location' => 'required',
@@ -151,7 +157,7 @@ class DriverController extends Controller
             'customer_email_id' => $request->customer_email,
             'trip_type' => $request->trip_type,
             'vehicle_type' => $vehicle->type,
-            'pickup_time' => Carbon::parse($request->pickup_time),
+            'pickup_time' => Carbon::parse($request->pickup_date . ' ' . $request->pickup_time),
             'pickup_location' => $request->pickup_location,
             'drop_off_location' => $request->drop_off_location,
             'pickup_location_description' => $request->pickup_location_description,
@@ -179,7 +185,34 @@ class DriverController extends Controller
             //
         }
 
+        // Send confirmation email to driver and customer
+        Mail::to(Auth::user()->email)->send(new BookingConfirmationMail($booking));
+        if ($booking->customer_email_id) {
+            Mail::to($booking->customer_email_id)->send(new BookingConfirmationMail($booking));
+        }
+
         return redirect()->route('driver.booking.index')->with('success', 'Booking created successfully');
+    }
+
+    public function bookingComplete(Booking $booking)
+    {
+        if ($booking->driver_id !== Auth::id()) {
+            abort(403);
+        }
+
+        $booking->update(['status' => 'complete']);
+
+        $admin = User::role('admin')->first();
+        if ($admin) {
+            Mail::to($admin->email)->send(new BookingCompleteMail($booking));
+        }
+        if ($booking->customer_email_id) {
+            Mail::to($booking->customer_email_id)->send(new CustomerThankYouMail($booking));
+        }
+
+        return redirect()
+            ->back()
+            ->with('success', 'Booking marked as complete and notifications sent');
     }
 
     public function bookingDestroy(Booking $booking)

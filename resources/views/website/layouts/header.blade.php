@@ -4,12 +4,12 @@
     <div class="px-7 lg:px-24 py-4 flex justify-between items-center">
 
         <!-- Logo -->
-        <a href="{{ url('/') }}" class="flex items-center">
-            <img src="{{ asset('assets/image/royalseat_logo.png') }}" alt="" class="w-34">
+        <a href="{{ url('/') }}" class="flex items-center overflow-hidden" style="height: 65px;">
+            <img src="{{ asset('assets/image/royel-seat-logo.png') }}" alt="Royal Seat Logo" style="height: 65px; width: auto; margin-top: -26px; margin-bottom: -26px; object-fit: contain;">
         </a>
 
         <!-- Desktop Menu -->
-        <div class="hidden lg:flex gap-10 items-center -ml-28">
+        <div class="hidden lg:flex gap-10 items-center ml-10">
 
             <!-- item -->
             <a href="{{ url('/') }}"

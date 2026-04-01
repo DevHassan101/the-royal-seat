@@ -8,7 +8,11 @@
 
         {{-- Brand --}}
         <div class="md:col-span-1 ">
-            <img src="./assets/image/royalseat_logo.png" alt="The Royal Seat" class="w-40 -ml-1 mb-5">
+            <!-- Logo -->
+            <a href="{{ url('/') }}" class="flex items-center overflow-hidden mb-3" style="height: 75px;">
+                <img src="{{ asset('assets/image/royel-seat-logo.png') }}" alt="Royal Seat Logo"
+                    style="height: 75px; width: auto; margin-top: -26px; margin-bottom: -26px; object-fit: contain;">
+            </a>
             <p class="text-md leading-relaxed text-gray-500">
                 Premium car rental services delivering comfort, safety, and reliability for every journey.
             </p>

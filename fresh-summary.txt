@@ -1,0 +1,192 @@
+============================================================
+  THE ROYAL SEAT — SESSION SUMMARY
+  Date: 2026-04-01
+  Resume this session with:──────────────────────────────────────────────────────────────────────────────────────────────────────────────
+  claude --resume 8d09f3a6-b6a6-43e2-8d9e-9a737c98d7ff 
+
+  claude --resume 8d09f3a6-b6a6-43e2-8d9e-9a737c98d7ff
+============================================================
+
+CONTEXT
+-------
+Notification & email system implementation based on context.txt workflow:
+  - Lead Status:    PENDING → SUCCESS (redirect booking) / FAILED
+  - Booking Status: PENDING → COMPLETE (driver) / CANCELLED (admin)
+
+
+------------------------------------------------------------
+STEP 1 — MAIL SETUP (Already done by user)
+------------------------------------------------------------
+- .env configured with Gmail SMTP + App Password
+- MAIL_MAILER, MAIL_HOST, MAIL_PORT, MAIL_USERNAME, MAIL_PASSWORD, MAIL_FROM_ADDRESS set
+
+
+------------------------------------------------------------
+STEP 2 — DATABASE COLUMNS (Fixed & Migrated)
+------------------------------------------------------------
+Files:
+  database/migrations/2026_04_01_100833_add_status_to_leads_table.php
+  database/migrations/2026_04_01_100843_add_status_to_bookings_table.php
+
+Both migrations were originally EMPTY (columns never created).
+Fixed and re-migrated:
+
+  leads    → status  enum('pending','success','failed')   default 'pending'
+  bookings → status  enum('pending','complete','cancelled') default 'pending'
+
+Command run: php artisan migrate:rollback --step=2 && php artisan migrate
+
+
+------------------------------------------------------------
+STEP 3 — MAILABLE CLASSES CREATED
+------------------------------------------------------------
+Files created in app/Mail/:
+
+  LeadNotificationMail.php      → To Admin:            New lead received
+  BookingConfirmationMail.php   → To Driver+Customer:  Booking confirmed
+  BookingCompleteMail.php       → To Admin:            Booking completed
+  CustomerThankYouMail.php      → To Customer:         Thank you email
+  BookingCancelledMail.php      → To Driver+Customer:  Booking cancelled
+
+Email views created in resources/views/emails/:
+  lead_notification.blade.php
+  booking_confirmation.blade.php
+  booking_complete.blade.php
+  customer_thankyou.blade.php
+  booking_cancelled.blade.php
+
+
+------------------------------------------------------------
+STEP 4 — EMAIL TRIGGERS WIRED INTO CONTROLLERS
+------------------------------------------------------------
+1. WebController::storeLead
+   → Mail::to(admin)->send(LeadNotificationMail)
+
+2. Admin\BookingController::store
+   → Mail::to(driver)->send(BookingConfirmationMail)
+   → Mail::to(customer)->send(BookingConfirmationMail)
+
+3. Admin\BookingController::cancel  [NEW METHOD]
+   → $booking->update(['status' => 'cancelled'])
+   → Mail::to(driver)->send(BookingCancelledMail)
+   → Mail::to(customer)->send(BookingCancelledMail)
+
+4. Driver\DriverController::bookingStore
+   → Mail::to(driver)->send(BookingConfirmationMail)
+   → Mail::to(customer)->send(BookingConfirmationMail)
+
+5. Driver\DriverController::bookingComplete  [NEW METHOD]
+   → $booking->update(['status' => 'complete'])
+   → Mail::to(admin)->send(BookingCompleteMail)
+   → Mail::to(customer)->send(CustomerThankYouMail)
+
+New routes added in routes/web.php:
+  PATCH  /driver/bookings/{booking}/complete  → driver.booking.complete
+  PATCH  /booking/{booking}/cancel            → booking.cancel
+
+
+------------------------------------------------------------
+STEP 5 — LEADS INDEX VIEW UPDATED
+------------------------------------------------------------
+File: resources/views/admin/pages/lead/index.blade.php
+
+Added:
+  - Status column with badge  (yellow=pending, green=success, red=failed)
+  - Mark Success button (green ✓) — visible only when status=pending
+    → PATCH /lead/{id}/status  status=success
+    → Redirects to booking.create?lead_id=X
+  - Mark Failed button (red ✗)  — visible only when status=pending
+    → PATCH /lead/{id}/status  status=failed
+    → Redirects back
+
+New route:
+  PATCH  /lead/{lead}/status  → LeadController::updateStatus  (lead.update-status)
+
+
+------------------------------------------------------------
+STEP 6 — BOOKING INDEX VIEWS UPDATED
+------------------------------------------------------------
+Admin  (resources/views/admin/pages/booking/index.blade.php):
+  - Status column with badge  (yellow=pending, green=complete, red=cancelled)
+  - Cancel button (orange ✗) — visible only when status = pending
+    → PATCH /booking/{id}/cancel
+  NOTE: Complete bookings no longer show the cancel button.
+        Cancel is only allowed before driver marks the trip complete.
+
+Driver (resources/views/driver/pages/booking/index.blade.php):
+  - Status column with badge
+  - Mark Complete button (green ✓) — visible only when status=pending
+    → PATCH /driver/bookings/{id}/complete
+
+
+------------------------------------------------------------
+STEP 7 — LEAD → BOOKING PRE-FILL
+------------------------------------------------------------
+Flow: Admin marks lead Success → redirected to /booking/create?lead_id=X
+
+BookingController::create updated to load lead from query param.
+
+Fields pre-filled in admin booking/create form:
+  customer_name          ← lead->name
+  customer_mobile_number ← lead->phone
+  customer_email         ← lead->email
+  vehicle                ← lead->vehicle_id
+  driver                 ← lead->vehicle->user_id  (vehicle's owner)
+
+
+------------------------------------------------------------
+STEP 8 — WEBSITE LEAD FORM — MOBILE NUMBER FIELD
+------------------------------------------------------------
+File: resources/views/website/pages/index.blade.php
+
+Added: <input type="tel" name="phone"> between Email and Booking Date fields.
+Note: phone column already existed in leads table. WebController already saved it.
+No backend changes needed.
+
+
+------------------------------------------------------------
+STEP 9 — BOOKING SUCCESS POPUP (Guest Website)
+------------------------------------------------------------
+File: resources/views/website/pages/index.blade.php
+
+After form submit → redirect back with session('success').
+A dark-themed modal popup now appears showing:
+  - Gold checkmark icon
+  - "Booking Request Sent!" heading
+  - "Our team will get back to you shortly." message
+  - "Done" button to dismiss
+  - Smooth scale+fade animation on open/close
+  - Only renders when session('success') is present
+
+
+------------------------------------------------------------
+STEP 10 — PICKUP DATE FIELD ADDED TO BOOKING FORMS
+------------------------------------------------------------
+Both admin and driver booking create forms now have:
+  - Pickup Date  (type="date") — new field
+  - Pickup Time  (type="time") — existing field
+
+Admin form: Pickup Date pre-fills from lead->booking_date
+
+Controllers updated (Admin\BookingController + Driver\DriverController):
+  - Added validation:  'pickup_date' => 'required|date'
+  - pickup_time stored as full datetime:
+    Carbon::parse($request->pickup_date . ' ' . $request->pickup_time)
+
+------------------------------------------------------------
+STEP 11 — CANCEL BUTTON LOGIC FIX (Admin Booking List)
+------------------------------------------------------------
+File: resources/views/admin/pages/booking/index.blade.php
+
+Bug: Cancel button was showing on COMPLETE bookings (condition was !== 'cancelled').
+Fix: Changed condition to === 'pending' so cancel is only possible before driver
+     marks the booking complete.
+
+Rule:
+  pending   → Cancel button visible   ✓
+  complete  → Cancel button hidden    ✓
+  cancelled → Cancel button hidden    ✓
+
+============================================================
+END OF SUMMARY
+============================================================

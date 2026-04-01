@@ -693,6 +693,9 @@
                         <input type="email" placeholder="Email Address" required name="email"
                             class="w-full bg-gray-800 text-white rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-yellow-500">
 
+                        <input type="tel" placeholder="Mobile Number" required name="phone"
+                            class="w-full bg-gray-800 text-white rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-yellow-500">
+
                         <input type="date" required name="booking_date"
                             class="w-full bg-gray-800 text-white rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-yellow-500">
 
@@ -732,4 +735,52 @@
             }, 3500);
         });
     </script>
+
+    @if(session('success'))
+    <!-- Booking Success Popup -->
+    <div id="successPopup"
+        class="fixed inset-0 z-[999] flex items-center justify-center bg-black/70 backdrop-blur-sm">
+        <div id="successBox"
+            class="relative bg-gradient-to-br from-gray-900 to-black border border-yellow-500/30 rounded-2xl p-8 w-[90%] max-w-md text-center shadow-2xl transform scale-95 opacity-0 transition-all duration-500">
+
+            <!-- Icon -->
+            <div class="flex items-center justify-center w-16 h-16 rounded-full bg-yellow-500/10 border border-yellow-500/40 mx-auto mb-5">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none"
+                    stroke="#EAB308" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 6L9 17l-5-5"/>
+                </svg>
+            </div>
+
+            <h3 class="text-2xl font-bold text-white mb-2">Booking Request Sent!</h3>
+            <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                Thank you! Your booking request has been received.<br>
+                Our team will get back to you shortly.
+            </p>
+
+            <button onclick="closeSuccessPopup()"
+                class="w-full bg-yellow-500 hover:bg-yellow-400 text-black font-semibold py-3 rounded-xl transition-all duration-300">
+                Done
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Animate in on load
+        window.addEventListener('DOMContentLoaded', function () {
+            const box = document.getElementById('successBox');
+            setTimeout(() => {
+                box.classList.remove('scale-95', 'opacity-0');
+                box.classList.add('scale-100', 'opacity-100');
+            }, 100);
+        });
+
+        function closeSuccessPopup() {
+            const popup = document.getElementById('successPopup');
+            const box = document.getElementById('successBox');
+            box.classList.remove('scale-100', 'opacity-100');
+            box.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => { popup.style.display = 'none'; }, 400);
+        }
+    </script>
+    @endif
 @endsection

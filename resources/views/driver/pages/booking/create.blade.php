@@ -97,6 +97,17 @@
                         @enderror
                     </div>
                     <div>
+                        <label for="pickup_date" class="block text-sm font-semibold text-gray-700 mb-2">
+                            Pickup Date <span class="text-red-500">*</span>
+                        </label>
+                        <input type="date" name="pickup_date" id="pickup_date" required
+                            class="block w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
+                            value="{{ old('pickup_date') }}">
+                        @error('pickup_date')
+                            <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div>
                         <label for="pickup_time" class="block text-sm font-semibold text-gray-700 mb-2">
                             Pickup Time <span class="text-red-500">*</span>
                         </label>

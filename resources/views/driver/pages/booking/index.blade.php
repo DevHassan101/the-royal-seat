@@ -34,6 +34,7 @@
                                 <th class="pb-3 font-medium">Vehicle</th>
                                 <th class="pb-3 font-medium">Fare</th>
                                 <th class="pb-3 font-medium">ITC Status</th>
+                                <th class="pb-3 font-medium">Status</th>
                                 <th class="pb-3 font-medium text-right">Actions</th>
                             </tr>
                         </thead>
@@ -66,7 +67,27 @@
                                             {{ ucfirst($booking->itc_sync_status) }}
                                         </span>
                                     </td>
-                                    <td class="py-3 text-right">
+                                    <td class="py-3">
+                                        @php
+                                            $statusColors = ['complete' => 'bg-green-100 text-green-700', 'cancelled' => 'bg-red-100 text-red-700', 'pending' => 'bg-yellow-100 text-yellow-700'];
+                                            $statusColor = $statusColors[$booking->status ?? 'pending'] ?? 'bg-gray-100 text-gray-700';
+                                        @endphp
+                                        <span class="px-2 py-1 rounded-full text-xs font-medium {{ $statusColor }}">
+                                            {{ ucfirst($booking->status ?? 'pending') }}
+                                        </span>
+                                    </td>
+                                    <td class="py-3 text-right flex items-center justify-end gap-2">
+                                        @if(($booking->status ?? 'pending') === 'pending')
+                                            <form action="{{ route('driver.booking.complete', $booking) }}" method="POST" class="inline" onsubmit="return confirm('Mark this booking as complete?')">
+                                                @csrf
+                                                @method('PATCH')
+                                                <button type="submit" class="p-2 text-green-600 hover:bg-green-50 rounded-lg transition-all" title="Mark as Complete">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                        <path d="M20 6L9 17l-5-5"/>
+                                                    </svg>
+                                                </button>
+                                            </form>
+                                        @endif
                                         <form action="{{ route('driver.booking.destroy', $booking) }}" method="POST" class="inline" onsubmit="return confirm('Are you sure?')">
                                             @csrf
                                             @method('DELETE')

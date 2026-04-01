@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\LeadNotificationMail;
 use App\Models\Lead;
 use App\Models\Query;
+use App\Models\User;
 use App\Models\Vehicle;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class WebController extends Controller
 {
@@ -41,7 +44,7 @@ class WebController extends Controller
     }
     public function storeLead(Request $request)
     {
-        Lead::create([
+        $lead = Lead::create([
             'vehicle_id' => $request->id,
             'name' => $request->name,
             'email' => $request->email,
@@ -49,6 +52,11 @@ class WebController extends Controller
             'booking_date' => $request->booking_date,
             'lead_status' => 'new',
         ]);
+
+        $admin = User::role('admin')->first();
+        if ($admin) {
+            Mail::to($admin->email)->send(new LeadNotificationMail($lead));
+        }
 
         return redirect()->back()->with('success', 'Booking request has been send successfully.');
     }

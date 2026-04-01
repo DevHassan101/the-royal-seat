@@ -17,9 +17,9 @@
     class="fixed z-30 inset-y-0 left-0 w-75 transition-transform duration-300 ease-in-out bg-gradient-to-b from-gray-900 via-gray-900 to-black overflow-y-auto lg:translate-x-0 lg:static lg:inset-0 border-r border-[#c9982b]/20">
 
     {{-- Logo Section --}}
-    <div class="flex items-start mt-6 mb-8 relative">
-        <a href="{{url('/')}}" class="flex items-center mx-auto">
-            <img src="{{ asset('assets/image/royalseat_logo.png') }}" alt="" class="w-42 mx-auto">
+    <div class="flex items-start mt-4 mb-6 relative">
+        <a href="{{ url('/') }}" class="flex items-center overflow-hidden mx-auto" style="height: 85px;">
+            <img src="{{ asset('assets/image/royel-seat-logo.png') }}" alt="Royal Seat Logo" style="height: 85px; width: auto; margin-top: -29px; margin-bottom: -29px; object-fit: contain;">
         </a>
         {{-- Mobile Close Button --}}
         <button @click="sidebarOpen = false"
@@ -32,7 +32,7 @@
     </div>
 
     {{-- Navigation --}}
-    <nav class="mt-5 px-5" x-data="{ isMultiLevelMenuOpen: false }">
+    <nav class="mt-0 px-5" x-data="{ isMultiLevelMenuOpen: false }">
         {{-- Dashboard Link --}}
         <x-nav-link href="{{ route('driver.dashboard') }}" :active="request()->routeIs('driver.dashboard')"
             class="flex items-center px-4 py-2 mb-2 rounded-lg transition-all duration-300 group

@@ -90,6 +90,23 @@ class LeadController extends Controller
             ->with('success', 'Lead updated successfully');
     }
 
+    public function updateStatus(Request $request, Lead $lead)
+    {
+        $request->validate(['status' => 'required|in:success,failed']);
+
+        $lead->update(['status' => $request->status]);
+
+        if ($request->status === 'success') {
+            return redirect()
+                ->route('booking.create', ['lead_id' => $lead->id])
+                ->with('success', 'Lead marked as success. Details have been pre-filled below.');
+        }
+
+        return redirect()
+            ->back()
+            ->with('success', 'Lead marked as failed.');
+    }
+
     public function destroy(Lead $lead)
     {
         $lead->delete();
