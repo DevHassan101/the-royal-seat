@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="flex justify-between items-center w-full mb-6">
+    <div class="flex flex-col-reverse lg:!flex-row justify-between items-start lg:items-center w-full mb-6 gap-4 lg:gap-0">
         <div class="ml-1">
             <h2 class="text-3xl font-bold text-gray-800 mb-1">
                 Add New Driver
@@ -29,15 +29,15 @@
         <!-- Form Body -->
         <form action="{{ route('driver.store') }}" method="post" class="p-6">
             @csrf
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <!-- Full Name -->
-                <div class="col-span-2">
+                <div class="col-span-1 sm:col-span-2">
                     <label for="name" class="block text-sm font-semibold text-gray-700 mb-2">
                         Full Name <span class="text-red-500">*</span>
                     </label>
                     <div class="relative">
                         <input type="text" name="name" id="name" 
-                            class="block w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200" 
+                            class="block w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200" 
                             placeholder="Enter Driver Full Name" 
                             value="{{ old('name') }}">
                     </div>
@@ -58,7 +58,7 @@
                     </label>
                     <div class="relative">
                         <input type="email" name="email" id="email" 
-                            class="block w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200" 
+                            class="block w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200" 
                             placeholder="driver@example.com" 
                             value="{{ old('email') }}">
                     </div>
@@ -79,7 +79,7 @@
                     </label>
                     <div class="relative">
                         <input type="password" name="password" id="password" 
-                            class="block w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200" 
+                            class="block w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200" 
                             placeholder="Enter Secure Password" 
                             value="{{ old('password') }}">
                     </div>
@@ -100,7 +100,7 @@
                     </label>
                     <div class="relative">
                         <input type="text" name="emirates_id" id="emirates_id" 
-                            class="block w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200" 
+                            class="block w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200" 
                             placeholder="784-XXXX-XXXXXXX-X" 
                             value="{{ old('emirates_id') }}">
                     </div>
@@ -121,7 +121,7 @@
                     </label>
                     <div class="relative">
                         <input type="text" name="license_number" id="license_number" 
-                            class="block w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200" 
+                            class="block w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200" 
                             placeholder="Enter License Number" 
                             value="{{ old('license_number') }}">
                     </div>
@@ -136,7 +136,7 @@
                 </div>
 
                 <!-- Permit Details -->
-                <div class="col-span-2">
+                <div class="col-span-1 sm:col-span-2">
                     <label for="permit_details" class="block text-sm font-semibold text-gray-700 mb-2">
                         Permit Details
                     </label>

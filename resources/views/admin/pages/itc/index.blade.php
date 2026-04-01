@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="flex justify-between items-center w-full mb-6">
+    <div class="flex flex-col-reverse lg:!flex-row justify-between items-start lg:items-center w-full mb-6 gap-4 lg:gap-0">
         <div class="ml-1">
             <h2 class="text-3xl font-bold text-gray-800 mb-1">
                 ITC Integration
@@ -69,7 +69,7 @@
     {{-- Vehicles Stats --}}
     <div class="mb-4">
         <h3 class="text-lg font-semibold text-gray-700 mb-3 ml-1">Vehicles</h3>
-        <div class="grid grid-cols-1 md:!grid-cols-3 gap-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:!grid-cols-3 gap-6">
             {{-- Total Vehicles --}}
             <div class="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden hover:shadow-xl transition-shadow duration-300">
                 <div class="bg-gradient-to-r from-[#c9982b] to-[#a67d23] px-6 py-3">
@@ -108,7 +108,7 @@
     {{-- Drivers Stats --}}
     <div class="mb-4">
         <h3 class="text-lg font-semibold text-gray-700 mb-3 ml-1">Drivers</h3>
-        <div class="grid grid-cols-1 md:!grid-cols-3 gap-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:!grid-cols-3 gap-6">
             {{-- Total Drivers --}}
             <div class="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden hover:shadow-xl transition-shadow duration-300">
                 <div class="bg-gradient-to-r from-[#c9982b] to-[#a67d23] px-6 py-3">
@@ -147,7 +147,7 @@
     {{-- Trips Stats --}}
     <div class="mb-8">
         <h3 class="text-lg font-semibold text-gray-700 mb-3 ml-1">Trips</h3>
-        <div class="grid grid-cols-1 md:!grid-cols-3 gap-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:!grid-cols-3 gap-6">
             {{-- Total Leads --}}
             <div class="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden hover:shadow-xl transition-shadow duration-300">
                 <div class="bg-gradient-to-r from-[#c9982b] to-[#a67d23] px-6 py-3">

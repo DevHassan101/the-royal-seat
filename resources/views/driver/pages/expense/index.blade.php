@@ -1,6 +1,6 @@
 @extends('driver.layouts.app')
 @section('content')
-    <div class="flex justify-between items-center w-full mb-6">
+    <div class="flex flex-col-reverse lg:!flex-row justify-between items-start lg:items-center w-full mb-6 gap-4 lg:gap-0">
         <div class="ml-1">
             <h2 class="text-3xl font-bold text-gray-800 mb-1">My Expenses</h2>
             <p class="text-gray-500 text-sm">Track your operational expenses</p>

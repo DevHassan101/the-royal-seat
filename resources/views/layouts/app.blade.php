@@ -11,12 +11,14 @@
     <!-- Fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
-    <link rel="stylesheet" href="{{ asset('build/assets/app-71c0a4b5.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/assets/app-d814d09c.css') }}">
     <script src="{{ asset('build/assets/app-ac76474c.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ asset('css/scrollbar.css') }}?v={{ filemtime(public_path('css/scrollbar.css')) }}">
 
     <style>
         body {

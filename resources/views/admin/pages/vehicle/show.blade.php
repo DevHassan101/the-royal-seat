@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="flex justify-between items-center w-full mb-6">
+    <div class="flex flex-col-reverse lg:!flex-row justify-between items-start lg:items-center w-full mb-6 gap-4 lg:gap-0">
         <div class="ml-1">
             <h2 class="text-3xl font-bold text-gray-800 mb-1">
                 Vehicle Details
@@ -56,7 +56,7 @@
         </div>
     @endif
 
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         {{-- Basic Info Card --}}
         <div class="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
             <div class="bg-gradient-to-r from-[#c9982b] to-[#a67d23] px-6 py-4">
@@ -202,7 +202,7 @@
                 </div>
                 <div class="flex justify-between items-start py-3">
                     <span class="text-sm font-semibold text-gray-500 uppercase tracking-wider">Remarks</span>
-                    <span class="text-sm font-medium text-gray-900 text-right max-w-xs">{{ $vehicle->itc_remarks ?? 'N/A' }}</span>
+                    <span class="text-sm font-medium text-gray-900 text-right max-w-[45%] sm:max-w-xs">{{ $vehicle->itc_remarks ?? 'N/A' }}</span>
                 </div>
             </div>
         </div>

@@ -3,27 +3,33 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Mail\BookingCancelledMail;
+use App\Mail\BookingConfirmationMail;
 use App\Models\Booking;
 use App\Models\User;
 use App\Models\Vehicle;
 use App\Services\ItcService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 class BookingController extends Controller
 {
     public function index()
     {
-        $bookings = Booking::get();
+        $bookings = Booking::latest()->get();
         return view('admin.pages.booking.index', compact('bookings'));
     }
 
-    public function create()
+    public function create(Request $request)
     {
         $drivers = User::role('driver')->get();
         $vehicles = Vehicle::get();
-        return view('admin.pages.booking.create', compact('drivers', 'vehicles'));
+        $lead = $request->filled('lead_id')
+            ? \App\Models\Lead::find($request->lead_id)
+            : null;
+        return view('admin.pages.booking.create', compact('drivers', 'vehicles', 'lead'));
     }
 
     public function show($bookingId)
@@ -41,6 +47,7 @@ class BookingController extends Controller
             'customer_mobile_number'             => 'nullable|min:6',
             'customer_email'                  => 'nullable|email',
             'trip_type'                          => 'required',
+            'pickup_date'                        => 'required|date',
             'pickup_time'                        => 'required|date_format:H:i',
             'pickup_location'                    => 'required',
             'drop_off_location'                  => 'required',
@@ -71,7 +78,7 @@ class BookingController extends Controller
             'customer_email_id'                  => $request->customer_email,
             'trip_type'                          => $request->trip_type,
             'vehicle_type'                       => $selectedVehicle->type,
-            'pickup_time'                        => Carbon::parse($request->pickup_time),
+            'pickup_time'                        => Carbon::parse($request->pickup_date . ' ' . $request->pickup_time),
             'pickup_location'                    => $request->pickup_location,
             'drop_off_location'                  => $request->drop_off_location,
             'pickup_location_description'        => $request->pickup_location_description,
@@ -100,9 +107,35 @@ class BookingController extends Controller
             // ITC sync failure should not block driver creation
         }
 
+        // Send confirmation email to driver and customer
+        $driver = User::find($booking->driver_id);
+        if ($driver) {
+            Mail::to($driver->email)->send(new BookingConfirmationMail($booking));
+        }
+        if ($booking->customer_email_id) {
+            Mail::to($booking->customer_email_id)->send(new BookingConfirmationMail($booking));
+        }
+
         return redirect()
             ->route('booking.index')
             ->with('success', 'Booking created successfully');
+    }
+
+    public function cancel(Booking $booking)
+    {
+        $booking->update(['status' => 'cancelled']);
+
+        $driver = User::find($booking->driver_id);
+        if ($driver) {
+            Mail::to($driver->email)->send(new BookingCancelledMail($booking));
+        }
+        if ($booking->customer_email_id) {
+            Mail::to($booking->customer_email_id)->send(new BookingCancelledMail($booking));
+        }
+
+        return redirect()
+            ->back()
+            ->with('success', 'Booking cancelled and notifications sent');
     }
 
     public function destroy(Booking $booking)

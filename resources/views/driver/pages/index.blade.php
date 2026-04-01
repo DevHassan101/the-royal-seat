@@ -87,7 +87,7 @@
 
     {{-- Recent Bookings --}}
     <div class="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
-        <div class="bg-gradient-to-r from-[#c9982b] to-[#a67d23] px-6 py-4 flex justify-between items-center">
+        <div class="bg-gradient-to-r from-[#c9982b] to-[#a67d23] px-6 py-4 flex flex-wrap justify-between items-center gap-2">
             <h3 class="text-xl font-semibold text-white">Recent Bookings</h3>
             <a href="{{ route('driver.booking.create') }}"
                 class="px-4 py-2 bg-white text-[#c9982b] rounded-lg text-sm font-medium hover:bg-gray-50 transition-all">+

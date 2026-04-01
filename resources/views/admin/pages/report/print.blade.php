@@ -29,6 +29,7 @@
         .summary-card { flex: 1; min-width: 140px; background: #f9f9f9; border: 1px solid #e5e5e5; border-radius: 6px; padding: 10px 14px; }
         .summary-card .label { font-size: 10px; color: #888; text-transform: uppercase; font-weight: 600; }
         .summary-card .value { font-size: 15px; font-weight: 700; color: #333; margin-top: 2px; }
+        .table-wrapper { overflow-x: auto; }
         table { width: 100%; border-collapse: collapse; margin-top: 10px; }
         th { background: #c9982b; color: white; padding: 8px 10px; text-align: left; font-size: 11px; font-weight: 600; }
         td { padding: 7px 10px; border-bottom: 1px solid #eee; font-size: 11px; }
@@ -97,6 +98,7 @@
     @endif
 
     @if(isset($rows) && $rows->count() > 0)
+        <div class="table-wrapper">
         <table>
             <thead>
                 <tr>
@@ -117,6 +119,7 @@
                 @endforeach
             </tbody>
         </table>
+        </div>
     @else
         <p style="text-align:center; padding:30px; color:#999;">No data found for the selected filters.</p>
     @endif

@@ -48,7 +48,7 @@
     @endif
 
     {{-- Customer Info, Trip Details, Fare & Payment --}}
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
         {{-- Customer Info Card --}}
         <div class="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
             <div class="bg-gradient-to-r from-[#c9982b] to-[#a67d23] px-6 py-4">
@@ -116,19 +116,19 @@
                 </div>
                 <div class="flex justify-between items-center py-3 border-b border-gray-100">
                     <span class="text-sm font-semibold text-gray-500 uppercase tracking-wider">Pickup GPS</span>
-                    <span class="text-sm font-medium text-gray-900 text-right max-w-[180px] truncate" title="{{ $lead->pickup_location_gps }}">{{ $lead->pickup_location_gps ?? 'N/A' }}</span>
+                    <span class="text-sm font-medium text-gray-900 text-right max-w-[45%] truncate" title="{{ $lead->pickup_location_gps }}">{{ $lead->pickup_location_gps ?? 'N/A' }}</span>
                 </div>
                 <div class="flex justify-between items-center py-3 border-b border-gray-100">
                     <span class="text-sm font-semibold text-gray-500 uppercase tracking-wider">Dropoff GPS</span>
-                    <span class="text-sm font-medium text-gray-900 text-right max-w-[180px] truncate" title="{{ $lead->dropoff_location_gps }}">{{ $lead->dropoff_location_gps ?? 'N/A' }}</span>
+                    <span class="text-sm font-medium text-gray-900 text-right max-w-[45%] truncate" title="{{ $lead->dropoff_location_gps }}">{{ $lead->dropoff_location_gps ?? 'N/A' }}</span>
                 </div>
                 <div class="flex justify-between items-start py-3 border-b border-gray-100">
                     <span class="text-sm font-semibold text-gray-500 uppercase tracking-wider">Pickup Desc.</span>
-                    <span class="text-sm font-medium text-gray-900 text-right max-w-[180px]">{{ $lead->pickup_location_description ?? 'N/A' }}</span>
+                    <span class="text-sm font-medium text-gray-900 text-right max-w-[45%]">{{ $lead->pickup_location_description ?? 'N/A' }}</span>
                 </div>
                 <div class="flex justify-between items-start py-3 border-b border-gray-100">
                     <span class="text-sm font-semibold text-gray-500 uppercase tracking-wider">Dropoff Desc.</span>
-                    <span class="text-sm font-medium text-gray-900 text-right max-w-[180px]">{{ $lead->dropoff_location_description ?? 'N/A' }}</span>
+                    <span class="text-sm font-medium text-gray-900 text-right max-w-[45%]">{{ $lead->dropoff_location_description ?? 'N/A' }}</span>
                 </div>
                 <div class="flex justify-between items-center py-3 border-b border-gray-100">
                     <span class="text-sm font-semibold text-gray-500 uppercase tracking-wider">Pickup Time</span>

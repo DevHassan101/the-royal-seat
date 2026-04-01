@@ -1,6 +1,6 @@
 @extends('driver.layouts.app')
 @section('content')
-    <div class="flex justify-between items-center w-full mb-6">
+    <div class="flex flex-col-reverse lg:!flex-row justify-between items-start lg:items-center w-full mb-6 gap-4 lg:gap-0">
         <div class="ml-1">
             <h2 class="text-3xl font-bold text-gray-800 mb-1">Add Expense</h2>
             <p class="text-gray-500 text-sm">Record a new expense</p>
@@ -21,7 +21,7 @@
         </div>
         <form action="{{ route('driver.expense.store') }}" method="post" class="p-6" enctype="multipart/form-data">
             @csrf
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div>
                     <label for="vehicle_id" class="block text-sm font-semibold text-gray-700 mb-2">Vehicle</label>
                     <select name="vehicle_id" id="vehicle_id" class="block w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200">
@@ -49,14 +49,14 @@
                 <div>
                     <label for="amount" class="block text-sm font-semibold text-gray-700 mb-2">Amount (AED) <span class="text-red-500">*</span></label>
                     <input type="number" step="0.01" name="amount" id="amount" required
-                        class="block w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
+                        class="block w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
                         placeholder="0.00" value="{{ old('amount') }}">
                     @error('amount') <p class="mt-1 text-sm text-red-500">{{ $message }}</p> @enderror
                 </div>
                 <div>
                     <label for="expense_date" class="block text-sm font-semibold text-gray-700 mb-2">Date <span class="text-red-500">*</span></label>
                     <input type="date" name="expense_date" id="expense_date" required
-                        class="block w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
+                        class="block w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
                         value="{{ old('expense_date', date('Y-m-d')) }}">
                     @error('expense_date') <p class="mt-1 text-sm text-red-500">{{ $message }}</p> @enderror
                 </div>
@@ -66,7 +66,7 @@
                         class="block w-full !pl-3 !pr-4 py-3 !border-1 !border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200">
                     @error('receipt') <p class="mt-1 text-sm text-red-500">{{ $message }}</p> @enderror
                 </div>
-                <div class="col-span-2">
+                <div class="col-span-1 sm:col-span-2">
                     <label for="description" class="block text-sm font-semibold text-gray-700 mb-2">Description</label>
                     <textarea name="description" id="description" rows="3"
                         class="block w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200 resize-none"

@@ -1,6 +1,6 @@
 @extends('driver.layouts.app')
 @section('content')
-    <div class="flex justify-between items-center w-full mb-6">
+    <div class="flex flex-col-reverse lg:!flex-row justify-between items-start lg:items-center w-full mb-6 gap-4 lg:gap-0">
         <div class="ml-1">
             <h2 class="text-3xl font-bold text-gray-800 mb-1">Add New Vehicle</h2>
             <p class="text-gray-500 text-sm">Fill in the details to register a new vehicle</p>
@@ -27,14 +27,14 @@
 
         <form action="{{ route('driver.vehicle.store') }}" method="post" class="p-6" enctype="multipart/form-data">
             @csrf
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div>
                     <label for="name" class="block text-sm font-semibold text-gray-700 mb-2">
                         Name <span class="text-red-500">*</span>
                     </label>
                     <div class="relative">
                         <input type="text" name="name" id="name"
-                            class="block w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
+                            class="block w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
                             placeholder="Enter Vehicle Name" value="{{ old('name') }}">
                     </div>
                     @error('name')
@@ -57,7 +57,7 @@
                     <label for="model" class="block text-sm font-semibold text-gray-700 mb-2">Model</label>
                     <div class="relative">
                         <input type="text" name="model" id="model"
-                            class="block w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
+                            class="block w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
                             placeholder="ex: Mercedes-Maybach S-Class" value="{{ old('model') }}">
                     </div>
                     @error('model')
@@ -68,7 +68,7 @@
                     <label for="seats" class="block text-sm font-semibold text-gray-700 mb-2">Seats</label>
                     <div class="relative">
                         <input type="number" name="seats" id="seats"
-                            class="block w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
+                            class="block w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
                             placeholder="Enter seats" value="{{ old('seats') }}">
                     </div>
                     @error('seats')
@@ -94,7 +94,7 @@
                     <label for="per_day_charges" class="block text-sm font-semibold text-gray-700 mb-2">Per Day Charges</label>
                     <div class="relative">
                         <input type="number" step="any" name="per_day_charges" id="per_day_charges"
-                            class="block w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
+                            class="block w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
                             placeholder="Enter per day charges" value="{{ old('per_day_charges') }}">
                     </div>
                     @error('per_day_charges')
@@ -118,7 +118,7 @@
                     </label>
                     <div class="relative">
                         <input type="text" name="plate_number" id="plate_number"
-                            class="block w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
+                            class="block w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
                             placeholder="Enter plate number" value="{{ old('plate_number') }}">
                     </div>
                     @error('plate_number')
@@ -131,14 +131,14 @@
                     </label>
                     <div class="relative">
                         <input type="text" name="plate_code" id="plate_code"
-                            class="block w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
+                            class="block w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
                             placeholder="Enter plate code" value="{{ old('plate_code') }}">
                     </div>
                     @error('plate_code')
                         <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                     @enderror
                 </div>
-                <div class="col-span-2">
+                <div class="col-span-1 sm:col-span-2">
                     <label for="permit_details" class="block text-sm font-semibold text-gray-700 mb-2">Permit Details</label>
                     <div class="relative">
                         <textarea name="permit_details" id="permit_details" rows="4"

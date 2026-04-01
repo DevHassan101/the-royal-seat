@@ -13,7 +13,7 @@
         </div>
         <form action="{{ route('report.generate') }}" method="POST" class="p-6" id="reportForm">
             @csrf
-            <div class="grid grid-cols-1 md:!grid-cols-2 lg:!grid-cols-4 gap-4 mb-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:!grid-cols-4 gap-4 mb-6">
                 {{-- Report Type --}}
                 <div>
                     <label class="block text-sm font-semibold text-gray-700 mb-2">Report Type <span class="text-red-500">*</span></label>
@@ -56,7 +56,7 @@
             </div>
 
             {{-- Additional Filters Row --}}
-            <div class="grid grid-cols-1 md:!grid-cols-2 lg:!grid-cols-4 gap-4 mb-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:!grid-cols-4 gap-4 mb-6">
                 {{-- Vehicle Filter (expense only) --}}
                 <div id="filterVehicle" class="hidden">
                     <label class="block text-sm font-semibold text-gray-700 mb-2">Vehicle</label>

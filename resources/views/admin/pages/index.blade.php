@@ -7,7 +7,7 @@
     </div>
 
     {{-- Stats Cards --}}
-    <div class="grid grid-cols-1 md:!grid-cols-2 lg:!grid-cols-3 xl:!grid-cols-6 gap-4 mb-8">
+    <div class="grid grid-cols-2 md:!grid-cols-3 lg:!grid-cols-3 xl:!grid-cols-6 gap-4 mb-8">
         <div class="bg-white rounded-2xl shadow-lg border border-gray-200 p-5">
             <div class="flex items-center justify-between mb-2">
                 <p class="text-xs font-medium text-gray-500 uppercase">Revenue</p>
@@ -98,7 +98,7 @@
                         </div>
 
                         {{-- Charts Row --}}
-                        <div class="grid grid-cols-1 lg:!grid-cols-2 gap-6 mb-8">
+                        <div class="grid grid-cols-1 md:!grid-cols-2 gap-6 mb-8">
                             {{-- Revenue vs Expenses Chart --}}
                             <div class="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
                                 <div class="bg-gradient-to-r from-[#c9982b] to-[#a67d23] px-6 py-4">
@@ -120,7 +120,7 @@
                             </div>
                         </div>
 
-                        <div class="grid grid-cols-1 lg:!grid-cols-2 gap-6 mb-8">
+                        <div class="grid grid-cols-1 md:!grid-cols-2 gap-6 mb-8">
                             {{-- Trip Type Chart --}}
                             <div class="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
                                 <div class="bg-gradient-to-r from-[#c9982b] to-[#a67d23] px-6 py-4">
@@ -143,7 +143,7 @@
                         </div>
 
                         {{-- Top Drivers & Recent Activity --}}
-                        <div class="grid grid-cols-1 lg:!grid-cols-2 gap-6 mb-8">
+                        <div class="grid grid-cols-1 md:!grid-cols-2 gap-6 mb-8">
                             {{-- Top Drivers --}}
                             <div class="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
                                 <div class="bg-gradient-to-r from-[#c9982b] to-[#a67d23] px-6 py-4">

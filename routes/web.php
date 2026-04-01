@@ -60,6 +60,7 @@ Route::middleware('auth', 'role:driver')->prefix('driver')->name('driver.')->gro
     Route::get('/bookings', [DriverController::class, 'bookingIndex'])->name('booking.index');
     Route::get('/bookings/create', [DriverController::class, 'bookingCreate'])->name('booking.create');
     Route::post('/bookings', [DriverController::class, 'bookingStore'])->name('booking.store');
+    Route::patch('/bookings/{booking}/complete', [DriverController::class, 'bookingComplete'])->name('booking.complete');
     Route::delete('/bookings/{booking}', [DriverController::class, 'bookingDestroy'])->name('booking.destroy');
 
     // Expenses
@@ -74,8 +75,10 @@ Route::middleware('auth', 'role:admin')->group(function(){
     Route::resource('driver', AdminDriverController::class);
     Route::resource('vehicle', AdminVehicleController::class);
     Route::resource('lead', LeadController::class);
+    Route::patch('lead/{lead}/status', [LeadController::class, 'updateStatus'])->name('lead.update-status');
     Route::resource('query', QueryController::class);
     Route::resource('booking', BookingController::class);
+    Route::patch('booking/{booking}/cancel', [BookingController::class, 'cancel'])->name('booking.cancel');
     Route::resource('expense', ExpenseController::class)->only(['index', 'create', 'store', 'destroy']);
 
     // Reports

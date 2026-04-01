@@ -1,6 +1,6 @@
 @extends('driver.layouts.app')
 @section('content')
-    <div class="flex justify-between items-center w-full mb-6">
+    <div class="flex flex-col-reverse lg:!flex-row justify-between items-start lg:items-center w-full mb-6 gap-4 lg:gap-0">
         <div class="ml-1">
             <h2 class="text-3xl font-bold text-gray-800 mb-1">My Vehicles</h2>
             <p class="text-gray-500 text-sm">Manage your registered vehicles</p>
@@ -25,14 +25,14 @@
                 <p class="text-gray-500 text-center py-8">No vehicles added yet.</p>
             @else
                 <div class="overflow-x-auto">
-                    <table class="w-full text-sm">
+                    <table class="w-full min-w-[600px] text-sm">
                         <thead>
                             <tr class="text-left text-gray-500 border-b">
-                                <th class="pb-3 font-medium">Vehicle</th>
-                                <th class="pb-3 font-medium">Details</th>
-                                <th class="pb-3 font-medium">Plate</th>
-                                <th class="pb-3 font-medium">ITC Status</th>
-                                <th class="pb-3 font-medium text-right">Actions</th>
+                                <th class="pb-3 font-medium whitespace-nowrap">Vehicle</th>
+                                <th class="pb-3 font-medium whitespace-nowrap">Details</th>
+                                <th class="pb-3 font-medium whitespace-nowrap">Plate</th>
+                                <th class="pb-3 font-medium whitespace-nowrap">ITC Status</th>
+                                <th class="pb-3 font-medium whitespace-nowrap text-right">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -53,11 +53,11 @@
                                             </div>
                                         </div>
                                     </td>
-                                    <td class="py-3 text-gray-600">
+                                    <td class="py-3 text-gray-600 whitespace-nowrap">
                                         <p>{{ $vehicle->seats ?? '-' }} Seats | {{ ucfirst($vehicle->transmission) }}</p>
                                         <p class="text-xs text-gray-400">{{ $vehicle->type ?? '' }}</p>
                                     </td>
-                                    <td class="py-3">
+                                    <td class="py-3 whitespace-nowrap">
                                         <span class="font-mono font-medium text-gray-800">{{ $vehicle->plate_number }}</span>
                                         <span class="text-xs text-gray-500">({{ $vehicle->plate_code }})</span>
                                     </td>

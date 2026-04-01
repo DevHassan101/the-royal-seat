@@ -1,9 +1,8 @@
 <x-app-layout>
-    <div class="flex justify-between items-center w-full mb-6">
+    <div
+        class="flex flex-col-reverse lg:!flex-row justify-between items-start lg:items-center w-full mb-6 gap-4 lg:gap-0">
         <div class="ml-1">
-            <h2 class="text-3xl font-bold text-gray-800 mb-1">
-                Add New Booking
-            </h2>
+            <h2 class="text-3xl font-bold text-gray-800 mb-1">Add New Booking</h2>
             <p class="text-gray-500 text-sm">Fill in the details to register a new booking</p>
         </div>
         <a href="{{ route('booking.index') }}"
@@ -16,6 +15,7 @@
             Go Back
         </a>
     </div>
+
     <div class="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
         <!-- Form Header -->
         <div class="bg-gradient-to-r from-[#c9982b] to-[#a67d23] px-6 py-4">
@@ -32,75 +32,76 @@
         <!-- Form Body -->
         <form action="{{ route('booking.store') }}" method="post" class="p-6">
             @csrf
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Driver -->
-                <div class="col-span-1">
-                    <label for="driver" class="block text-sm font-semibold text-gray-700 mb-2">
-                        Driver <span class="text-red-500">*</span>
-                    </label>
-                    <div class="relative">
-                        <select name="driver" required
-                            class="block w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
-                            id="driver">
+            <div class="grid grid-cols-1 gap-6">
+
+                {{-- Row 1: Driver & Vehicle --}}
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <!-- Driver -->
+                    <div>
+                        <label for="driver" class="block text-sm font-semibold text-gray-700 mb-2">
+                            Driver <span class="text-red-500">*</span>
+                        </label>
+                        <select name="driver" required id="driver"
+                            class="block w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200">
                             <option value="">Select Driver</option>
                             @foreach ($drivers as $driver)
                                 <option value="{{ $driver->id }}" data-driverVehicleId="{{ $driver->vehicle?->id }}"
-                                    @selected(old('driver') == $driver->id)>
-                                    {{ $driver->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    @error('driver')
-                        <p class="mt-1 text-sm text-red-500 flex items-center gap-1">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
-                                fill="currentColor">
-                                <path
-                                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" />
-                            </svg>
-                            {{ $message }}
-                        </p>
-                    @enderror
-                </div>
-                <!-- Vehicle -->
-                <div class="col-span-1">
-                    <label for="vehicle" class="block text-sm font-semibold text-gray-700 mb-2">
-                        Vehicle <span class="text-red-500">*</span>
-                    </label>
-                    <div class="relative">
-                        <select name="vehicle" required
-                            class="block w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
-                            id="vehicle">
-                            <option value="">Select Vehicle</option>
-                            @foreach ($vehicles as $vehicle)
-                                <option value="{{ $vehicle->id }}" @selected(old('vehicle') == $vehicle->id)>{{ $vehicle->name }}
+                                    @selected(old('driver', $lead?->vehicle?->user_id) == $driver->id)>
+                                    {{ $driver->name }}
                                 </option>
                             @endforeach
                         </select>
+                        @error('driver')
+                            <p class="mt-1 text-sm text-red-500 flex items-center gap-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                    fill="currentColor">
+                                    <path
+                                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" />
+                                </svg>
+                                {{ $message }}
+                            </p>
+                        @enderror
                     </div>
-                    @error('vehicle')
-                        <p class="mt-1 text-sm text-red-500 flex items-center gap-1">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
-                                fill="currentColor">
-                                <path
-                                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" />
-                            </svg>
-                            {{ $message }}
-                        </p>
-                    @enderror
+
+                    <!-- Vehicle -->
+                    <div>
+                        <label for="vehicle" class="block text-sm font-semibold text-gray-700 mb-2">
+                            Vehicle <span class="text-red-500">*</span>
+                        </label>
+                        <select name="vehicle" required id="vehicle"
+                            class="block w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200">
+                            <option value="">Select Vehicle</option>
+                            @foreach ($vehicles as $vehicle)
+                                <option value="{{ $vehicle->id }}"
+                                    data-driver-id="{{ $vehicle->user_id }}"
+                                    @selected(old('vehicle', $lead?->vehicle_id) == $vehicle->id)>
+                                    {{ $vehicle->name }} ({{ $vehicle->plate_number }})
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('vehicle')
+                            <p class="mt-1 text-sm text-red-500 flex items-center gap-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                    fill="currentColor">
+                                    <path
+                                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" />
+                                </svg>
+                                {{ $message }}
+                            </p>
+                        @enderror
+                    </div>
                 </div>
 
-                <!-- Customer Mobile -->
-                <div class="col-span-2 grid md:grid-cols-3 gap-5">
-                    <!-- Customer name -->
+                {{-- Row 2: Customer Name, Mobile, Email --}}
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                    <!-- Customer Name -->
                     <div>
                         <label for="customer_name" class="block text-sm font-semibold text-gray-700 mb-2">
                             Customer Name
                         </label>
-                        <div class="relative">
-                            <input type="text" name="customer_name" id="customer_name"
-                                class="block w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
-                                placeholder="Enter Customer Name" value="{{ old('customer_name') }}">
-                        </div>
+                        <input type="text" name="customer_name" id="customer_name"
+                            class="block w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
+                            placeholder="Enter Customer Name" value="{{ old('customer_name', $lead?->name) }}">
                         @error('customer_name')
                             <p class="mt-1 text-sm text-red-500 flex items-center gap-1">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
@@ -113,15 +114,15 @@
                         @enderror
                     </div>
 
-                    <div class="min-w-max">
+                    <!-- Customer Mobile -->
+                    <div>
                         <label for="customer_mobile_number" class="block text-sm font-semibold text-gray-700 mb-2">
                             Customer Mobile Number
                         </label>
-                        <div class="relative">
-                            <input type="text" name="customer_mobile_number" id="customer_mobile_number"
-                                class="block w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
-                                placeholder="Enter Customer Mobile Number" value="{{ old('customer_mobile_number') }}">
-                        </div>
+                        <input type="text" name="customer_mobile_number" id="customer_mobile_number"
+                            class="block w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
+                            placeholder="Enter Customer Mobile Number"
+                            value="{{ old('customer_mobile_number', $lead?->phone) }}">
                         @error('customer_mobile_number')
                             <p class="mt-1 text-sm text-red-500 flex items-center gap-1">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
@@ -133,16 +134,44 @@
                             </p>
                         @enderror
                     </div>
-                    <div class="">
+
+                    <!-- Customer Email -->
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div>
                         <label for="customer_email" class="block text-sm font-semibold text-gray-700 mb-2">
                             Customer Email
                         </label>
-                        <div class="relative">
-                            <input type="text" name="customer_email" id="customer_email"
-                                class="block w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
-                                placeholder="Enter Customer Mobile Number" value="{{ old('customer_email') }}">
-                        </div>
+                        <input type="text" name="customer_email" id="customer_email"
+                            class="block w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
+                            placeholder="Enter Customer Email" value="{{ old('customer_email', $lead?->email) }}">
                         @error('customer_email')
+                            <p class="mt-1 text-sm text-red-500 flex items-center gap-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                    fill="currentColor">
+                                    <path
+                                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" />
+                                </svg>
+                                {{ $message }}
+                            </p>
+                        @enderror
+                    </div>
+
+                    <!-- Trip Type -->
+                    <div>
+                        <label for="trip_type" class="block text-sm font-semibold text-gray-700 mb-2">
+                            Trip Type <span class="text-red-500">*</span>
+                        </label>
+                        <select name="trip_type" required id="trip_type"
+                            class="block w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200">
+                            <option value="">Select Trip Type</option>
+                            <option value="TRANSFER" @selected(old('trip_type') == 'TRANSFER')>Transfer</option>
+                            <option value="CHAUFFEUR" @selected(old('trip_type') == 'CHAUFFEUR')>Chauffeur</option>
+                            <option value="WALKIN" @selected(old('trip_type') == 'WALKIN')>Walkin</option>
+                            <option value="any other" @selected(old('trip_type') == 'any other')>Any Other</option>
+                        </select>
+                        @error('trip_type')
                             <p class="mt-1 text-sm text-red-500 flex items-center gap-1">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                     viewBox="0 0 24 24" fill="currentColor">
@@ -153,44 +182,41 @@
                             </p>
                         @enderror
                     </div>
+
+
                 </div>
 
-                <!-- Trip Type -->
-                <div class="col-span-1">
-                    <label for="trip_type" class="block text-sm font-semibold text-gray-700 mb-2">
-                        Trip Type <span class="text-red-500">*</span>
-                    </label>
-                    <div class="relative">
-                        <select name="trip_type" required
-                            class="block w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
-                            id="trip_type">
-                            <option value="">Select Trip Type</option>
-                            <option value="TRANSFER" @selected(old('trip_type') == 'TRANSFER')>Transfer</option>
-                            <option value="CHAUFFEUR" @selected(old('trip_type') == 'CHAUFFEUR')>Chauffeur</option>
-                            <option value="WALKIN" @selected(old('trip_type') == 'WALKIN')>Walkin</option>
-                            <option value="any other" @selected(old('trip_type') == 'any other')>Any Other</option>
-                        </select>
+
+
+                {{-- Row 3: Trip Type & Pickup Date --}}
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <!-- Pickup Date -->
+                    <div>
+                        <label for="pickup_date" class="block text-sm font-semibold text-gray-700 mb-2">
+                            Pickup Date <span class="text-red-500">*</span>
+                        </label>
+                        <input type="date" name="pickup_date" id="pickup_date" required
+                            class="block w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
+                            value="{{ old('pickup_date', $lead?->booking_date?->format('Y-m-d')) }}">
+                        @error('pickup_date')
+                            <p class="mt-1 text-sm text-red-500 flex items-center gap-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                    viewBox="0 0 24 24" fill="currentColor">
+                                    <path
+                                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" />
+                                </svg>
+                                {{ $message }}
+                            </p>
+                        @enderror
                     </div>
-                    @error('trip_type')
-                        <p class="mt-1 text-sm text-red-500 flex items-center gap-1">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                viewBox="0 0 24 24" fill="currentColor">
-                                <path
-                                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" />
-                            </svg>
-                            {{ $message }}
-                        </p>
-                    @enderror
-                </div>
+                    <!-- Pickup Time -->
                     <div>
                         <label for="pickup_time" class="block text-sm font-semibold text-gray-700 mb-2">
                             Pickup Time <span class="text-red-500">*</span>
                         </label>
-                        <div class="relative">
-                            <input type="time" name="pickup_time" id="pickup_time" required
-                                class="block w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
-                                placeholder="Enter Customer Name" value="{{ old('pickup_time') }}">
-                        </div>
+                        <input type="time" name="pickup_time" id="pickup_time" required
+                            class="block w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
+                            value="{{ old('pickup_time') }}">
                         @error('pickup_time')
                             <p class="mt-1 text-sm text-red-500 flex items-center gap-1">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -202,15 +228,19 @@
                             </p>
                         @enderror
                     </div>
+
+                </div>
+
+                {{-- Row 4: Pickup Time & Pickup Location GPS --}}
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <!-- Pickup Location GPS -->
                     <div>
                         <label for="pickup_location" class="block text-sm font-semibold text-gray-700 mb-2">
                             Pickup Location GPS <span class="text-red-500">*</span>
                         </label>
-                        <div class="relative">
-                            <input type="text" name="pickup_location" id="pickup_location" required
-                                class="block w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
-                                placeholder="e.g. 25.2732083,55.3694757" value="{{ old('pickup_location') }}">
-                        </div>
+                        <input type="text" name="pickup_location" id="pickup_location" required
+                            class="block w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
+                            placeholder="e.g. 25.2732083,55.3694757" value="{{ old('pickup_location') }}">
                         @error('pickup_location')
                             <p class="mt-1 text-sm text-red-500 flex items-center gap-1">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -222,15 +252,14 @@
                             </p>
                         @enderror
                     </div>
+                    <!-- Drop Off Location GPS -->
                     <div>
                         <label for="drop_off_location" class="block text-sm font-semibold text-gray-700 mb-2">
                             Drop Off Location GPS <span class="text-red-500">*</span>
                         </label>
-                        <div class="relative">
-                            <input type="text" name="drop_off_location" id="drop_off_location" required
-                                class="block w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
-                                placeholder="e.g. 25.2048493,55.2708047" value="{{ old('drop_off_location') }}">
-                        </div>
+                        <input type="text" name="drop_off_location" id="drop_off_location" required
+                            class="block w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
+                            placeholder="e.g. 25.2048493,55.2708047" value="{{ old('drop_off_location') }}">
                         @error('drop_off_location')
                             <p class="mt-1 text-sm text-red-500 flex items-center gap-1">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -242,49 +271,49 @@
                             </p>
                         @enderror
                     </div>
-                
-                <div class="">
-                    <label for="pickup_location_description" class="block text-sm font-semibold text-gray-700 mb-2">
-                        Pickup Location Description <span class="text-red-500">*</span>
-                    </label>
-                    <div class="relative">
-                        <textarea name="pickup_location_description" id="pickup_location_description" rows="5"
-                            class="block w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200 resize-none"
-                            placeholder="Enter Pickup Location Description" required>{{ old('pickup_location_description') }}</textarea>
-                    </div>
-                    @error('pickup_location_description')
-                        <p class="mt-1 text-sm text-red-500">
-                            {{ $message }}
-                        </p>
-                    @enderror
-                </div>
-                <div class="">
-                    <label for="drop_off_location_description" class="block text-sm font-semibold text-gray-700 mb-2">
-                        Drop Off Location Description <span class="text-red-500">*</span>
-                    </label>
-                    <div class="relative">
-                        <textarea name="drop_off_location_description" id="drop_off_location_description" rows="5"
-                            class="block w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200 resize-none"
-                            placeholder="Enter Drop Off Location Description" required>{{ old('drop_off_location_description') }}</textarea>
-                    </div>
-                    @error('drop_off_location_description')
-                        <p class="mt-1 text-sm text-red-500">
-                            {{ $message }}
-                        </p>
-                    @enderror
                 </div>
 
+                {{-- Row 6: Pickup Description & Drop Off Description --}}
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <!-- Pickup Location Description -->
+                    <div>
+                        <label for="pickup_location_description"
+                            class="block text-sm font-semibold text-gray-700 mb-2">
+                            Pickup Location Description <span class="text-red-500">*</span>
+                        </label>
+                        <textarea name="pickup_location_description" id="pickup_location_description" rows="5" required
+                            class="block w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200 resize-none"
+                            placeholder="Enter Pickup Location Description">{{ old('pickup_location_description') }}</textarea>
+                        @error('pickup_location_description')
+                            <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+                        @enderror
+                    </div>
 
-                <div class="col-span-2 grid md:grid-cols-4 gap-5">
+                    <!-- Drop Off Location Description -->
+                    <div>
+                        <label for="drop_off_location_description"
+                            class="block text-sm font-semibold text-gray-700 mb-2">
+                            Drop Off Location Description <span class="text-red-500">*</span>
+                        </label>
+                        <textarea name="drop_off_location_description" id="drop_off_location_description" rows="5" required
+                            class="block w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200 resize-none"
+                            placeholder="Enter Drop Off Location Description">{{ old('drop_off_location_description') }}</textarea>
+                        @error('drop_off_location_description')
+                            <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+                        @enderror
+                    </div>
+                </div>
+
+                {{-- Row 7: Duration, Distance, Base Fare, Discount --}}
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+                    <!-- Duration -->
                     <div>
                         <label for="duration" class="block text-sm font-semibold text-gray-700 mb-2">
                             Duration <span class="text-red-500">*</span>
                         </label>
-                        <div class="relative">
-                            <input type="number" name="duration" id="duration" required
-                                class="block w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
-                                placeholder="Value in minutes" value="{{ old('duration') }}">
-                        </div>
+                        <input type="number" name="duration" id="duration" required
+                            class="block w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
+                            placeholder="Value in minutes" value="{{ old('duration') }}">
                         @error('duration')
                             <p class="mt-1 text-sm text-red-500 flex items-center gap-1">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -296,15 +325,15 @@
                             </p>
                         @enderror
                     </div>
+
+                    <!-- Distance -->
                     <div>
                         <label for="distance" class="block text-sm font-semibold text-gray-700 mb-2">
                             Distance <span class="text-red-500">*</span>
                         </label>
-                        <div class="relative">
-                            <input type="number" name="distance" id="distance" required
-                                class="block w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
-                                placeholder="Value in kilometer" value="{{ old('distance') }}">
-                        </div>
+                        <input type="number" name="distance" id="distance" required
+                            class="block w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
+                            placeholder="Value in kilometer" value="{{ old('distance') }}">
                         @error('distance')
                             <p class="mt-1 text-sm text-red-500 flex items-center gap-1">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -316,16 +345,16 @@
                             </p>
                         @enderror
                     </div>
+
+                    <!-- Base Fare -->
                     <div>
                         <label for="base_fare" class="block text-sm font-semibold text-gray-700 mb-2">
                             Base Fare <span class="text-red-500">*</span>
                         </label>
-                        <div class="relative">
-                            <input type="number" name="base_fare" id="base_fare" step="any" required min="1"
-                                class="block w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
-                                placeholder="Fare without other additions (like toll tips etc.)"
-                                value="{{ old('base_fare') }}">
-                        </div>
+                        <input type="number" name="base_fare" id="base_fare" step="any" required
+                            min="1"
+                            class="block w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
+                            placeholder="Base fare amount" value="{{ old('base_fare') }}">
                         @error('base_fare')
                             <p class="mt-1 text-sm text-red-500 flex items-center gap-1">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -337,17 +366,15 @@
                             </p>
                         @enderror
                     </div>
+
+                    <!-- Discount Amount -->
                     <div>
                         <label for="discount_amount" class="block text-sm font-semibold text-gray-700 mb-2">
                             Discount Amount <span class="text-red-500">*</span>
                         </label>
-                        <div class="relative">
-                            <input type="number" name="discount_amount" id="discount_amount" step="any"
-                                required
-                                class="block w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
-                                placeholder="Fare without other additions (like toll tips etc.)"
-                                value="{{ old('discount_amount') }}">
-                        </div>
+                        <input type="number" name="discount_amount" id="discount_amount" step="any" required
+                            class="block w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
+                            placeholder="Discount amount" value="{{ old('discount_amount') }}">
                         @error('discount_amount')
                             <p class="mt-1 text-sm text-red-500 flex items-center gap-1">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -361,46 +388,20 @@
                     </div>
                 </div>
 
-                <div class="col-span-1">
-                    <label for="payment_mode" class="block text-sm font-semibold text-gray-700 mb-2">
-                        Payment Mode <span class="text-red-500">*</span>
-                    </label>
-                    <div class="relative">
-                        <select name="payment_mode" required
-                            class="block w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
-                            id="payment_mode">
+                {{-- Row 8: Payment Mode & On Contract --}}
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <!-- Payment Mode -->
+                    <div>
+                        <label for="payment_mode" class="block text-sm font-semibold text-gray-700 mb-2">
+                            Payment Mode <span class="text-red-500">*</span>
+                        </label>
+                        <select name="payment_mode" required id="payment_mode"
+                            class="block w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200">
                             <option value="">Select payment mode</option>
                             <option value="Cash" @selected(old('payment_mode') == 'Cash')>Cash</option>
                             <option value="Card" @selected(old('payment_mode') == 'Card')>Card</option>
                         </select>
-                    </div>
-                    @error('payment_mode')
-                        <p class="mt-1 text-sm text-red-500 flex items-center gap-1">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
-                                fill="currentColor">
-                                <path
-                                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" />
-                            </svg>
-                            {{ $message }}
-                        </p>
-                    @enderror
-                </div>
-
-                <div class="col-span-1">
-                    <div>
-                        <label for="on_contract" class="block text-sm font-semibold text-gray-700 mb-2">
-                            On Contract <span class="text-red-500">*</span>
-                        </label>
-                        <div class="relative">
-                            <select name="on_contract" required
-                                class="block w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
-                                id="on_contract">
-                                <option value="">Select On Contract</option>
-                                <option value="1" @selected(old('on_contract') == '1')>Yes</option>
-                                <option value="0" @selected(old('on_contract') == '0')>No</option>
-                            </select>
-                        </div>
-                        @error('on_contract')
+                        @error('payment_mode')
                             <p class="mt-1 text-sm text-red-500 flex items-center gap-1">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                     viewBox="0 0 24 24" fill="currentColor">
@@ -411,23 +412,45 @@
                             </p>
                         @enderror
                     </div>
-                    <div class="mt-2" id="contract_provider_wrapper" style="display: none;">
-                        <label for="contract_provider_name" class="block text-sm font-semibold text-gray-700 mb-2">
-                            Contract Provider Name <span class="text-red-500">*</span>
+
+                    <!-- On Contract -->
+                    <div>
+                        <label for="on_contract" class="block text-sm font-semibold text-gray-700 mb-2">
+                            On Contract <span class="text-red-500">*</span>
                         </label>
-                        <div class="relative">
-                            <input type="text" name="contract_provider_name" id="contract_provider_name"
-                                class="block w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
-                                placeholder="Enter Customer Name" value="{{ old('contract_provider_name') }}">
-                        </div>
-                        @error('contract_provider_name')
-                            <p class="mt-1 text-sm text-red-500">
+                        <select name="on_contract" required id="on_contract"
+                            class="block w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200">
+                            <option value="">Select On Contract</option>
+                            <option value="1" @selected(old('on_contract') == '1')>Yes</option>
+                            <option value="0" @selected(old('on_contract') == '0')>No</option>
+                        </select>
+                        @error('on_contract')
+                            <p class="mt-1 text-sm text-red-500 flex items-center gap-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                    viewBox="0 0 24 24" fill="currentColor">
+                                    <path
+                                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" />
+                                </svg>
                                 {{ $message }}
                             </p>
                         @enderror
+
+                        <!-- Contract Provider Name (hidden by default) -->
+                        <div class="mt-3" id="contract_provider_wrapper" style="display: none;">
+                            <label for="contract_provider_name"
+                                class="block text-sm font-semibold text-gray-700 mb-2">
+                                Contract Provider Name <span class="text-red-500">*</span>
+                            </label>
+                            <input type="text" name="contract_provider_name" id="contract_provider_name"
+                                class="block w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
+                                placeholder="Enter Contract Provider Name"
+                                value="{{ old('contract_provider_name') }}">
+                            @error('contract_provider_name')
+                                <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+                            @enderror
+                        </div>
                     </div>
                 </div>
-
 
             </div>
 
@@ -446,22 +469,37 @@
     </div>
 
     <script>
-        // Auto-select vehicle when driver is selected
         const driverSelect = document.getElementById('driver');
         const vehicleSelect = document.getElementById('vehicle');
+        const allVehicleOptions = Array.from(vehicleSelect.querySelectorAll('option[data-driver-id]'));
 
-        driverSelect.addEventListener('change', function() {
-            const selectedOption = this.options[this.selectedIndex];
-            const vehicleId = selectedOption.getAttribute('data-driverVehicleId');
-
-            if (vehicleId) {
-                vehicleSelect.value = vehicleId;
+        function filterVehicles(driverId) {
+            const currentValue = vehicleSelect.value;
+            allVehicleOptions.forEach(opt => {
+                const belongs = !driverId || opt.dataset.driverId === driverId;
+                opt.style.display = belongs ? '' : 'none';
+                opt.disabled = !belongs;
+            });
+            const currentStillValid = allVehicleOptions.find(o => o.value === currentValue && !o.disabled);
+            if (currentStillValid) {
+                vehicleSelect.value = currentValue; // keep pre-filled value
             } else {
                 vehicleSelect.value = '';
+                const visible = allVehicleOptions.filter(o => !o.disabled);
+                if (driverId && visible.length === 1) vehicleSelect.value = visible[0].value;
             }
+        }
+
+        driverSelect.addEventListener('change', function() {
+            filterVehicles(this.value);
         });
 
-        // Show/hide contract provider name based on on_contract dropdown
+        // On page load: if a driver is already selected (lead pre-fill), filter immediately
+        window.addEventListener('DOMContentLoaded', function() {
+            if (driverSelect.value) filterVehicles(driverSelect.value);
+        });
+
+        // Show/hide contract provider name
         const onContractSelect = document.getElementById('on_contract');
         const contractProviderWrapper = document.getElementById('contract_provider_wrapper');
         const contractProviderInput = document.getElementById('contract_provider_name');
@@ -477,7 +515,6 @@
             }
         });
 
-        // On page load, check if old value was yes (for validation re-render)
         window.addEventListener('DOMContentLoaded', function() {
             if (onContractSelect.value === '1') {
                 contractProviderWrapper.style.display = 'block';

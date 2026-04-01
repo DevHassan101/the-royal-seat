@@ -31,6 +31,9 @@
                 <thead>
                     <tr class="bg-gray-50 border-b-2 border-gray-200">
                         <th class="px-6 py-4 text-xs font-bold tracking-wider text-left text-gray-700 uppercase">
+                            #
+                        </th>
+                        <th class="px-6 py-4 text-xs font-bold tracking-wider text-left text-gray-700 uppercase">
                             Vehicle
                         </th>
                         <th class="px-6 py-4 text-xs font-bold tracking-wider text-left text-gray-700 uppercase">
@@ -42,6 +45,9 @@
                         <th class="px-6 py-4 text-xs font-bold tracking-wider text-left text-gray-700 uppercase">
                             Booking Date
                         </th>
+                        <th class="px-6 py-4 text-xs font-bold tracking-wider text-left text-gray-700 uppercase">
+                            Status
+                        </th>
                         <th class="px-6 py-4 text-xs font-bold tracking-wider text-center text-gray-700 uppercase">
                             Actions
                         </th>
@@ -50,6 +56,9 @@
                 <tbody class="bg-white">
                     @forelse ($leads as $lead)
                         <tr class="border-b border-gray-200 hover:bg-gray-50 transition-colors duration-200">
+                            <td class="px-6 py-4 text-sm">
+                                <p class="text-gray-700 whitespace-nowrap">{{ $lead->id }}</p>
+                            </td>
                             <td class="px-6 py-4 text-sm">
                                 <a href="{{ route('vehicle.show', ['vehicle' => $lead->vehicle]) }}"
                                     class="flex items-center gap-3">
@@ -77,7 +86,58 @@
                                 </p>
                             </td>
                             <td class="px-6 py-4 text-sm">
+                                @php
+                                    $s = $lead->status ?? 'pending';
+                                    $badgeClass = match ($s) {
+                                        'success' => 'bg-green-100 text-green-800',
+                                        'failed' => 'bg-red-100 text-red-800',
+                                        default => 'bg-yellow-100 text-yellow-800',
+                                    };
+                                @endphp
+                                <span
+                                    class="uppercase px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full {{ $badgeClass }}">
+                                    {{ $s }}
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 text-sm">
                                 <div class="flex items-center justify-center gap-2">
+
+                                    @if (($lead->status ?? 'pending') === 'pending')
+                                        <!-- Mark Success -->
+                                        <form action="{{ route('lead.update-status', $lead) }}" method="POST"
+                                            class="inline-block">
+                                            @csrf
+                                            @method('PATCH')
+                                            <input type="hidden" name="status" value="success">
+                                            <button type="submit"
+                                                class="group px-2 py-2 bg-white rounded-lg hover:!bg-green-500 !text-green-600 hover:!text-white transition-all duration-300"
+                                                title="Mark as Success">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path d="M20 6L9 17l-5-5" />
+                                                </svg>
+                                            </button>
+                                        </form>
+
+                                        <!-- Mark Failed -->
+                                        <form action="{{ route('lead.update-status', $lead) }}" method="POST"
+                                            class="inline-block" onsubmit="return confirm('Mark this lead as failed?')">
+                                            @csrf
+                                            @method('PATCH')
+                                            <input type="hidden" name="status" value="failed">
+                                            <button type="submit"
+                                                class="group px-2 py-2 bg-white rounded-lg hover:!bg-red-500 !text-red-600 hover:!text-white transition-all duration-300"
+                                                title="Mark as Failed">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                    <circle cx="12" cy="12" r="10" />
+                                                    <path d="M15 9l-6 6M9 9l6 6" />
+                                                </svg>
+                                            </button>
+                                        </form>
+                                    @endif
 
                                     <!-- Delete Button -->
                                     <form action="{{ route('lead.destroy', ['lead' => $lead]) }}" method="post"

@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="flex justify-between items-center w-full mb-6">
+    <div class="flex flex-col-reverse lg:!flex-row justify-between items-start lg:items-center w-full mb-6 gap-4 lg:gap-0">
         <div class="ml-1">
             <h2 class="text-3xl font-bold text-gray-800 mb-1">
                 Edit Vehicle
@@ -34,7 +34,7 @@
             enctype="multipart/form-data">
             @csrf
             @method('PUT')
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <!-- Name -->
                 <div>
                     <label for="name" class="block text-sm font-semibold text-gray-700 mb-2">
@@ -42,7 +42,7 @@
                     </label>
                     <div class="relative">
                         <input type="text" name="name" id="name"
-                            class="block w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
+                            class="block w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
                             placeholder="Enter Vehicle Name" value="{{ old('name', $vehicle->name) }}">
                     </div>
                     @error('name')
@@ -62,7 +62,7 @@
                     </label>
                     <div class="relative">
                         <input type="file" name="picture" id="picture" accept="image/*"
-                            class="block w-full !pl-3 !pr-4 py-3 !border-1 !border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
+                            class="block w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
                             placeholder="Enter Vehicle Name" value="{{ old('picture') }}">
                     </div>
                     @error('picture')
@@ -108,7 +108,7 @@
                     </label>
                     <div class="relative">
                         <input type="text" name="model" id="model"
-                            class="block w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
+                            class="block w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
                             placeholder="ex:  Mercedes-Maybach S-Class, Rolls-Royce Phantom EWB"
                             value="{{ old('model', $vehicle->model) }}">
                     </div>
@@ -131,7 +131,7 @@
                     </label>
                     <div class="relative">
                         <input type="number" name="seats" id="seats"
-                            class="block w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
+                            class="block w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
                             placeholder="Enter seats" value="{{ old('seats', $vehicle->seats) }}">
                     </div>
                     @error('seats')
@@ -178,7 +178,7 @@
                     </label>
                     <div class="relative">
                         <input type="number" step="any" name="per_day_charges" id="per_day_charges"
-                            class="block w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
+                            class="block w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
                             placeholder="Enter Per day charges" value="{{ old('per_day_charges', $vehicle->per_day_charges) }}">
                     </div>
                     @error('per_day_charges')
@@ -222,7 +222,7 @@
                     </label>
                     <div class="relative">
                         <input type="text" name="plate_number" id="plate_number"
-                            class="block w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
+                            class="block w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
                             placeholder="Enter plate number" value="{{ old('plate_number', $vehicle->plate_number) }}">
                     </div>
                     @error('plate_number')
@@ -243,7 +243,7 @@
                     </label>
                     <div class="relative">
                         <input type="text" name="plate_code" id="plate_code"
-                            class="block w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
+                            class="block w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
                             placeholder="Enter plate code" value="{{ old('plate_code', $vehicle->plate_code) }}">
                     </div>
                     @error('plate_code')
@@ -259,7 +259,7 @@
                 </div>
 
                 <!-- Permit Details -->
-                <div class="col-span-2">
+                <div class="col-span-1 sm:col-span-2">
                     <label for="permit_details" class="block text-sm font-semibold text-gray-700 mb-2">
                         Permit Details
                     </label>
