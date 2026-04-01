@@ -92,6 +92,12 @@ class DriverController extends Controller
             'email' => $request->email,
         ]);
 
+        if($request->password){
+            $driver->update([
+                'password' => Hash::make($request->password),
+            ]);
+        }
+
         $driverInfo = DriverInfo::updateOrCreate(['user_id' => $driver->id], [
             'emirates_id'    => $request->emirates_id,
             'license_number' => $request->license_number,
