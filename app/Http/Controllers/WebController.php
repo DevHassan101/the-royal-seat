@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\LeadNotificationMail;
+use App\Mail\NewQueryMail;
 use App\Models\Lead;
 use App\Models\Query;
 use App\Models\User;
@@ -62,13 +63,14 @@ class WebController extends Controller
     }
     public function storeQuery(Request $request)
     {
-        Query::create([
+        $query = Query::create([
             'name' => $request->name,
             'email' => $request->email,
             'phone' => $request->phone,
             'subject' => $request->subject,
             'message' => $request->message,
         ]);
+            Mail::to("support@royalseatluxury.com")->send(new NewQueryMail($query));
 
         return redirect()->back()->with('success', 'Query request has been send successfully.');
     }

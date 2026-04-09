@@ -18,6 +18,7 @@
 
         <div class="info-row"><span class="label">Customer Name:</span> {{ $lead->name }}</div>
         <div class="info-row"><span class="label">Email:</span> {{ $lead->email ?? 'N/A' }}</div>
+        <div class="info-row"><span class="label">Phone:</span> {{ $lead->phone ?? 'N/A' }}</div>
         <div class="info-row"><span class="label">Booking Date:</span> {{ $lead->booking_date ? $lead->booking_date->format('d M Y') : 'N/A' }}</div>
         <div class="info-row"><span class="label">Status:</span> {{ ucfirst($lead->status ?? 'pending') }}</div>
 
