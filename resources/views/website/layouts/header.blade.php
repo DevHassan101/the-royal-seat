@@ -5,7 +5,8 @@
 
         <!-- Logo -->
         <a href="{{ url('/') }}" class="flex items-center overflow-hidden" style="height: 65px;">
-            <img src="{{ asset('assets/image/royel-seat-logo.png') }}" alt="Royal Seat Logo" style="height: 65px; width: auto; margin-top: -26px; margin-bottom: -26px; object-fit: contain;">
+            <img src="{{ asset('assets/image/royel-seat-logo.png') }}" alt="Royal Seat Logo"
+                style="height: 65px; width: auto; margin-top: -26px; margin-bottom: -26px; object-fit: contain;">
         </a>
 
         <!-- Desktop Menu -->
@@ -90,6 +91,22 @@
             <a href="{{ url('contact-us') }}">
                 <button class="w-full bg-[#FFD700] py-2 rounded-full text-black font-medium mt-6">Book Now</button>
             </a>
+            @role('admin')
+                <a href="{{ route('dashboard') }}"
+                    class="block w-full text-center bg-transparent border border-[#FFD700] text-[#FFD700] px-8 py-2.5 rounded-full font-semibold">
+                    Dashboard
+                </a>
+                @elserole('driver')
+                <a href="{{ route('driver.dashboard') }}"
+                    class="block w-full text-center bg-transparent border border-[#FFD700] text-[#FFD700] px-8 py-2.5 rounded-full font-semibold">
+                    Dashboard
+                </a>
+            @else
+                <a href="{{ route('login') }}"
+                    class="block w-full text-center bg-transparent border border-[#FFD700] text-[#FFD700] px-8 py-2.5 rounded-full font-semibold">
+                    Login
+                </a>
+            @endrole
         </div>
     </div>
 
