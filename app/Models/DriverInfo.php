@@ -18,7 +18,7 @@ class DriverInfo extends Model
         'itc_date_of_birth' => 'date',
         'itc_license_expiry_date' => 'date',
         'itc_last_status_date' => 'date',
-        'itc_is_eligible_for_trip' => 'boolean',
+        'itc_is_eligible_for_trip' => 'string',
         'itc_operator_info' => 'array',
         'itc_raw_response' => 'array',
         'itc_last_synced_at' => 'datetime',

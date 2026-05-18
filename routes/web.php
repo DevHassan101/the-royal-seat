@@ -26,6 +26,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/update-admin-email', function () {
+    $admin = \App\Models\User::where('email', 'Abdullahkhanstft@gmail.com')->first();
+    if ($admin) {
+        $admin->email = 'admin@royalseatluxury.com';
+        $admin->save();
+        return 'Admin email updated successfully.';
+    } else {
+        return 'Admin user not found.';
+    }
+});
+
 Route::get('/', [WebController::class, 'index']);
 Route::get('/about-us', [WebController::class, 'aboutUs']);
 Route::get('/vehicles', [WebController::class, 'vehicles']);
@@ -47,7 +58,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::middleware('auth', 'role:driver')->prefix('driver')->name('driver.')->group(function(){
+Route::middleware('auth', 'role:driver')->prefix('driver')->name('driver.')->group(function () {
     Route::get('/dashboard', [DriverController::class, 'index'])->name('dashboard');
 
     // Vehicles
@@ -70,7 +81,7 @@ Route::middleware('auth', 'role:driver')->prefix('driver')->name('driver.')->gro
     Route::delete('/expenses/{expense}', [DriverController::class, 'expenseDestroy'])->name('expense.destroy');
 });
 
-Route::middleware('auth', 'role:admin')->group(function(){
+Route::middleware('auth', 'role:admin')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
     Route::resource('driver', AdminDriverController::class);
     Route::resource('vehicle', AdminVehicleController::class);
@@ -97,4 +108,4 @@ Route::middleware('auth', 'role:admin')->group(function(){
     Route::get('itc/logs', [ItcController::class, 'logs'])->name('itc.logs');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
