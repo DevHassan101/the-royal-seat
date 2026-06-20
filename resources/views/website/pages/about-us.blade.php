@@ -1,265 +1,1029 @@
 @extends('website.app')
 @section('content')
 
-{{-- ============================================
-   HERO SECTION
-============================================ --}}
-<section class="relative h-[80vh] flex items-center justify-center overflow-hidden bg-black">
+    <section class="about-section" style="margin-top: 80px !important">
+      <div class="about-bg"></div>
+      <div class="about-overlay"></div>
 
-    {{-- Background image --}}
-    <div class="absolute inset-0 bg-[url('./assets/image/automotive3.jpg')] bg-cover bg-center scale-110 animate-zoomSlow"></div>
+      <!-- corner-svg-decorations -->
+      <svg
+        class="corner-tl"
+        width="56"
+        height="56"
+        fill="none"
+        viewBox="0 0 56 56"
+      >
+        <path
+          d="M2 54 L2 2 L54 2"
+          stroke="#e6b800"
+          stroke-width="2.5"
+          stroke-linecap="round"
+        />
+      </svg>
+      <svg
+        class="corner-br"
+        width="56"
+        height="56"
+        fill="none"
+        viewBox="0 0 56 56"
+      >
+        <path
+          d="M2 54 L2 2 L54 2"
+          stroke="#e6b800"
+          stroke-width="2.5"
+          stroke-linecap="round"
+        />
+      </svg>
 
-    {{-- Dark overlay --}}
-    <div class="absolute inset-0 bg-gradient-to-r from-black/90 via-black/70 to-black/90"></div>
+      <!-- Content -->
+      <div class="about-content">
+        <!-- Label -->
+        <p class="about-label">Who We Are</p>
 
-    {{-- Animated top line --}}
-    <span class="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-yellow-500 to-transparent animate-lineMove"></span>
+        <!-- Heading -->
+        <h2 class="about-heading">About Our <span>Company</span></h2>
 
-    {{-- Content --}}
-    <div class="relative z-10 max-w-6xl px-6 text-center mt-14">
-
-        <span class="inline-block text-xs font-bold tracking-[0.2em] uppercase text-yellow-500 mb-4 animate-fadeIn">
-            Who We Are
-        </span>
-
-        <h1 class="text-4xl md:text-6xl font-extrabold text-white tracking-wide animate-slideUp">
-            About Our <span class="text-yellow-500">Company</span>
-        </h1>
-
-        <p class="mt-6 max-w-2xl mx-auto text-gray-300 text-lg animate-fadeIn">
-            Premium car rental experience built on trust, comfort, and style.
-            We deliver modern vehicles and professional service for every journey.
+        <!-- Description -->
+        <p class="about-desc">
+          Premium car rental experience built on trust, comfort, and style. We
+          deliver modern vehicles and professional chauffeur service for every
+          journey from airport transfers to city tours across the UAE.
         </p>
 
-        <div class="mt-10 flex justify-center gap-4 animate-fadeIn">
-            <a href="#about-content"
-                class="px-8 py-4 bg-yellow-500 text-black font-semibold rounded-full
-                       hover:scale-105 active:scale-95 transition-all duration-300
-                       shadow-lg hover:shadow-yellow-500/40">
-                Learn More
-            </a>
-            <a href="#bookingSection"
-                class="px-8 py-4 border-2 border-white/40 text-white font-semibold rounded-full
-                       hover:border-yellow-500 hover:text-yellow-400 hover:scale-105
-                       active:scale-95 transition-all duration-300 backdrop-blur-sm">
-                Contact Us
-            </a>
+        <!-- Buttons -->
+        <div class="btn-group mb-10">
+          <a href="#" class="btn-primary">
+            Book a Ride
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="1.6em"
+              height="1.6em"
+              viewBox="0 0 24 24"
+            >
+              <path d="M0 0h24v24H0z" fill="none" />
+              <path
+                fill="currentColor"
+                fill-rule="evenodd"
+                d="M18.5 12.214a1 1 0 0 0-1-1H5a1 1 0 1 0 0 2h12.5a1 1 0 0 0 1-1"
+                clip-rule="evenodd"
+              />
+              <path
+                fill="currentColor"
+                fill-rule="evenodd"
+                d="M20 12.214a1 1 0 0 0-.293-.707l-4.5-4.5a1 1 0 1 0-1.414 1.414l3.793 3.793l-3.793 3.793a1 1 0 0 0 1.414 1.415l4.5-4.5a1 1 0 0 0 .293-.708"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </a>
+          <a href="#" class="btn-secondary">
+            Contact Us
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="1.3em"
+              height="1.3em"
+              viewBox="0 0 24 24"
+            >
+              <path d="M0 0h24v24H0z" fill="none" />
+              <path
+                fill="currentColor"
+                d="m19.23 15.26l-2.54-.29a1.99 1.99 0 0 0-1.64.57l-1.84 1.84a15.05 15.05 0 0 1-6.59-6.59l1.85-1.85c.43-.43.64-1.03.57-1.64l-.29-2.52a2 2 0 0 0-1.99-1.77H5.03c-1.13 0-2.07.94-2 2.07c.53 8.54 7.36 15.36 15.89 15.89c1.13.07 2.07-.87 2.07-2v-1.73c.01-1.01-.75-1.86-1.76-1.98"
+              />
+            </svg>
+          </a>
         </div>
 
-    </div>
+        <!-- Floating stat chips -->
+        <div class="flex flex-wrap items-center justify-center gap-3">
+          <div class="stat-chip">
+            <span class="stat-chip-dot"></span>
+            50,000+ Happy Customers
+          </div>
+          <div class="stat-chip">
+            <span class="stat-chip-dot"></span>
+            420k+ Rides Completed
+          </div>
+          <div class="stat-chip">
+            <span class="stat-chip-dot"></span>
+            4.9 ★ Avg Rating
+          </div>
+        </div>
+      </div>
+    </section>
 
-    {{-- Bottom fade line --}}
-    <span class="absolute bottom-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-yellow-500/40 to-transparent"></span>
-
-</section>
-
-{{-- ============================================
-   ABOUT CONTENT
-============================================ --}}
-<div class="bg-gray-950 text-gray-200">
-
-    {{-- Who Are We --}}
-    <section class="py-24">
-        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-14 items-center">
-
-            {{-- Text --}}
-            <div>
-                <h3 class="text-3xl font-bold mb-2 text-white animated-text">
-                    <span class="word white"><span>W</span><span>h</span><span>o</span></span>
-                    <span class="word yellow"><span>A</span><span>r</span><span>e</span>&nbsp;<span>W</span><span>e</span></span>
-                </h3>
-                <div class="w-10 h-1 bg-yellow-400 rounded-full mb-6"></div>
-                <p class="text-gray-300 mb-5 leading-relaxed text-base">
-                    <span class="font-bold text-white">THE ROYAL <span class="text-yellow-500">SEAT</span></span>
-                    Rent a Car provides reliable, luxury, and budget-friendly vehicles designed for
-                    business trips, family journeys, and everyday travel.
-                </p>
-                <p class="text-gray-400 leading-relaxed text-base">
-                    Our mission is to deliver a smooth, secure, and premium rental
-                    experience with modern vehicles and professional customer service.
-                </p>
+    <!-- about-section-starts -->
+    <section class="bg-white" style="padding: 80px 24px 90px">
+      <div class="max-w-7xl mx-auto">
+        <div class="flex flex-col lg:flex-row items-center gap-14">
+          <!-- LEFT: Floating cards + image collage -->
+          <div
+            class="relative flex-shrink-0"
+            style="width: 100%; max-width: 480px"
+          >
+            <!-- Main image -->
+            <div
+              style="
+                border-radius: 24px;
+                overflow: hidden;
+                box-shadow: 0 24px 60px rgba(0, 0, 0, 0.14);
+              "
+            >
+              <img
+                src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=800&q=80"
+                alt="Luxury chauffeur service"
+                style="
+                  width: 100%;
+                  height: 320px;
+                  object-fit: cover;
+                  display: block;
+                "
+                onerror="
+                  this.src =
+                    'https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?auto=format&fit=crop&w=800&q=80'
+                "
+              />
             </div>
 
-            {{-- Why Choose Us — rotating border card --}}
-            <div class="relative rounded-2xl p-8 overflow-hidden bg-gray-900 border-rotate">
-                <svg class="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 100 100" preserveAspectRatio="none">
-                    <rect x="1" y="1" width="98" height="98" rx="6" ry="6" fill="none"
-                        stroke="#eab308" stroke-width="1.5" stroke-dasharray="20 180" class="animated-border"/>
+            <!-- Stat card top-left -->
+            <div
+              class="float-badge"
+              style="top: -24px; left: -20px; min-width: 180px"
+            >
+              <div
+                style="
+                  width: 44px;
+                  height: 44px;
+                  border-radius: 12px;
+                  background: var(--brand-bg);
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                "
+              >
+                <svg
+                  width="22"
+                  height="22"
+                  fill="none"
+                  stroke="var(--brand)"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                  <circle cx="9" cy="7" r="4" />
+                  <path
+                    d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"
+                  />
                 </svg>
-                <h3 class="text-xl font-bold mb-6 text-white">Why Choose Us</h3>
-                <ul class="space-y-4 text-gray-300">
-                    @foreach(['Modern & well-maintained vehicles','Transparent pricing, no hidden charges','Flexible rental packages','24/7 customer assistance','Quick & easy booking'] as $item)
-                    <li class="flex items-center gap-3">
-                        <span class="w-5 h-5 rounded-full bg-yellow-400/10 border border-yellow-400/30 flex items-center justify-center shrink-0">
-                            <svg class="w-3 h-3 text-yellow-400" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
-                            </svg>
-                        </span>
-                        {{ $item }}
-                    </li>
-                    @endforeach
-                </ul>
+              </div>
+              <div>
+                <p style="font-size: 11px; color: #999; margin-bottom: 1px">
+                  Over
+                </p>
+                <p class="counter-num" style="font-size: 30px; color: #111">
+                  50k<span style="color: var(--brand)">+</span>
+                </p>
+                <p style="font-size: 11px; color: #777">Happy Customers</p>
+              </div>
             </div>
 
+            <!-- Stat card bottom-right -->
+            <div
+              class="float-badge"
+              style="bottom: -22px; right: -16px; min-width: 200px"
+            >
+              <div
+                style="
+                  background: var(--brand);
+                  border-radius: 12px;
+                  width: 44px;
+                  height: 44px;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  flex-shrink: 0;
+                "
+              >
+                <svg
+                  width="22"
+                  height="22"
+                  fill="none"
+                  stroke="#fff"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"
+                  />
+                </svg>
+              </div>
+              <div>
+                <p
+                  style="
+                    font-size: 26px;
+                    font-weight: 800;
+                    color: #111;
+                    line-height: 1;
+                  "
+                >
+                  4.9 <span style="font-size: 14px; color: #f59e0b">★★★★★</span>
+                </p>
+                <p style="font-size: 11px; color: #777">Avg. Customer Rating</p>
+                <p style="font-size: 10px; color: #aaa">
+                  Based on 12,400+ reviews
+                </p>
+              </div>
+            </div>
+
+            <!-- Decorative dot grid -->
+            <div
+              style="
+                position: absolute;
+                bottom: -40px;
+                left: -30px;
+                width: 90px;
+                height: 90px;
+                opacity: 0.4;
+                pointer-events: none;
+              "
+            >
+              <svg viewBox="0 0 90 90" fill="none">
+                <pattern
+                  id="dot"
+                  x="0"
+                  y="0"
+                  width="12"
+                  height="12"
+                  patternUnits="userSpaceOnUse"
+                >
+                  <circle cx="2" cy="2" r="2" fill="var(--brand)" />
+                </pattern>
+                <rect width="90" height="90" fill="url(#dot)" />
+              </svg>
+            </div>
+          </div>
+          <!-- RIGHT: Text -->
+          <div class="flex-1">
+            <p
+              class="inline-flex items-center gap-2 mb-4 font-semibold uppercase tracking-[.22em]"
+              style="font-size: 12px; color: #e6b800"
+            >
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="#e6b800">
+                <polygon
+                  points="5,0 6.5,3.5 10,3.8 7.5,6.2 8.1,10 5,8.3 1.9,10 2.5,6.2 0,3.8 3.5,3.5"
+                />
+              </svg>
+              About Us
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="#e6b800">
+                <polygon
+                  points="5,0 6.5,3.5 10,3.8 7.5,6.2 8.1,10 5,8.3 1.9,10 2.5,6.2 0,3.8 3.5,3.5"
+                />
+              </svg>
+            </p>
+            <h1
+              class="font-bold leading-none text-black !text-[45px] mb-4"
+              style="letter-spacing: -0.01em"
+            >
+              Driving Premium,<br />
+              Comfort, and <span class="text-[#e6b800]">Reliability</span>
+            </h1>
+            <p
+              class="text-gray-700 font-medium text-sm lg:text-[15px] leading-7 mb-4 max-w-lg"
+            >
+              At RoyalSeatLuxury, we're more than a ride service we're your travel
+              partner. From city rides and tours to luxury car rentals, we make
+              every journey smooth, stylish, and hassle free.
+            </p>
+
+            <!-- Contact chips -->
+            <div class="flex flex-wrap gap-3 mb-8">
+              <a
+                href="#"
+                class="flex items-center gap-2 px-4 py-2.5 rounded-full text-sm font-semibold"
+                style="
+                  background: var(--brand-bg);
+                  color: var(--brand);
+                  border: 1.5px solid var(--brand-border);
+                  text-decoration: none;
+                  transition: background 0.2s;
+                "
+                onmouseover="this.style.background = 'rgba(212,160,23,0.2)'"
+                onmouseout="this.style.background = 'var(--brand-bg)'"
+              >
+                <svg
+                  width="14"
+                  height="14"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                >
+                  <rect x="3" y="4" width="18" height="18" rx="2" />
+                  <path d="M16 2v4M8 2v4M3 10h18" />
+                </svg>
+                Schedule a Call
+              </a>
+              <a
+                href="mailto:info@RoyalSeatLuxury.com"
+                class="flex items-center gap-2 px-4 py-2.5 rounded-full text-sm font-semibold"
+                style="
+                  background: #f3f4f6;
+                  color: #444;
+                  border: 1.5px solid #e5e7eb;
+                  text-decoration: none;
+                "
+              >
+                <svg
+                  width="14"
+                  height="14"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+                  />
+                  <polyline points="22,6 12,13 2,6" />
+                </svg>
+                info@RoyalSeatLuxury.com
+              </a>
+            </div>
+
+            <div class="flex flex-wrap gap-3 items-center">
+              <a href="#" class="btn-brand">Book a Ride Now</a>
+              <div style="display: flex; align-items: center; gap: 6px">
+                <p style="font-size: 13px; color: #999">Have any questions?</p>
+                <a
+                  href="#"
+                  class="btn-outline"
+                  style="padding: 9px 18px; font-size: 13px"
+                  >Contact Us</a
+                >
+              </div>
+            </div>
+
+            <!-- Mini stats row -->
+            <div
+              class="flex flex-wrap gap-6 mt-10 pt-8"
+              style="border-top: 1px solid #e5e7eb"
+            >
+              <div>
+                <p
+                  class="counter-num"
+                  style="font-size: 28px; color: var(--brand)"
+                >
+                  12+
+                </p>
+                <p style="font-size: 12px; color: #888; margin-top: 2px">
+                  Years of Service
+                </p>
+              </div>
+              <div style="width: 1px; background: #e5e7eb"></div>
+              <div>
+                <p
+                  class="counter-num"
+                  style="font-size: 28px; color: var(--brand)"
+                >
+                  420k+
+                </p>
+                <p style="font-size: 12px; color: #888; margin-top: 2px">
+                  Rides Completed
+                </p>
+              </div>
+              <div style="width: 1px; background: #e5e7eb"></div>
+              <div>
+                <p
+                  class="counter-num"
+                  style="font-size: 28px; color: var(--brand)"
+                >
+                  35+
+                </p>
+                <p style="font-size: 12px; color: #888; margin-top: 2px">
+                  Premium Vehicles
+                </p>
+              </div>
+              <div style="width: 1px; background: #e5e7eb"></div>
+              <div>
+                <p
+                  class="counter-num"
+                  style="font-size: 28px; color: var(--brand)"
+                >
+                  24/7
+                </p>
+                <p style="font-size: 12px; color: #888; margin-top: 2px">
+                  Support Available
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </section>
+    <!-- about-section-ends -->
 
-
-    {{-- Stats --}}
-    <section id="stats" class="py-16 bg-gradient-to-r from-gray-900 to-black border-y border-gray-800">
-        <div class="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            <div class="group">
-                <h3 class="text-4xl font-bold text-white"><span class="counter" data-target="10">0</span><span class="text-yellow-500">+</span></h3>
-                <p class="mt-2 text-gray-400 text-sm">Years Experience</p>
-                <div class="mx-auto mt-3 w-8 h-0.5 bg-yellow-400/0 group-hover:bg-yellow-400 transition-all duration-300 rounded-full"></div>
-            </div>
-            <div class="group">
-                <h3 class="text-4xl font-bold text-white"><span class="counter" data-target="500">0</span><span class="text-yellow-500">+</span></h3>
-                <p class="mt-2 text-gray-400 text-sm">Happy Clients</p>
-                <div class="mx-auto mt-3 w-8 h-0.5 bg-yellow-400/0 group-hover:bg-yellow-400 transition-all duration-300 rounded-full"></div>
-            </div>
-            <div class="group">
-                <h3 class="text-4xl font-bold text-white"><span class="counter" data-target="120">0</span><span class="text-yellow-500">+</span></h3>
-                <p class="mt-2 text-gray-400 text-sm">Vehicles</p>
-                <div class="mx-auto mt-3 w-8 h-0.5 bg-yellow-400/0 group-hover:bg-yellow-400 transition-all duration-300 rounded-full"></div>
-            </div>
-            <div class="group">
-                <h3 class="text-4xl font-bold text-white"><span class="counter" data-target="24">0</span>/7</h3>
-                <p class="mt-2 text-gray-400 text-sm">Support</p>
-                <div class="mx-auto mt-3 w-8 h-0.5 bg-yellow-400/0 group-hover:bg-yellow-400 transition-all duration-300 rounded-full"></div>
-            </div>
-        </div>
-    </section>
-
-
-    {{-- Mission / Vision --}}
-    <section class="py-24">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-14">
-                <span class="inline-block text-xs font-bold tracking-[0.2em] uppercase text-yellow-500 mb-3">What Drives Us</span>
-                <h2 class="text-4xl font-extrabold text-white">Mission & <span class="text-yellow-400">Vision</span></h2>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
-
-                <div class="relative rounded-2xl p-8 cursor-pointer overflow-hidden bg-gray-900 card-dynamic-border">
-                    <span class="absolute top-0 left-0 w-full h-0.5 bg-yellow-500 transition-all duration-200 border-top"></span>
-                    <span class="absolute bottom-0 left-0 w-full h-0.5 bg-yellow-500 transition-all duration-200 border-bottom"></span>
-                    <span class="absolute top-0 left-0 w-0.5 h-full bg-yellow-500 transition-all duration-200 border-left"></span>
-                    <span class="absolute top-0 right-0 w-0.5 h-full bg-yellow-500 transition-all duration-200 border-right"></span>
-                    <div class="w-10 h-10 rounded-xl bg-yellow-400/10 border border-yellow-400/20 flex items-center justify-center mb-5">
-                        <svg class="w-5 h-5 text-yellow-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-                        </svg>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-4 text-white animated-text">
-                        <span class="word white"><span>O</span><span>u</span><span>r</span></span>
-                        <span class="word yellow"><span>M</span><span>i</span><span>s</span><span>s</span><span>i</span><span>o</span><span>n</span></span>
-                    </h3>
-                    <p class="text-gray-400 leading-relaxed">To provide premium-quality car rentals with exceptional service, safety, and reliability — making every journey memorable.</p>
-                </div>
-
-                <div class="relative rounded-2xl p-8 cursor-pointer overflow-hidden bg-gray-900 card-dynamic-border">
-                    <span class="absolute top-0 left-0 w-full h-0.5 bg-yellow-500 transition-all duration-200 border-top"></span>
-                    <span class="absolute bottom-0 left-0 w-full h-0.5 bg-yellow-500 transition-all duration-200 border-bottom"></span>
-                    <span class="absolute top-0 left-0 w-0.5 h-full bg-yellow-500 transition-all duration-200 border-left"></span>
-                    <span class="absolute top-0 right-0 w-0.5 h-full bg-yellow-500 transition-all duration-200 border-right"></span>
-                    <div class="w-10 h-10 rounded-xl bg-yellow-400/10 border border-yellow-400/20 flex items-center justify-center mb-5">
-                        <svg class="w-5 h-5 text-yellow-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0zm6 0a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                        </svg>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-4 text-white animated-text">
-                        <span class="word white"><span>O</span><span>u</span><span>r</span></span>
-                        <span class="word yellow"><span>V</span><span>i</span><span>s</span><span>i</span><span>o</span><span>n</span></span>
-                    </h3>
-                    <p class="text-gray-400 leading-relaxed">To be a trusted and leading name in the car rental industry, delivering excellence and innovation in every journey.</p>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-
-    {{-- Meet Our Experts --}}
-    <section class="py-24 border-y border-yellow-500/20">
-        <div class="max-w-7xl mx-auto px-6 text-center">
-            <span class="inline-block text-xs font-bold tracking-[0.2em] uppercase text-yellow-500 mb-3">The Team</span>
-            <h2 class="text-4xl font-extrabold text-white mb-3 animate-slideUp">
-                Meet Our <span class="text-yellow-400">Experts</span>
+    <!-- who-we-are-section-starts -->
+    <section class="who-section bg-[#fffbea]" style="padding: 80px 24px">
+      <div class="max-w-7xl mx-auto">
+        <div class="flex flex-col lg:flex-row items-center gap-14">
+          <!-- Left text -->
+          <div class="flex-1">
+            <p
+              class="inline-flex items-center gap-2 mb-4 font-semibold uppercase tracking-[.22em]"
+              style="font-size: 12px; color: #e6b800"
+              ;
+            >
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="#e6b800">
+                <polygon
+                  points="5,0 6.5,3.5 10,3.8 7.5,6.2 8.1,10 5,8.3 1.9,10 2.5,6.2 0,3.8 3.5,3.5"
+                />
+              </svg>
+              Who We Are
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="#e6b800">
+                <polygon
+                  points="5,0 6.5,3.5 10,3.8 7.5,6.2 8.1,10 5,8.3 1.9,10 2.5,6.2 0,3.8 3.5,3.5"
+                />
+              </svg>
+            </p>
+            <h2
+              style="
+                font-size: clamp(34px, 5vw, 50px);
+                font-weight: 800;
+                color: #000000;
+                line-height: 1.1;
+                margin-bottom: 22px;
+              "
+            >
+              About <span style="color: var(--brand)">RoyalSeatLuxury</span>
             </h2>
-            <div class="flex justify-center mb-14">
-                <div class="w-12 h-1 bg-yellow-400 rounded-full"></div>
+
+            <div style="display: flex; flex-direction: column; gap: 20px">
+              <div class="timeline-item">
+                <p
+                  style="
+                    font-size: 15px;
+                    color: rgba(0, 0, 0, 0.75);
+                    line-height: 1.75;
+                  "
+                >
+                  RoyalSeatLuxury is a premium transportation platform designed to
+                  elevate your travel experience. Whether it's a family
+                  adventure, a business meeting, or an airport transfer, our
+                  goal is to deliver unmatched quality, comfort, and convenience
+                  across the UAE.
+                </p>
+              </div>
+              <div class="timeline-item">
+                <p
+                  style="
+                    font-size: 15px;
+                    color: rgba(0, 0, 0, 0.75);
+                    line-height: 1.75;
+                  "
+                >
+                  With a range of luxury cars, experienced chauffeurs, and a
+                  commitment to reliability, we make every ride memorable — from
+                  the moment you book to the second you arrive at your
+                  destination.
+                </p>
+              </div>
+              <div class="timeline-item">
+                <p
+                  style="
+                    font-size: 15px;
+                    color: rgba(0, 0, 0, 0.75);
+                    line-height: 1.75;
+                  "
+                >
+                  Rooted in innovation and customer satisfaction, we've created
+                  a seamless booking platform to cater to your diverse travel
+                  needs. Let RoyalSeatLuxury redefine how you move — one ride at a
+                  time.
+                </p>
+              </div>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
-                @foreach([
-                    ['Hassan Khan',   'Fleet Manager',        'assets/image/professional.jpg'],
-                    ['MD Shaikh',     'Operations Lead',      'assets/image/professional.jpg'],
-                    ['Zain Malik',    'Customer Relations',   'assets/image/professional.jpg'],
-                    ['Ayzaz Bhatti',  'Service Coordinator',  'assets/image/professional.jpg'],
-                ] as $member)
-                <div class="group bg-gray-900 border border-gray-700/50 hover:border-yellow-500/40 p-7 rounded-2xl
-                            hover:shadow-xl hover:shadow-yellow-500/10 hover:scale-105
-                            transition-all duration-300 cursor-pointer">
-                    <div class="relative w-20 h-20 mx-auto mb-5">
-                        <div class="absolute inset-0 rounded-full bg-yellow-400/20 scale-110 opacity-0 group-hover:opacity-100 transition-all duration-300 blur-sm"></div>
-                        <img src="{{ $member[2] }}" alt="{{ $member[0] }}"
-                            class="relative w-20 h-20 mx-auto rounded-full object-cover border-2 border-gray-700 group-hover:border-yellow-500 transition-all duration-300">
-                    </div>
-                    <h3 class="text-white font-bold text-base">{{ $member[0] }}</h3>
-                    <p class="text-yellow-500/80 text-sm mt-1">{{ $member[1] }}</p>
-                </div>
-                @endforeach
+            <div class="flex flex-wrap gap-4 mt-8">
+              <div
+                style="
+                  display: flex;
+                  align-items: center;
+                  gap: 10px;
+                  background: rgba(212, 158, 23, 0.15);
+                  border: 1px solid rgba(212, 158, 23, 0.25);
+                  border-radius: 12px;
+                  padding: 12px 18px;
+                "
+              >
+                <svg
+                  width="18"
+                  height="18"
+                  fill="none"
+                  stroke="var(--brand)"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                </svg>
+                <span style="color: #d4a017; font-size: 13px; font-weight: 600"
+                  >Licensed &amp; Insured</span
+                >
+              </div>
+              <div
+                style="
+                  display: flex;
+                  align-items: center;
+                  gap: 10px;
+                  background: rgba(212, 158, 23, 0.15);
+                  border: 1px solid rgba(212, 158, 23, 0.25);
+                  border-radius: 12px;
+                  padding: 12px 18px;
+                "
+              >
+                <svg
+                  width="18"
+                  height="18"
+                  fill="none"
+                  stroke="var(--brand)"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                >
+                  <circle cx="12" cy="12" r="10" />
+                  <path d="M12 8v4l3 3" />
+                </svg>
+                <span style="color: #d4a017; font-size: 13px; font-weight: 600"
+                  >Real-Time Tracking</span
+                >
+              </div>
+              <div
+                style="
+                  display: flex;
+                  align-items: center;
+                  gap: 10px;
+                  background: rgba(212, 158, 23, 0.15);
+                  border: 1px solid rgba(212, 158, 23, 0.25);
+                  border-radius: 12px;
+                  padding: 12px 18px;
+                "
+              >
+                <svg
+                  width="18"
+                  height="18"
+                  fill="none"
+                  stroke="var(--brand)"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                  <circle cx="9" cy="7" r="4" />
+                </svg>
+                <span style="color: #d4a017; font-size: 13px; font-weight: 600"
+                  >Certified Chauffeurs</span
+                >
+              </div>
             </div>
+          </div>
+
+          <!-- Right image -->
+          <div
+            class="relative flex-shrink-0"
+            style="width: 100%; max-width: 460px"
+          >
+            <div
+              style="
+                border-radius: 24px;
+                overflow: hidden;
+                box-shadow: 0 24px 60px #d49e1744;
+              "
+            >
+              <img
+                src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=800&q=80"
+                alt="RoyalSeatLuxury Team"
+                style="
+                  width: 100%;
+                  height: 380px;
+                  object-fit: cover;
+                  display: block;
+                "
+                onerror="
+                  this.src =
+                    'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80'
+                "
+              />
+            </div>
+            <!-- Gold corner accent -->
+            <div
+              style="
+                position: absolute;
+                bottom: -12px;
+                right: -12px;
+                width: 90px;
+                height: 90px;
+                border: 3px solid var(--brand);
+                border-radius: 18px;
+                opacity: 0.4;
+                pointer-events: none;
+              "
+            ></div>
+            <div
+              style="
+                position: absolute;
+                top: -12px;
+                left: -12px;
+                width: 60px;
+                height: 60px;
+                border: 3px solid var(--brand);
+                border-radius: 14px;
+                opacity: 0.25;
+                pointer-events: none;
+              "
+            ></div>
+
+            <!-- Experience badge -->
+            <div
+              style="
+                position: absolute;
+                bottom: 24px;
+                left: -28px;
+                background: #fff;
+                border-radius: 14px;
+                padding: 14px 18px;
+                box-shadow: 0 8px 28px rgba(0, 0, 0, 0.2);
+                display: flex;
+                align-items: center;
+                gap: 12px;
+              "
+            >
+              <div
+                style="
+                  width: 44px;
+                  height: 44px;
+                  border-radius: 12px;
+                  background: var(--brand);
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  flex-shrink: 0;
+                "
+              >
+                <svg
+                  width="20"
+                  height="20"
+                  fill="none"
+                  stroke="#fff"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"
+                  />
+                </svg>
+              </div>
+              <div>
+                <p
+                  style="
+                    font-size: 22px;
+                    font-weight: 800;
+                    color: #111;
+                    line-height: 1;
+                  "
+                >
+                  12+ Years
+                </p>
+                <p style="font-size: 11px; color: #777">of Premium Service</p>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </section>
+    <!-- who-we-are-section-ends -->
 
-
-    {{-- Testimonials --}}
-    <section class="py-24">
-        <div class="max-w-7xl mx-auto px-6 text-center">
-            <span class="inline-block text-xs font-bold tracking-[0.2em] uppercase text-yellow-500 mb-3">Reviews</span>
-            <h2 class="text-4xl font-extrabold text-white mb-3 animate-slideUp">
-                What Our <span class="text-yellow-400">Clients Say</span>
-            </h2>
-            <div class="flex justify-center mb-14">
-                <div class="w-12 h-1 bg-yellow-400 rounded-full"></div>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                @foreach([
-                    ['"Excellent service and well-maintained cars. Highly recommended for all kinds of trips!"', 'Ahmed R.'],
-                    ['"Smooth booking process, great support team, and affordable luxury cars."', 'Fatima S.'],
-                    ['"Reliable, professional, and premium rental experience. Will use again!"', 'Omar K.'],
-                ] as $review)
-                <div class="group relative bg-gray-900 border border-gray-700/50 hover:border-yellow-500/30 p-8 rounded-2xl
-                            hover:shadow-xl hover:shadow-yellow-500/10 transition-all duration-300 text-left">
-                    {{-- Quote icon --}}
-                    <div class="text-yellow-400/20 text-6xl font-serif leading-none mb-4 select-none">"</div>
-                    {{-- Stars --}}
-                    <div class="flex gap-1 mb-4">
-                        @for($i = 0; $i < 5; $i++)
-                        <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                        </svg>
-                        @endfor
-                    </div>
-                    <p class="text-gray-300 leading-relaxed mb-6 text-sm">{{ $review[0] }}</p>
-                    <div class="flex items-center gap-3 border-t border-gray-700/50 pt-5">
-                        <div class="w-8 h-8 rounded-full bg-yellow-400/10 border border-yellow-400/20 flex items-center justify-center text-yellow-400 font-bold text-xs">
-                            {{ substr($review[1], 0, 1) }}
-                        </div>
-                        <div>
-                            <h3 class="text-white font-semibold text-sm">{{ $review[1] }}</h3>
-                            <p class="text-yellow-500/70 text-xs">Verified Customer</p>
-                        </div>
-                    </div>
-                </div>
-                @endforeach
-            </div>
+    <!-- our-value-section-starts -->
+    <section style="padding: 80px 24px; background: var(--page-bg)">
+      <div class="max-w-7xl mx-auto">
+        <!-- Header -->
+        <div style="text-align: center; max-width: 640px; margin: 0 auto 56px">
+          <p
+            class="inline-flex items-center gap-2 mb-4 font-semibold uppercase tracking-[.22em]"
+            style="font-size: 12px; color: #e6b800"
+          >
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="#e6b800">
+              <polygon
+                points="5,0 6.5,3.5 10,3.8 7.5,6.2 8.1,10 5,8.3 1.9,10 2.5,6.2 0,3.8 3.5,3.5"
+              />
+            </svg>
+            Our Values
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="#e6b800">
+              <polygon
+                points="5,0 6.5,3.5 10,3.8 7.5,6.2 8.1,10 5,8.3 1.9,10 2.5,6.2 0,3.8 3.5,3.5"
+              />
+            </svg>
+          </p>
+          <h2 class="sec-title mb-4">
+            At RoyalSeatLuxury, <span>Our Values</span> Define Serve You
+          </h2>
+          <p style="color: #777; font-size: 15px; line-height: 1.7">
+            Every ride is a reflection of our promise to provide comfort, trust,
+            and excellence — ensuring you travel with confidence and style every
+            time.
+          </p>
         </div>
-    </section>
 
-</div>
+        <!-- Values grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+          <div class="value-card">
+            <div class="value-icon">
+              <svg
+                width="26"
+                height="26"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                <circle cx="9" cy="7" r="4" />
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
+              </svg>
+            </div>
+            <h3
+              style="
+                font-size: 22px;
+                font-weight: 700;
+                color: #111;
+                margin-bottom: 10px;
+              "
+            >
+              Customer-Centric Service
+            </h3>
+            <p style="font-size: 14px; color: #666; line-height: 1.7">
+              We prioritize your needs, ensuring every ride meets your
+              expectations for comfort and style. Your satisfaction drives every
+              decision we make.
+            </p>
+            <div
+              style="
+                width: 36px;
+                height: 3px;
+                background: var(--brand);
+                border-radius: 2px;
+                margin: 18px auto 0;
+                opacity: 0.6;
+              "
+            ></div>
+          </div>
+
+          <div
+            class="value-card"
+            style="
+              border-color: var(--brand-border);
+              box-shadow: 0 8px 30px rgba(212, 160, 23, 0.12);
+            "
+          >
+            <div
+              class="value-icon"
+              style="background: var(--brand); color: #fff"
+            >
+              <svg
+                width="26"
+                height="26"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+              </svg>
+            </div>
+            <h3
+              style="
+                font-size: 22px;
+                font-weight: 700;
+                color: #111;
+                margin-bottom: 10px;
+              "
+            >
+              Reliability and Trust
+            </h3>
+            <p style="font-size: 14px; color: #666; line-height: 1.7">
+              Our rides are punctual, dependable, and tailored to fit your
+              schedule — because your time matters and we never take it for
+              granted.
+            </p>
+            <div
+              style="
+                width: 36px;
+                height: 3px;
+                background: var(--brand);
+                border-radius: 2px;
+                margin: 18px auto 0;
+              "
+            ></div>
+          </div>
+
+          <div class="value-card">
+            <div class="value-icon">
+              <svg
+                width="26"
+                height="26"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+              </svg>
+            </div>
+            <h3
+              style="
+                font-size: 22px;
+                font-weight: 700;
+                color: #111;
+                margin-bottom: 10px;
+              "
+            >
+              Innovation and Excellence
+            </h3>
+            <p style="font-size: 14px; color: #666; line-height: 1.7">
+              We blend technology with luxury to create a seamless experience —
+              from real-time booking to live tracking and instant confirmation.
+            </p>
+            <div
+              style="
+                width: 36px;
+                height: 3px;
+                background: var(--brand);
+                border-radius: 2px;
+                margin: 18px auto 0;
+                opacity: 0.6;
+              "
+            ></div>
+          </div>
+        </div>
+
+        <!-- Extra values row -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div
+            style="
+              background: #fff;
+              border-radius: 14px;
+              padding: 20px;
+              border: 1.5px solid #efefef;
+              text-align: center;
+              transition: box-shadow 0.2s;
+            "
+            onmouseover="
+              this.style.boxShadow = '0 6px 20px rgba(212,160,23,0.12)'
+            "
+            onmouseout="this.style.boxShadow = 'none'"
+          >
+            <svg
+              style="color: var(--brand); margin: 0 auto 10px; display: block"
+              width="24"
+              height="24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+            >
+              <circle cx="12" cy="12" r="10" />
+              <path d="M12 8v4l3 3" />
+            </svg>
+            <p
+              style="
+                font-size: 13px;
+                font-weight: 700;
+                color: #111;
+                margin-bottom: 4px;
+              "
+            >
+              On-Time Every Time
+            </p>
+            <p style="font-size: 12px; color: #888">
+              Punctuality is our promise
+            </p>
+          </div>
+          <div
+            style="
+              background: #fff;
+              border-radius: 14px;
+              padding: 20px;
+              border: 1.5px solid #efefef;
+              text-align: center;
+              transition: box-shadow 0.2s;
+            "
+            onmouseover="
+              this.style.boxShadow = '0 6px 20px rgba(212,160,23,0.12)'
+            "
+            onmouseout="this.style.boxShadow = 'none'"
+          >
+            <svg
+              style="color: var(--brand); margin: 0 auto 10px; display: block"
+              width="24"
+              height="24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+            >
+              <rect x="3" y="11" width="18" height="11" rx="2" />
+              <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+            </svg>
+            <p
+              style="
+                font-size: 13px;
+                font-weight: 700;
+                color: #111;
+                margin-bottom: 4px;
+              "
+            >
+              Secure &amp; Safe
+            </p>
+            <p style="font-size: 12px; color: #888">SSL-encrypted bookings</p>
+          </div>
+          <div
+            style="
+              background: #fff;
+              border-radius: 14px;
+              padding: 20px;
+              border: 1.5px solid #efefef;
+              text-align: center;
+              transition: box-shadow 0.2s;
+            "
+            onmouseover="
+              this.style.boxShadow = '0 6px 20px rgba(212,160,23,0.12)'
+            "
+            onmouseout="this.style.boxShadow = 'none'"
+          >
+            <svg
+              style="color: var(--brand); margin: 0 auto 10px; display: block"
+              width="24"
+              height="24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"
+              />
+            </svg>
+            <p
+              style="
+                font-size: 13px;
+                font-weight: 700;
+                color: #111;
+                margin-bottom: 4px;
+              "
+            >
+              5-Star Fleet
+            </p>
+            <p style="font-size: 12px; color: #888">Premium luxury vehicles</p>
+          </div>
+          <div
+            style="
+              background: #fff;
+              border-radius: 14px;
+              padding: 20px;
+              border: 1.5px solid #efefef;
+              text-align: center;
+              transition: box-shadow 0.2s;
+            "
+            onmouseover="
+              this.style.boxShadow = '0 6px 20px rgba(212,160,23,0.12)'
+            "
+            onmouseout="this.style.boxShadow = 'none'"
+          >
+            <svg
+              style="color: var(--brand); margin: 0 auto 10px; display: block"
+              width="24"
+              height="24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07"
+              />
+              <path
+                d="M1.61 3.42A2 2 0 0 1 3.58 1.25h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.71 2.81a2 2 0 0 1-.45 2.11L7.91 8.1"
+              />
+            </svg>
+            <p
+              style="
+                font-size: 13px;
+                font-weight: 700;
+                color: #111;
+                margin-bottom: 4px;
+              "
+            >
+              24/7 Support
+            </p>
+            <p style="font-size: 12px; color: #888">Always here for you</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- our-value-section-ends -->
 
 @endsection

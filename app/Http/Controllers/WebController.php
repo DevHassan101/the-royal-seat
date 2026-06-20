@@ -23,6 +23,10 @@ class WebController extends Controller
     {
         return view('website.pages.about-us');
     }
+    public function myBookings()
+    {
+        return view('website.pages.my-bookings');
+    }
     public function vehicles(Request $request)
     {
         $vehicles = Vehicle::query()
@@ -42,6 +46,10 @@ class WebController extends Controller
     public function contactUs()
     {
         return view('website.pages.contact-us');
+    }
+    public function bookARide()
+    {
+        return view('website.pages.book-a-ride');
     }
     public function storeLead(Request $request)
     {

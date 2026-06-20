@@ -26,6 +26,7 @@
         }
     </style>
 
+    @stack('head')
 </head>
 
 <body>

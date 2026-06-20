@@ -24,6 +24,14 @@ class Vehicle extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+    public function driver()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+    public function VehicleCategory()
+    {
+        return $this->belongsTo(VehicleCategory::class, 'vehicle_category_id');
+    }
 
     public function leads()
     {

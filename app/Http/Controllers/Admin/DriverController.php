@@ -12,8 +12,15 @@ use Illuminate\Support\Facades\Validator;
 
 class DriverController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        if ($request->ajax() && $request->has('search')) {
+            $search = $request->get('search');
+            $drivers = User::role('driver')->with('driverInfo')->where('name', 'like', "%{$search}%")->get();
+            return response()->json([
+                'html' => view('admin.pages.driver.list', compact('drivers'))->render()
+            ]);
+        }
         $drivers = User::role('driver')->with('driverInfo')->get();
         return view('admin.pages.driver.index', compact('drivers'));
     }

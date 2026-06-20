@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Vehicle;
+use App\Models\VehicleCategory;
 use App\Services\ItcService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -14,8 +15,21 @@ class VehicleController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        if ($request->ajax() && $request->has('search')) {
+            $search = $request->input('search');
+            $vehicles = Vehicle::with('driver')
+                ->whereHas('driver', function ($query) use ($search) {
+                    $query->where('name', 'like', "%$search%");
+                })
+                ->orWhere($request->input('type'), 'like', "%$search%")
+                ->get();
+
+           return response()->json([
+                'html' => view('admin.pages.vehicle.list', compact('vehicles'))->render()
+            ]);
+        }
         $vehicles = Vehicle::get();
         return view('admin.pages.vehicle.index', compact('vehicles'));
     }
@@ -26,7 +40,8 @@ class VehicleController extends Controller
     public function create()
     {
         $users = User::get();
-        return view('admin.pages.vehicle.create', compact('users'));
+        $categories = VehicleCategory::get();
+        return view('admin.pages.vehicle.create', compact('users', 'categories'));
     }
 
     /**
@@ -40,7 +55,8 @@ class VehicleController extends Controller
             'name' => 'required|min:2',
             'type' => 'required|in:AV,UAENATIONAL,PHC',
             'plate_number' => 'required',
-            'plate_code' => 'required'
+            'plate_code' => 'required',
+            'category' => 'required|exists:vehicle_categories,id',
         ], [
             'picture.image' => "The picture field must be a file of type image, ex: .png .jpg .jpeg"
         ]);
@@ -66,6 +82,7 @@ class VehicleController extends Controller
             'plate_number' => $request->plate_number,
             'plate_code' => $request->plate_code,
             'permit_details' => $request->permit_details,
+            'vehicle_category_id' => $request->category,
         ]);
 
         // Auto sync ITC data for new vehicle
@@ -97,7 +114,8 @@ class VehicleController extends Controller
     {
         $users = User::get();
         $vehicle = Vehicle::findOrFail($id);
-        return view('admin.pages.vehicle.edit', compact('vehicle', 'users'));
+        $categories = VehicleCategory::get();
+        return view('admin.pages.vehicle.edit', compact('vehicle', 'users', 'categories'));
     }
 
     /**
@@ -117,6 +135,7 @@ class VehicleController extends Controller
             'per_day_charges' => 'nullable|numeric',
             'transmission' => 'nullable|string',
             'permit_details' => 'nullable|string',
+            'category' => 'required|exists:vehicle_categories,id',
         ]);
 
         if ($validator->fails()) {
@@ -137,6 +156,7 @@ class VehicleController extends Controller
             'plate_number' => $request->plate_number,
             'plate_code' => $request->plate_code,
             'permit_details' => $request->permit_details,
+            'vehicle_category_id' => $request->category,
         ]);
 
         if ($request->hasFile('picture')) {

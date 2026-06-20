@@ -95,6 +95,34 @@
             </div>
         </x-nav-link>
 
+        {{-- Vehicles CategoriesLink --}}
+        <x-nav-link href="{{ route('vehicle-category.index') }}" :active="request()->routeIs('vehicle-category.*')"
+            class="flex items-center px-4 py-2 mb-2 rounded-lg transition-all duration-300 group
+            {{ request()->routeIs('vehicle-category.*')
+                ? 'bg-[#c9982b]/20 border-l-4 border-[#c9982b]'
+                : 'hover:bg-black hover:border-l-4 hover:border-[#c9982b]/40' }}">
+            <div class="flex justify-between items-center -ml-6.5 w-full">
+                <span
+                    class="p-2.5 rounded-lg transition-all duration-300
+                    {{ request()->routeIs('vehicle-category.*') ? 'bg-[#c9982b]/30' : 'bg-black/10 group-hover:bg-[#c9982b]/20' }}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"
+                        class="transition-all duration-300 {{ request()->routeIs('vehicle-category.*') ? 'scale-110' : 'group-hover:scale-110' }}">
+                        <g fill="none" fill-rule="evenodd">
+                            <path
+                                d="m12.594 23.258l-.012.002l-.071.035l-.02.004l-.014-.004l-.071-.036q-.016-.004-.024.006l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.016-.018m.264-.113l-.014.002l-.184.093l-.01.01l-.003.011l.018.43l.005.012l.008.008l.201.092q.019.005.029-.008l.004-.014l-.034-.614q-.005-.019-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.003-.011l.018-.43l-.003-.012l-.01-.01z" />
+                            <path fill="#c9982b"
+                                d="M15.764 4a3 3 0 0 1 2.683 1.658l1.386 2.771q.366-.15.72-.324a1 1 0 0 1 .894 1.79a32 32 0 0 1-.725.312l.961 1.923A3 3 0 0 1 22 13.473V16a3 3 0 0 1-1 2.236V19.5a1.5 1.5 0 0 1-3 0V19H6v.5a1.5 1.5 0 0 1-3 0v-1.264c-.614-.55-1-1.348-1-2.236v-2.528a3 3 0 0 1 .317-1.341l.953-1.908q-.362-.152-.715-.327a1.01 1.01 0 0 1-.45-1.343a1 1 0 0 1 1.342-.448q.355.175.72.324l1.386-2.77A3 3 0 0 1 8.236 4zM7.5 13a1.5 1.5 0 1 0 0 3a1.5 1.5 0 0 0 0-3m9 0a1.5 1.5 0 1 0 0 3a1.5 1.5 0 0 0 0-3m-.736-7H8.236a1 1 0 0 0-.832.445l-.062.108l-1.27 2.538C7.62 9.555 9.706 10 12 10c2.142 0 4.101-.388 5.61-.817l.317-.092l-1.269-2.538a1 1 0 0 0-.77-.545L15.765 6Z" />
+                        </g>
+                    </svg>
+                </span>
+                <span
+                    class="block font-medium text-lg ml-2 transition-colors duration-300
+                    {{ request()->routeIs('vehicle-category.*') ? 'text-[#c9982b]' : 'text-white group-hover:text-[#c9982b]' }}">
+                    {{ __('Vehicle Categories') }}
+                </span>
+            </div>
+        </x-nav-link>
+
         {{-- Vehicles Link --}}
         <x-nav-link href="{{ route('vehicle.index') }}" :active="request()->routeIs('vehicle.*')"
             class="flex items-center px-4 py-2 mb-2 rounded-lg transition-all duration-300 group
@@ -245,6 +273,53 @@
                     class="block font-medium text-lg ml-2 transition-colors duration-300
                     {{ request()->routeIs('itc.*') ? 'text-[#c9982b]' : 'text-white group-hover:text-[#c9982b]' }}">
                     {{ __('ITC Integration') }}
+                </span>
+            </div>
+        </x-nav-link>
+
+        {{-- Pricing Link --}}
+        <x-nav-link href="{{ route('pricing.index') }}" :active="request()->routeIs('pricing.*')"
+            class="flex items-center px-4 py-2 mb-2 rounded-lg transition-all duration-300 group
+            {{ request()->routeIs('pricing.*')
+                ? 'bg-[#c9982b]/20 border-l-4 border-[#c9982b]'
+                : 'hover:bg-black hover:border-l-4 hover:border-[#c9982b]/40' }}">
+            <div class="flex justify-between items-center -ml-6.5 w-full">
+                <span
+                    class="p-2.5 rounded-lg transition-all duration-300
+                    {{ request()->routeIs('pricing.*') ? 'bg-[#c9982b]/30' : 'bg-black/10 group-hover:bg-[#c9982b]/20' }}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"
+                        class="transition-all duration-300 {{ request()->routeIs('pricing.*') ? 'scale-110' : 'group-hover:scale-110' }}">
+                        <path fill="#c9982b"
+                            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10s10-4.48 10-10S17.52 2 12 2m-1 17.93c-3.95-.49-7-3.85-7-7.93c0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.4１c0 ２.０８-.８ ３.９７-２.１ ５.３９   " />
+                    </svg>
+                </span>
+                <span
+                    class="block font-medium text-lg ml-2 transition-colors duration-300
+                    {{ request()->routeIs('pricing.*') ? 'text-[#c9982b]' : 'text-white group-hover:text-[#c9982b]' }}">
+                    {{ __('Pricing') }}
+                </span>
+            </div>
+        </x-nav-link>
+        {{-- Locations Link --}}
+        <x-nav-link href="{{ route('location.index') }}" :active="request()->routeIs('location.*')"
+            class="flex items-center px-4 py-2 mb-2 rounded-lg transition-all duration-300 group
+            {{ request()->routeIs('location.*')
+                ? 'bg-[#c9982b]/20 border-l-4 border-[#c9982b]'
+                : 'hover:bg-black hover:border-l-4 hover:border-[#c9982b]/40' }}">
+            <div class="flex justify-between items-center -ml-6.5 w-full">
+                <span
+                    class="p-2.5 rounded-lg transition-all duration-300
+                    {{ request()->routeIs('location.*') ? 'bg-[#c9982b]/30' : 'bg-black/10 group-hover:bg-[#c9982b]/20' }}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"
+                        class="transition-all duration-300 {{ request()->routeIs('location.*') ? 'scale-110' : 'group-hover:scale-110' }}">
+                        <path fill="#c9982b"
+                            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10s10-4.48 10-10S17.52 2 12 2m-1 17.93c-3.95-.49-7-3.85-7-7.93c0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.4１c0 ２.０８-.８ ３.９７-２.１ ５.３９   " />
+                    </svg>
+                </span>
+                <span
+                    class="block font-medium text-lg ml-2 transition-colors duration-300
+                    {{ request()->routeIs('location.*') ? 'text-[#c9982b]' : 'text-white group-hover:text-[#c9982b]' }}">
+                    {{ __('Locations') }}
                 </span>
             </div>
         </x-nav-link>

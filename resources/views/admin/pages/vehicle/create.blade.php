@@ -1,5 +1,6 @@
 <x-app-layout>
-    <div class="flex flex-col-reverse lg:!flex-row justify-between items-start lg:items-center w-full mb-6 gap-4 lg:gap-0">
+    <div
+        class="flex flex-col-reverse lg:!flex-row justify-between items-start lg:items-center w-full mb-6 gap-4 lg:gap-0">
         <div class="ml-1">
             <h2 class="text-3xl font-bold text-gray-800 mb-1">
                 Add New Vehicle
@@ -54,25 +55,52 @@
                         </p>
                     @enderror
                 </div>
-                <div>
-                    <label for="picture" class="block text-sm font-semibold text-gray-700 mb-2">
-                        Vehicle Picture <span class="text-red-500">*</span>
-                    </label>
-                    <div class="relative">
-                        <input type="file" name="picture" id="picture" accept="image/*"
-                            class="block w-full !pl-3 !pr-4 py-3 !border-1 !border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
-                            placeholder="Enter Vehicle Name" value="{{ old('picture') }}">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div>
+                        <label for="category" class="block text-sm font-semibold text-gray-700 mb-2">
+                            Vehicle Category <span class="text-red-500">*</span>
+                        </label>
+                        <select
+                            class="block w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200 resize-none"
+                            name="category" id="category" required>
+                            <option value="">Select Vehicle Category</option>
+                            @foreach ($categories as $category)
+                                <option value="{{ $category->id }}" @selected(old('category') == $category->id)>{{ $category->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('category')
+                            <p class="mt-1 text-sm text-red-500 flex items-center gap-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                    fill="currentColor">
+                                    <path
+                                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" />
+                                </svg>
+                                {{ $message }}
+                            </p>
+                        @enderror
                     </div>
-                    @error('picture')
-                        <p class="mt-1 text-sm text-red-500 flex items-center gap-1">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
-                                fill="currentColor">
-                                <path
-                                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" />
-                            </svg>
-                            {{ $message }}
-                        </p>
-                    @enderror
+                    <div>
+                        <label for="picture" class="block text-sm font-semibold text-gray-700 mb-2">
+                            Vehicle Picture <span class="text-red-500">*</span>
+                        </label>
+                        <div class="relative">
+                            <input type="file" name="picture" id="picture" accept="image/*"
+                                class="block w-full !pl-3 !pr-4 py-3 !border-1 !border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9982b] focus:border-[#c9982b] transition-all duration-200"
+                                placeholder="Enter Vehicle Name" value="{{ old('picture') }}">
+                        </div>
+                        @error('picture')
+                            <p class="mt-1 text-sm text-red-500 flex items-center gap-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                    fill="currentColor">
+                                    <path
+                                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" />
+                                </svg>
+                                {{ $message }}
+                            </p>
+                        @enderror
+                    </div>
+
                 </div>
                 <!-- Driver -->
                 <div>

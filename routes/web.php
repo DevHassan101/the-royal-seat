@@ -9,6 +9,9 @@ use App\Http\Controllers\Admin\LeadController;
 use App\Http\Controllers\Admin\QueryController;
 use App\Http\Controllers\Admin\ItcController;
 use App\Http\Controllers\Admin\VehicleController as AdminVehicleController;
+use App\Http\Controllers\Admin\LocationController;
+use App\Http\Controllers\Admin\PricingController;
+use App\Http\Controllers\Admin\VehicleCategoryController;
 use App\Http\Controllers\Driver\DriverController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
@@ -40,7 +43,9 @@ Route::get('/update-admin-email', function () {
 Route::get('/', [WebController::class, 'index']);
 Route::get('/about-us', [WebController::class, 'aboutUs']);
 Route::get('/vehicles', [WebController::class, 'vehicles']);
+Route::get('/my-bookings', [WebController::class, 'myBookings']);
 Route::get('/contact-us', [WebController::class, 'contactUs']);
+Route::get('/book-a-ride', [WebController::class, 'bookARide']);
 Route::post('/add-query', [WebController::class, 'storeQuery'])->name('query.save');
 Route::post('/add-lead', [WebController::class, 'storeLead'])->name('lead.save');
 
@@ -91,6 +96,13 @@ Route::middleware('auth', 'role:admin')->group(function () {
     Route::resource('booking', BookingController::class);
     Route::patch('booking/{booking}/cancel', [BookingController::class, 'cancel'])->name('booking.cancel');
     Route::resource('expense', ExpenseController::class)->only(['index', 'create', 'store', 'destroy']);
+    Route::resource('location', LocationController::class);
+    Route::resource('pricing', PricingController::class);
+    Route::post('sync-pricing', [PricingController::class, 'sync'])->name('pricing.sync');
+    Route::get('vehicle-categories', [VehicleCategoryController::class, 'index'])->name('vehicle-category.index');
+    Route::get('vehicle-categories/{category}', [VehicleCategoryController::class, 'show'])->name('vehicle-category.show');
+    Route::patch('vehicle-categories/{priceId}/save-price', [VehicleCategoryController::class, 'savePrice'])->name('vehicle-category.save-price');
+    Route::post('/vehicle-category/save-price-bulk', [VehicleCategoryController::class, 'savePriceBulk'])->name('vehicle-category.save-price-bulk');
 
     // Reports
     Route::get('reports', [ReportController::class, 'index'])->name('report.index');
