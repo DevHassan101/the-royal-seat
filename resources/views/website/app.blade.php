@@ -4,6 +4,12 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    {{-- enables scroll-reveal hidden state before first paint (no content flash);
+         if JS is off this never runs, so content stays visible --}}
+    <script>
+        document.documentElement.classList.add('reveal-on');
+    </script>
     <title>RoyalSeatLuxury Premium Ride Service</title>
 
     <script src="https://cdn.tailwindcss.com"></script>

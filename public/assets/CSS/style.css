@@ -3288,3 +3288,42 @@ footer {
         border-radius: 2px;
         opacity: 0.5;
       }
+
+/* ─────────────────────────────────────────────
+   SCROLL REVEAL ANIMATIONS
+   Elements get the .reveal class via script.js and
+   slide/fade into view as the user scrolls.
+   Gated on html.reveal-on so the page degrades
+   gracefully (stays visible) when JS is disabled,
+   and fully disabled for reduced-motion users.
+   ───────────────────────────────────────────── */
+@media (prefers-reduced-motion: no-preference) {
+  /* The old .fu class fires its fadeUp on page load (fill-mode both),
+     which would override the reveal opacity. Disable it so the scroll
+     reveal below takes over for those same elements. */
+  html.reveal-on .fu {
+    animation: none;
+  }
+
+  html.reveal-on .reveal {
+    opacity: 0;
+    transform: translateY(45px);
+    transition:
+      opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: var(--reveal-delay, 0s);
+    will-change: opacity, transform;
+  }
+
+  /* directional variants */
+  html.reveal-on .reveal.reveal-left  { transform: translateX(-55px); }
+  html.reveal-on .reveal.reveal-right { transform: translateX(55px); }
+  html.reveal-on .reveal.reveal-scale { transform: scale(0.9); }
+  html.reveal-on .reveal.reveal-zoom  { transform: scale(1.08); }
+
+  /* revealed state */
+  html.reveal-on .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+}

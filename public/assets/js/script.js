@@ -256,3 +256,72 @@ buttons.forEach((button) => {
   });
 })();
 // review-section-script-ends
+
+// scroll-reveal-script-starts
+(function () {
+  // Reduced-motion users + browsers without IntersectionObserver: skip entirely.
+  const reduceMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)",
+  ).matches;
+  if (reduceMotion || !("IntersectionObserver" in window)) return;
+
+  // Components that should slide/fade in as they enter the viewport.
+  const SELECTORS = [
+    ".relative.text-center", // section headings (services, destination, review...)
+    "[data-reveal]", // manual opt-in (added on a few section intros)
+    ".svc-card",
+    ".promo-card",
+    ".feature-card",
+    ".mini-card",
+    ".main-car",
+    ".thumb-btn",
+    ".destination-card",
+    ".rev-card-outer",
+    ".car-card",
+    ".info-card",
+    ".stat-chip",
+    ".about-content",
+  ];
+
+  const els = Array.from(document.querySelectorAll(SELECTORS.join(",")))
+    // never animate hero / header / footer (above the fold or chrome)
+    .filter(
+      (el) =>
+        !el.closest(".hero-section") &&
+        !el.closest("header") &&
+        !el.closest("footer"),
+    );
+  if (!els.length) return;
+
+  const io = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("is-visible");
+        io.unobserve(entry.target);
+      });
+    },
+    { threshold: 0.12, rootMargin: "0px 0px -8% 0px" },
+  );
+
+  // Stagger siblings inside the same parent for a cascading effect.
+  const seenInParent = new Map();
+  const vh = window.innerHeight;
+
+  els.forEach((el) => {
+    el.classList.add("reveal");
+
+    const parent = el.parentElement;
+    const n = seenInParent.get(parent) || 0;
+    seenInParent.set(parent, n + 1);
+    el.style.setProperty("--reveal-delay", Math.min(n * 0.08, 0.4) + "s");
+
+    // Anything already in view on load reveals immediately (no hidden flash).
+    if (el.getBoundingClientRect().top < vh * 0.9) {
+      el.classList.add("is-visible");
+    } else {
+      io.observe(el);
+    }
+  });
+})();
+// scroll-reveal-script-ends

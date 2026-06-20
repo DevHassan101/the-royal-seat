@@ -1051,7 +1051,7 @@
                 </div>
                 <!-- RIGHT -->
                 <div>
-                    <div class="relative">
+                    <div class="relative" data-reveal>
                         <p class="inline-flex items-center gap-2 mb-3 font-semibold uppercase tracking-[.22em]"
                             style="font-size: 0.7rem; color: #e6b800">
                             <svg width="10" height="10" viewBox="0 0 10 10" fill="#e6b800">
@@ -1416,7 +1416,7 @@
             <div class="why-grid">
                 <!-- LEFT -->
                 <div>
-                    <div class="relative">
+                    <div class="relative" data-reveal>
                         <p class="inline-flex items-center gap-2 mb-3 font-semibold uppercase tracking-[.22em]"
                             style="font-size: 0.7rem; color: #e6b800">
                             <svg width="10" height="10" viewBox="0 0 10 10" fill="#e6b800">
