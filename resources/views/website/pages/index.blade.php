@@ -1,7 +1,5 @@
 @extends('website.app')
 @section('content')
-
-
     <!-- hero-section-starts -->
     <section class="hero-section">
         <!-- hero-image-and-overlay -->
@@ -28,7 +26,7 @@
                     comfort, explore with ease, and travel your way in peace.
                 </p>
                 <div class="hero-buttons">
-                    <a href="#vehicles" class="get-btn">
+                    <a href="{{ url('book-now') }}" class="get-btn">
                         <svg xmlns="http://www.w3.org/2000/svg" width="1.3em" height="1.3em" viewBox="0 0 24 24">
                             <path d="M0 0h24v24H0z" fill="none" />
                             <path fill="currentColor" fill-rule="evenodd"
@@ -37,21 +35,17 @@
                         </svg>
                         &nbsp; Book Now
                     </a>
-                    <button class="watch-btn">
+                    <a href="{{ url('contact-us') }}" class="watch-btn">
                         <div class="play-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="1.4em" height="1.4em"
-                                viewBox="0 0 24 24">
-                                <path d="M0 0h24v24H0z" fill="none" />
-                                <g fill="none" fill-rule="evenodd">
-                                    <path
-                                        d="m12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.018-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z" />
-                                    <path fill="currentColor"
-                                        d="M5.669 4.76a1.47 1.47 0 0 1 2.04-1.177c1.062.454 3.442 1.533 6.462 3.276c3.021 1.744 5.146 3.267 6.069 3.958c.788.591.79 1.763.001 2.356c-.914.687-3.013 2.19-6.07 3.956c-3.06 1.766-5.412 2.832-6.464 3.28c-.906.387-1.92-.2-2.038-1.177c-.138-1.142-.396-3.735-.396-7.237c0-3.5.257-6.092.396-7.235" />
-                                </g>
+                            <svg width="1.4em" height="1.4em" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M10 9H17M10 13H17M7 9H7.01M7 13H7.01M21 20L17.6757 18.3378C17.4237 18.2118 17.2977 18.1488 17.1656 18.1044C17.0484 18.065 16.9277 18.0365 16.8052 18.0193C16.6672 18 16.5263 18 16.2446 18H6.2C5.07989 18 4.51984 18 4.09202 17.782C3.71569 17.5903 3.40973 17.2843 3.21799 16.908C3 16.4802 3 15.9201 3 14.8V7.2C3 6.07989 3 5.51984 3.21799 5.09202C3.40973 4.71569 3.71569 4.40973 4.09202 4.21799C4.51984 4 5.0799 4 6.2 4H17.8C18.9201 4 19.4802 4 19.908 4.21799C20.2843 4.40973 20.5903 4.71569 20.782 5.09202C21 5.51984 21 6.0799 21 7.2V20Z"
+                                    stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                             </svg>
                         </div>
-                        How it works
-                    </button>
+                        Contact us
+                    </a>
                 </div>
             </div>
             <!-- hero-left-section -->
@@ -60,8 +54,7 @@
                 <div class="booking-card">
                     <div class="bk-tabs">
                         <button class="bk-tab active" onclick="switchTab(this, 'rides')">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="1.1em" height="1.1em"
-                                viewBox="0 0 48 48">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="1.1em" height="1.1em" viewBox="0 0 48 48">
                                 <path d="M0 0h48v48H0z" fill="none" />
                                 <path fill="currentColor"
                                     d="M36.207 34.101c-3.447 3.891-7.305 6.554-9.113 7.7a5.77 5.77 0 0 1-6.188 0c-1.808-1.146-5.666-3.809-9.113-7.7a34 34 0 0 1-1.877-2.31q-.04 0-.08.004c-1.711.096-3.298 1.043-4.103 2.643a35 35 0 0 0-2.533 6.67c-.703 2.651 1.276 5.038 3.875 5.144c2.893.118 8.088.248 16.926.248s14.033-.13 16.925-.248c2.6-.106 4.579-2.493 3.875-5.143a35 35 0 0 0-2.532-6.671c-.806-1.6-2.392-2.547-4.104-2.643l-.081-.005a34 34 0 0 1-1.877 2.311" />
@@ -72,8 +65,7 @@
                             Rides
                         </button>
                         <button class="bk-tab" onclick="switchTab(this, 'hourly')">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="1.4em" height="1.4em"
-                                viewBox="0 0 24 24">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="1.4em" height="1.4em" viewBox="0 0 24 24">
                                 <path d="M0 0h24v24H0z" fill="none" />
                                 <g fill="none" fill-rule="evenodd">
                                     <path
@@ -85,17 +77,16 @@
                             Book Hourly
                         </button>
                         <button class="bk-tab" onclick="switchTab(this, 'city')">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em"
-                                viewBox="0 0 48 48">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 48 48">
                                 <path d="M0 0h48v48H0z" fill="none" />
                                 <defs>
                                     <mask id="SVGYReMxexd">
                                         <g fill="none" stroke-linejoin="round" stroke-width="4">
                                             <path stroke="#fff" stroke-linecap="round" d="M4 42h40" />
-                                            <rect width="12" height="20" x="8" y="22" fill="#fff"
-                                                stroke="#fff" rx="2" />
-                                            <rect width="20" height="38" x="20" y="4" fill="#fff"
-                                                stroke="#fff" rx="2" />
+                                            <rect width="12" height="20" x="8" y="22" fill="#fff" stroke="#fff"
+                                                rx="2" />
+                                            <rect width="20" height="38" x="20" y="4" fill="#fff" stroke="#fff"
+                                                rx="2" />
                                             <path stroke="#000" stroke-linecap="round"
                                                 d="M28 32.008h4m-20 0h4m12-9h4m-4-9h4" />
                                         </g>
@@ -111,8 +102,7 @@
                     <div class="bk-body" id="tab-rides">
                         <div class="bk-field">
                             <div class="bk-field-icon pickup">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em"
-                                    viewBox="0 0 48 48">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 48 48">
                                     <path d="M0 0h48v48H0z" fill="none" />
                                     <path fill="currentColor" stroke="currentColor" stroke-width="4"
                                         d="M24 33a9 9 0 1 0 0-18a9 9 0 0 0 0 18Z" />
@@ -133,8 +123,7 @@
                             <input type="text" placeholder="Enter drop off location" class="bk-input" />
                         </div>
                         <button class="bk-add-stop">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em"
-                                viewBox="0 0 24 24">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24">
                                 <path d="M0 0h24v24H0z" fill="none" />
                                 <path fill="currentColor"
                                     d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10s10-4.477 10-10S17.523 2 12 2m5 11h-4v4h-2v-4H7v-2h4V7h2v4h4z" />
@@ -173,8 +162,7 @@
                             </div>
                         </div>
                         <div class="bk-promo">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em"
-                                viewBox="0 0 24 24">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24">
                                 <path d="M0 0h24v24H0z" fill="none" />
                                 <path fill="currentColor"
                                     d="M11.172 2a3 3 0 0 1 2.121.879l7.71 7.71a3.41 3.41 0 0 1 0 4.822l-5.592 5.592a3.41 3.41 0 0 1-4.822 0l-7.71-7.71A3 3 0 0 1 2 11.172V6a4 4 0 0 1 4-4zM7.5 5.5a2 2 0 0 0-1.995 1.85L5.5 7.5a2 2 0 1 0 2-2" />
@@ -495,7 +483,7 @@
                         <p class="text-xs leading-relaxed mb-3" style="color: rgba(0, 0, 0, 0.55)">
                             Comfortable and reliable transportation at your fingertips.
                         </p>
-                        <button class="book-btn">Book Now</button>
+                        <a href="{{ url('book-now') }}" class="book-btn">Book Now</a>
                     </div>
                     <!-- Card 2 · Airport Rides -->
                     <div class="svc-card fu rounded-2xl flex flex-col items-center text-center p-4 cursor-pointer"
@@ -511,7 +499,7 @@
                         <p class="text-xs leading-relaxed mb-3" style="color: rgba(0, 0, 0, 0.55)">
                             Comfortable and reliable transportation at your fingertips.
                         </p>
-                        <button class="book-btn">Book Now</button>
+                        <a href="{{ url('book-now') }}" class="book-btn">Book Now</a>
                     </div>
                     <!-- Card 3 · City Tour -->
                     <div class="svc-card fu rounded-2xl flex flex-col items-center text-center p-4 cursor-pointer"
@@ -527,7 +515,7 @@
                         <p class="text-xs leading-relaxed mb-3" style="color: rgba(0, 0, 0, 0.55)">
                             Comfortable and reliable transportation at your fingertips.
                         </p>
-                        <button class="book-btn">Book Now</button>
+                        <a href="{{ url('book-now') }}" class="book-btn">Book Now</a>
                     </div>
                     <!-- Card 4 · Rides for Business -->
                     <div class="svc-card fu rounded-2xl flex flex-col items-center text-center p-4 cursor-pointer"
@@ -543,7 +531,7 @@
                         <p class="text-xs leading-relaxed mb-3" style="color: rgba(0, 0, 0, 0.55)">
                             Executive rides designed for efficiency and professionalism.
                         </p>
-                        <button class="book-btn">Book Now</button>
+                        <a href="{{ url('book-now') }}" class="book-btn">Book Now</a>
                     </div>
                     <!-- Card 5 · Luxury Car Rentals -->
                     <div class="svc-card fu rounded-2xl flex flex-col items-center text-center p-4 cursor-pointer"
@@ -559,7 +547,7 @@
                         <p class="text-xs leading-relaxed mb-3" style="color: rgba(0, 0, 0, 0.55)">
                             Travel in style and comfort with our premium fleet.
                         </p>
-                        <button class="book-btn">Book Now</button>
+                        <a href="{{ url('book-now') }}" class="book-btn">Book Now</a>
                     </div>
                     <!-- Card 6 · Full Day Chauffeur -->
                     <div class="svc-card fu rounded-2xl flex flex-col items-center text-center p-4 cursor-pointer"
@@ -575,7 +563,7 @@
                         <p class="text-xs leading-relaxed mb-3" style="color: rgba(0, 0, 0, 0.55)">
                             Dedicated drivers for your entire day, any occasion.
                         </p>
-                        <button class="book-btn">Book Now</button>
+                        <a href="{{ url('book-now') }}" class="book-btn">Book Now</a>
                     </div>
                     <!-- Card 7 · Courier Service -->
                     <div class="svc-card fu rounded-2xl flex flex-col items-center text-center p-4 cursor-pointer"
@@ -592,7 +580,7 @@
                             Swift and secure delivery with real-time is the ace desert
                             tracking.
                         </p>
-                        <button class="book-btn">Book Now</button>
+                        <a href="{{ url('book-now') }}" class="book-btn">Book Now</a>
                     </div>
                     <!-- Card 8 · Desert Safari -->
                     <div class="svc-card fu rounded-2xl flex flex-col items-center text-center p-4 cursor-pointer"
@@ -608,7 +596,7 @@
                         <p class="text-xs leading-relaxed mb-3" style="color: rgba(0, 0, 0, 0.55)">
                             Unforgettable adventures in the majestic of the Arabian desert.
                         </p>
-                        <button class="book-btn">Book Now</button>
+                        <a href="{{ url('book-now') }}" class="book-btn">Book Now</a>
                     </div>
                 </div>
                 <!-- /cards grid -->
@@ -713,7 +701,7 @@
                             </div>
                         </div>
 
-                        <button class="pulse-btn promo-book-btn">Book Now →</button>
+                        <a href="{{ url('book-now') }}" class="pulse-btn promo-book-btn">Book Now →</a>
                     </div>
                 </div>
                 <!-- /promo card -->
@@ -1067,13 +1055,11 @@
                         <p class="inline-flex items-center gap-2 mb-3 font-semibold uppercase tracking-[.22em]"
                             style="font-size: 0.7rem; color: #e6b800">
                             <svg width="10" height="10" viewBox="0 0 10 10" fill="#e6b800">
-                                <polygon
-                                    points="5,0 6.5,3.5 10,3.8 7.5,6.2 8.1,10 5,8.3 1.9,10 2.5,6.2 0,3.8 3.5,3.5" />
+                                <polygon points="5,0 6.5,3.5 10,3.8 7.5,6.2 8.1,10 5,8.3 1.9,10 2.5,6.2 0,3.8 3.5,3.5" />
                             </svg>
                             Discover Your Perfect Ride
                             <svg width="10" height="10" viewBox="0 0 10 10" fill="#e6b800">
-                                <polygon
-                                    points="5,0 6.5,3.5 10,3.8 7.5,6.2 8.1,10 5,8.3 1.9,10 2.5,6.2 0,3.8 3.5,3.5" />
+                                <polygon points="5,0 6.5,3.5 10,3.8 7.5,6.2 8.1,10 5,8.3 1.9,10 2.5,6.2 0,3.8 3.5,3.5" />
                             </svg>
                         </p>
                         <h2 class="font-bold leading-none text-black !text-[46px]" style="letter-spacing: -0.01em">
@@ -1185,9 +1171,10 @@
                     </div>
 
                     <!-- BUTTON -->
-                    <button class="promo-book-btn mt-4" style="width: 250px !important; padding: 15px 0 !important;">
+                    <a href="{{ url('book-now') }}" class="promo-book-btn mt-4"
+                        style="width: 250px !important; padding: 15px 0 !important;">
                         Book Now →
-                    </button>
+                    </a>
                 </div>
             </div>
         </div>
@@ -1433,17 +1420,15 @@
                         <p class="inline-flex items-center gap-2 mb-3 font-semibold uppercase tracking-[.22em]"
                             style="font-size: 0.7rem; color: #e6b800">
                             <svg width="10" height="10" viewBox="0 0 10 10" fill="#e6b800">
-                                <polygon
-                                    points="5,0 6.5,3.5 10,3.8 7.5,6.2 8.1,10 5,8.3 1.9,10 2.5,6.2 0,3.8 3.5,3.5" />
+                                <polygon points="5,0 6.5,3.5 10,3.8 7.5,6.2 8.1,10 5,8.3 1.9,10 2.5,6.2 0,3.8 3.5,3.5" />
                             </svg>
-                            WHY CHOOSE C2C
+                            WHY CHOOSE RoyalSeatLuxury
                             <svg width="10" height="10" viewBox="0 0 10 10" fill="#e6b800">
-                                <polygon
-                                    points="5,0 6.5,3.5 10,3.8 7.5,6.2 8.1,10 5,8.3 1.9,10 2.5,6.2 0,3.8 3.5,3.5" />
+                                <polygon points="5,0 6.5,3.5 10,3.8 7.5,6.2 8.1,10 5,8.3 1.9,10 2.5,6.2 0,3.8 3.5,3.5" />
                             </svg>
                         </p>
                         <h2 class="font-bold leading-none text-black !text-[47px]" style="letter-spacing: -0.01em">
-                            WHY&nbsp;<span style="color: #e6b800">C2C?</span>
+                            WHY&nbsp;<span style="color: #e6b800">RoyalSeatLuxury?</span>
                         </h2>
                         <p class="text-gray-700 font-medium text-sm lg:text-[15px] leading-7 mt-2 max-w-xl">
                             Experience luxury chauffeur services designed for comfort,
@@ -1545,8 +1530,7 @@
                     </div>
 
                     <div class="float-icon icon2">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="1.6em" height="1.6em"
-                            viewBox="0 0 256 256">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1.6em" height="1.6em" viewBox="0 0 256 256">
                             <path d="M0 0h256v256H0z" fill="none" />
                             <path fill="#e6b800"
                                 d="M208 80H32a8 8 0 0 0-8 8v48a96.3 96.3 0 0 0 32.54 72H32a8 8 0 0 0 0 16h176a8 8 0 0 0 0-16h-24.54a96.6 96.6 0 0 0 27-40.09A40 40 0 0 0 248 128v-8a40 40 0 0 0-40-40m24 48a24 24 0 0 1-17.2 23a96 96 0 0 0 1.2-15V97.38A24 24 0 0 1 232 120ZM112 56V24a8 8 0 0 1 16 0v32a8 8 0 0 1-16 0m32 0V24a8 8 0 0 1 16 0v32a8 8 0 0 1-16 0m-64 0V24a8 8 0 0 1 16 0v32a8 8 0 0 1-16 0" />
@@ -1554,8 +1538,7 @@
                     </div>
 
                     <div class="float-icon icon3">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="1.6em" height="1.6em"
-                            viewBox="0 0 48 48">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1.6em" height="1.6em" viewBox="0 0 48 48">
                             <path d="M0 0h48v48H0z" fill="none" />
                             <path fill="#e6b800" stroke="#e6b800" stroke-linecap="round" stroke-linejoin="round"
                                 stroke-width="4"
@@ -1564,8 +1547,7 @@
                     </div>
 
                     <div class="float-icon icon4">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="1.6em" height="1.6em"
-                            viewBox="0 0 24 24">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1.6em" height="1.6em" viewBox="0 0 24 24">
                             <path d="M0 0h24v24H0z" fill="none" />
                             <path fill="#e6b800"
                                 d="M10.225 20.275Q9.5 19.55 9.5 18.5t.725-1.775T12 16t1.775.725t.725 1.775t-.725 1.775T12 21t-1.775-.725m5.338-9.675q1.687.6 3.062 1.65q.5.375.513.988T18.7 14.3q-.425.425-1.05.438t-1.125-.338q-.95-.65-2.1-1.025T12 13t-2.425.375t-2.1 1.025q-.5.35-1.125.325t-1.05-.45q-.425-.45-.425-1.062t.5-.988q1.375-1.05 3.063-1.638T12 10t3.563.6m2.324-5.575q2.763 1.025 4.963 2.9q.5.425.525 1.05t-.425 1.075q-.425.425-1.05.438t-1.125-.388q-1.8-1.475-4.037-2.287T12 7t-4.737.813T3.225 10.1q-.5.4-1.125.388t-1.05-.438Q.6 9.6.625 8.975t.525-1.05q2.2-1.875 4.963-2.9T12 4t5.888 1.025" />
@@ -1573,8 +1555,7 @@
                     </div>
 
                     <div class="float-icon icon5">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="1.6em" height="1.6em"
-                            viewBox="0 0 48 48">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1.6em" height="1.6em" viewBox="0 0 48 48">
                             <path d="M0 0h48v48H0z" fill="none" />
                             <path fill="#e6b800" fill-rule="evenodd"
                                 d="M19.411.532a19 19 0 0 1 1.651-.075c.583 0 1.145.031 1.652.075a3.4 3.4 0 0 1 2.289 1.156c8.725 1.609 15.907 8.94 16.27 17.903l4.108 5.23a4.94 4.94 0 0 1 1.056 3.053c0 1.945-1.15 3.77-3.037 4.51c-.732.288-1.634.626-2.542.92l-.917 6.131a4.44 4.44 0 0 1-5.02 3.744l-2.15-.308v2.59a2 2 0 0 1-4 0v-4.897a2 2 0 0 1 2.283-1.98l4.435.636a.44.44 0 0 0 .496-.376l1.105-7.388a2 2 0 0 1 1.463-1.637c1.068-.284 2.347-.75 3.384-1.158c.278-.109.5-.4.5-.787a.94.94 0 0 0-.2-.583l-4.523-5.755a2 2 0 0 1-.428-1.235c0-6.554-4.847-12.359-11.334-14.279c.016.925.027 2.011.027 3.268c0 .933-.006 2.448-.015 3.442a8.837 8.837 0 0 1-1.71 15.59c2.481 2.156 5.631 3.469 8.559 3.469a2 2 0 1 1 0 4c-4.989 0-10.029-2.685-13.287-6.595a2 2 0 0 1-.292-.47a8.837 8.837 0 0 1-3.072-15.994a411 411 0 0 1-.016-3.442q.002-1.749.024-3.067C9.922 8.377 5.437 14.303 5.437 21.27c0 6.043 3.357 11.736 8.197 14.427a2 2 0 0 1 1.028 1.748v8.015a2 2 0 0 1-4 0v-6.884C5.075 34.963 1.437 28.277 1.437 21.27c0-9.5 6.658-17.44 15.561-19.433A3.4 3.4 0 0 1 19.411.532"
@@ -1583,8 +1564,7 @@
                     </div>
 
                     <div class="float-icon icon6">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="1.6em" height="1.6em"
-                            viewBox="0 0 24 24">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1.6em" height="1.6em" viewBox="0 0 24 24">
                             <path d="M0 0h24v24H0z" fill="none" />
                             <path fill="#e6b800"
                                 d="M10.5 15.5h3V13H16v-3h-2.5V7.5h-3V10H8v3h2.5zM12 22q-3.475-.875-5.738-3.988T4 11.1V5l8-3l8 3v6.1q0 3.8-2.262 6.913T12 22" />
