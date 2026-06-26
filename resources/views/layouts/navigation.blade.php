@@ -33,7 +33,7 @@
     {{-- Logo Section --}}
     <div class="flex items-start mt-4 mb-4 relative">
         <a href="{{ url('/') }}" class="flex items-center overflow-hidden mx-auto" style="height: 85px;">
-            <img src="{{ asset('assets/image/royel-seat-logo.png') }}" alt="Royal Seat Logo" style="height: 85px; width: auto; margin-top: -29px; margin-bottom: -29px; object-fit: contain;">
+            <img src="{{ asset('assets/images/logo.png') }}" alt="Royal Seat Logo" style="height: 85px; width: auto; margin-top: -29px; margin-bottom: -29px; object-fit: contain;">
         </a>
         {{-- Mobile Close Button --}}
         <button @click="sidebarOpen = false"
@@ -46,7 +46,7 @@
     </div>
 
     {{-- Navigation --}}
-    <nav class="mt-0 px-5 h-screen overflow-auto" x-data="{ isMultiLevelMenuOpen: false }">
+    <nav class="mt-0 px-5 min-h-screen overflow-auto" x-data="{ isMultiLevelMenuOpen: false }">
         {{-- Dashboard Link --}}
         <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')"
             class="flex items-center px-4 py-2 mb-2 rounded-lg transition-all duration-300 group

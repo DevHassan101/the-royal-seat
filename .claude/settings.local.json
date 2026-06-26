@@ -3,7 +3,8 @@
     "allow": [
       "Bash(where:*)",
       "Bash(php -r:*)",
-      "Bash(php:*)"
+      "Bash(php:*)",
+      "Bash(grep -n 'lead->\\\\|$this->lead\\\\|public function' app/Mail/LeadNotificationMail.php)"
     ]
   }
 }

@@ -46,8 +46,18 @@ Route::get('/vehicles', [WebController::class, 'vehicles']);
 Route::get('/my-bookings', [WebController::class, 'myBookings']);
 Route::get('/contact-us', [WebController::class, 'contactUs']);
 Route::get('/book-a-ride', [WebController::class, 'bookARide']);
+Route::get('/book-now', [WebController::class, 'bookARide']);
 Route::post('/add-query', [WebController::class, 'storeQuery'])->name('query.save');
 Route::post('/add-lead', [WebController::class, 'storeLead'])->name('lead.save');
+
+
+// Dynamic booking flow (Rides) — pickup typeahead & priced drop-off locations
+Route::get('/locations/search', [WebController::class, 'searchLocations'])->name('locations.search');
+Route::get('/locations/dropoffs', [WebController::class, 'dropoffLocations'])->name('locations.dropoffs');
+
+// booking flow
+Route::post('booking/start', [WebController::class, 'startBooking'])->name('booking.start');
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');

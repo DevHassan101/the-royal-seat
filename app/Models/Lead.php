@@ -29,6 +29,11 @@ class Lead extends Model
         return $this->belongsTo(Vehicle::class);
     }
 
+    public function vehicleCategory()
+    {
+        return $this->belongsTo(VehicleCategory::class);
+    }
+
     public function assignedDriver()
     {
         return $this->belongsTo(User::class, 'driver_id');

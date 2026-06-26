@@ -99,8 +99,9 @@
                     </div>
 
                     <!-- ── RIDES ── -->
-                    <div class="bk-body" id="tab-rides">
-                        <div class="bk-field">
+                    <form action="{{route('booking.start')}}" method="POST" class="bk-body" id="tab-rides">
+                        @csrf
+                        <div class="bk-field" style="position: relative;">
                             <div class="bk-field-icon pickup">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 48 48">
                                     <path d="M0 0h48v48H0z" fill="none" />
@@ -108,7 +109,10 @@
                                         d="M24 33a9 9 0 1 0 0-18a9 9 0 0 0 0 18Z" />
                                 </svg>
                             </div>
-                            <input type="text" placeholder="Enter Pick Up Location" class="bk-input" />
+                            <input type="text" placeholder="Enter Pick Up Location" class="bk-input"
+                                id="r-pickup-input" autocomplete="off" />
+                            <input type="hidden" id="r-pickup-id" name="pickup_location" />
+                            <div class="bk-suggestions" id="r-pickup-suggestions"></div>
                         </div>
                         <div class="bk-field">
                             <div class="bk-field-icon dropoff">
@@ -120,7 +124,9 @@
                                         clip-rule="evenodd" />
                                 </svg>
                             </div>
-                            <input type="text" placeholder="Enter drop off location" class="bk-input" />
+                            <select class="bk-input bk-select" id="r-dropoff" disabled name="dropoff_location" >
+                                <option value="">Select pick up first</option>
+                            </select>
                         </div>
                         <button class="bk-add-stop">
                             <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24">
@@ -146,7 +152,7 @@
                                         </g>
                                     </svg>
                                 </div>
-                                <input type="date" class="bk-input" id="r-date" />
+                                <input type="date" class="bk-input" id="r-date" name="date" />
                             </div>
                             <div class="bk-field bk-half">
                                 <div class="bk-field-icon">
@@ -158,10 +164,10 @@
                                             d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0-18 0m9 0l3-2m-3-3v5" />
                                     </svg>
                                 </div>
-                                <input type="time" class="bk-input" id="r-time" />
+                                <input type="time" class="bk-input" id="r-time" name="time" />
                             </div>
                         </div>
-                        <div class="bk-promo">
+                        {{-- <div class="bk-promo">
                             <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24">
                                 <path d="M0 0h24v24H0z" fill="none" />
                                 <path fill="currentColor"
@@ -190,18 +196,17 @@
                                         d="M8.5 4.5a2.5 2.5 0 1 1-5 0a2.5 2.5 0 0 1 5 0m2.4 7.506c.11.542-.348.994-.9.994H2c-.553 0-1.01-.452-.902-.994a5.002 5.002 0 0 1 9.803 0M14.002 12h-1.59a3 3 0 0 0-.04-.29a6.5 6.5 0 0 0-1.167-2.603a3 3 0 0 1 3.633 1.911c.18.522-.283.982-.836.982M12 8a2 2 0 1 0 0-4a2 2 0 0 0 0 4" />
                                 </svg>
                             </div>
-                            <select class="bk-input bk-select">
-                                <option value="">Select Passengers</option>
-                                <option>1 Passenger</option>
-                                <option>2 Passengers</option>
-                                <option>3 Passengers</option>
-                                <option>4 Passengers</option>
+                            <select class="bk-input bk-select" id="r-passengers">
+                                <option value="1">1 Passenger</option>
+                                <option value="2">2 Passengers</option>
+                                <option value="3">3 Passengers</option>
+                                <option value="4">4 Passengers</option>
                             </select>
-                        </div>
-                        <a href="./pages/book-a-ride.html" class="bk-submit">
+                        </div> --}}
+                        <button type="submit" class="bk-submit">
                             <i class="bi bi-search"></i> Check Fare
-                        </a>
-                    </div>
+                        </button>
+                    </form>
 
                     <!-- ── BOOK HOURLY ── -->
                     <div class="bk-body" id="tab-hourly" style="display: none">
@@ -1698,3 +1703,176 @@
     </section>
     <!-- review-section-ends -->
 @endsection
+
+@push('head')
+    <style>
+        /* pickup typeahead dropdown */
+        .bk-suggestions {
+            position: absolute;
+            top: calc(100% + 4px);
+            left: 0;
+            right: 0;
+            background: #fff;
+            border: 1.5px solid #e8e8e8;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+            max-height: 220px;
+            overflow-y: auto;
+            z-index: 50;
+            display: none;
+        }
+
+        .bk-suggestions.show {
+            display: block;
+        }
+
+        .bk-suggestion-item {
+            padding: 10px 14px;
+            font-size: 13.5px;
+            color: #1a1a1a;
+            cursor: pointer;
+            transition: background 0.15s ease;
+        }
+
+        .bk-suggestion-item:hover,
+        .bk-suggestion-item.active {
+            background: var(--brand-light, #fff8e1);
+        }
+
+        .bk-suggestion-empty {
+            padding: 10px 14px;
+            font-size: 12.5px;
+            color: #b0b0b0;
+        }
+    </style>
+@endpush
+
+@push('body')
+    <script>
+        (function () {
+            const pickupInput = document.getElementById('r-pickup-input');
+            const pickupId = document.getElementById('r-pickup-id');
+            const suggestionBox = document.getElementById('r-pickup-suggestions');
+            const dropoff = document.getElementById('r-dropoff');
+
+            if (!pickupInput || !dropoff) return;
+
+            const searchUrl = "{{ route('locations.search') }}";
+            const dropoffUrl = "{{ route('locations.dropoffs') }}";
+            const bookUrl = "{{ url('book-a-ride') }}";
+            const checkFareBtn = document.getElementById('r-check-fare');
+            let debounce;
+
+            function resetDropoff(message) {
+                dropoff.innerHTML = '<option value="">' + message + '</option>';
+                dropoff.disabled = true;
+            }
+
+            function hideSuggestions() {
+                suggestionBox.classList.remove('show');
+                suggestionBox.innerHTML = '';
+            }
+
+            function renderSuggestions(items) {
+                suggestionBox.innerHTML = '';
+                if (!items.length) {
+                    suggestionBox.innerHTML = '<div class="bk-suggestion-empty">No locations found</div>';
+                    suggestionBox.classList.add('show');
+                    return;
+                }
+                items.forEach((loc) => {
+                    const el = document.createElement('div');
+                    el.className = 'bk-suggestion-item';
+                    el.textContent = loc.name;
+                    el.addEventListener('mousedown', (e) => {
+                        e.preventDefault();
+                        selectPickup(loc);
+                    });
+                    suggestionBox.appendChild(el);
+                });
+                suggestionBox.classList.add('show');
+            }
+
+            function selectPickup(loc) {
+                pickupInput.value = loc.name;
+                pickupId.value = loc.id;
+                hideSuggestions();
+                loadDropoffs(loc.id);
+            }
+
+            function loadDropoffs(id) {
+                resetDropoff('Loading…');
+                fetch(dropoffUrl + '?pickup_id=' + encodeURIComponent(id))
+                    .then((r) => r.json())
+                    .then((items) => {
+                        if (!items.length) {
+                            resetDropoff('No drop off available');
+                            return;
+                        }
+                        dropoff.innerHTML = '<option value="">Select drop off location</option>';
+                        items.forEach((loc) => {
+                            const opt = document.createElement('option');
+                            opt.value = loc.id;
+                            opt.textContent = loc.name;
+                            dropoff.appendChild(opt);
+                        });
+                        dropoff.disabled = false;
+                    })
+                    .catch(() => resetDropoff('Select pick up first'));
+            }
+
+            pickupInput.addEventListener('input', function () {
+                // clear any previous selection while the user edits
+                pickupId.value = '';
+                resetDropoff('Select pick up first');
+
+                const term = pickupInput.value.trim();
+                clearTimeout(debounce);
+                debounce = setTimeout(() => {
+                    fetch(searchUrl + '?q=' + encodeURIComponent(term))
+                        .then((r) => r.json())
+                        .then(renderSuggestions)
+                        .catch(hideSuggestions);
+                }, 200);
+            });
+
+            pickupInput.addEventListener('focus', function () {
+                if (pickupInput.value.trim() === '' && !pickupId.value) {
+                    pickupInput.dispatchEvent(new Event('input'));
+                }
+            });
+
+            document.addEventListener('click', function (e) {
+                if (!suggestionBox.contains(e.target) && e.target !== pickupInput) {
+                    hideSuggestions();
+                }
+            });
+
+            // Check Fare → carry the selected route into the booking flow
+            if (checkFareBtn) {
+                checkFareBtn.addEventListener('click', function () {
+                    const fromId = pickupId.value;
+                    const toId = dropoff.value;
+                    if (!fromId) {
+                        pickupInput.focus();
+                        alert('Please select a pick up location.');
+                        return;
+                    }
+                    if (!toId) {
+                        dropoff.focus();
+                        alert('Please select a drop off location.');
+                        return;
+                    }
+                    const params = new URLSearchParams({
+                        from_id: fromId,
+                        to_id: toId,
+                        date: (document.getElementById('r-date') || {}).value || '',
+                        time: (document.getElementById('r-time') || {}).value || '',
+                        passengers: (document.getElementById('r-passengers') || {}).value || '1',
+                    });
+                    window.location.href = bookUrl + '?' + params.toString();
+                });
+            }
+        })();
+    </script>
+@endpush
